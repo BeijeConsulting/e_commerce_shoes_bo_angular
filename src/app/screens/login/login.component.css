@@ -1,0 +1,27 @@
+.login-container {
+  height: 100vh;
+  background-color: aqua;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../../assets/images/login/login-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.login-box {
+  border-radius: 20px;
+  padding: 40px;
+  width: 400px;
+  background-color: aliceblue;
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
