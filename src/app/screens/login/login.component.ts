@@ -18,16 +18,16 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
   ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [
+      email: new FormControl('paolo1@gmail.com', [
         Validators.required,
         Validators.pattern(this.emailReg),
       ]),
-      password: new FormControl('', [
+      password: new FormControl('Password@1', [
         Validators.required,
         Validators.pattern(this.passwordReg),
       ]),
@@ -39,13 +39,13 @@ export class LoginComponent implements OnInit {
   }
 
   handleResponse(resp: LoginResponse): void {
-    console.log('response: ', this.storageService.setStorage);
+    console.log('loggato con successo');
     this.storageService.setStorage<string>('token', resp.token);
     this.storageService.setStorage<string>('refreshToken', resp.refreshToken);
   }
 
-  handleLoginError(): void {
-    console.log('Login Error');
+  handleLoginError(err: any): void {
+    console.log(err);
   }
 
   onSubmit(): void {
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (resp) => this.handleResponse(resp),
-        error: (err) => this.handleLoginError(),
+        error: (err) => this.handleLoginError(err),
       });
     }
   }
