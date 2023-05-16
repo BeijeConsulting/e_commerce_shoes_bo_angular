@@ -19,13 +19,15 @@ import { MatIconModule } from '@angular/material/icon';
 
 // Interceptors
 import { interceptorProvider } from './interceptor';
+import { DynamicFormInputComponent } from './components/dynamic-form-input/dynamic-form-input.component';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, DynamicFormInputComponent, DynamicFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

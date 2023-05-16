@@ -1,0 +1,38 @@
+<div [formGroup]="form">
+  <label [attr.for]="input.key">{{ input.label }}</label>
+
+  <div [ngSwitch]="input.controlType">
+    <input
+      *ngSwitchCase="'text'"
+      [formControlName]="input.key"
+      [id]="input.key"
+      [type]="input.type"
+    />
+
+    <input
+      *ngSwitchCase="'checkbox'"
+      [formControlName]="input.key"
+      [id]="input.key"
+      [type]="input.type"
+    />
+
+    <input
+      *ngSwitchCase="'date'"
+      [formControlName]="input.key"
+      [id]="input.key"
+      [type]="input.type"
+    />
+
+    <select
+      [id]="input.key"
+      *ngSwitchCase="'select'"
+      [formControlName]="input.key"
+    >
+      <option *ngFor="let opt of input.options" [value]="opt.key">
+        {{ opt.value }}
+      </option>
+    </select>
+  </div>
+
+  <div class="errorMessage" *ngIf="!isValid">{{ input.label }} is required</div>
+</div>
