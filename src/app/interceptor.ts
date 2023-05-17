@@ -4,9 +4,10 @@ import {
   HttpHeaders,
   HttpInterceptor,
   HttpRequest,
+  HttpEvent
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { switchMap, catchError, throwError } from 'rxjs';
+import { switchMap, catchError, throwError, Observable } from 'rxjs';
 import { StorageService } from './services/storage/storage.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
@@ -30,25 +31,22 @@ export class InterceptorProvider implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
-    if (request.headers.get('interceptor') === 'true') {
-      console.log('sono entrato');
+    if (request.headers.get('Authorization')) {
+      console.log('chiamata autenticata');
 
-      if (this.storageService.getStorage("token")){
-        request = this.addToken(request, this.storageService.getStorage("token"));
-
-        return next.handle(request).pipe(
-          catchError(err => {
-            if (err instanceof HttpErrorResponse && err.status === 401){
-              console.log("401 entrato")
-                
-              return this.handle401Error(request, next);
-            } else {
-              return throwError(() => new Error(err));
-            }
-          })
-        )
-      }
+      return next.handle(request).pipe(
+        catchError(err => {
+          if (err instanceof HttpErrorResponse && err.status === 401){
+            console.log("401 entrato")
+              
+            return this.handle401Error(request, next);
+          } else {
+            return throwError(() => new Error(err));
+          }
+        })
+      )
     }
+    return next.handle(request);
   }
 
   private addToken(request: HttpRequest<any>, token: string): HttpRequest<any> {
@@ -62,22 +60,22 @@ export class InterceptorProvider implements HttpInterceptor {
   private handle401Error(
     request: HttpRequest<any>,
     next: HttpHandler
-  ): any {
+  ): Observable<HttpEvent<any>> {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
 
       return this.authService.refreshToken().pipe(
         switchMap((res) => {
+          console.log("nuovo refresh token")
           this.isRefreshing = false;
+          const newToken: string = res.token;
 
           this.storageService.setStorage('refreshToken', res.refreshToken);
-          this.storageService.setStorage('token', res.token);
-          const response = this.addToken(request, res.token);
-          console.log("add token",response);
-          return next.handle(this.addToken(request, res.token));
+          this.storageService.setStorage('token', newToken);
+          this.authService.token.next(newToken);
+          return next.handle(this.addToken(request, newToken));
         }));
     }
-
     return next.handle(request);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserLogin } from 'src/app/interfaces/UserLogin';
 import { StorageService } from '../storage/storage.service';
 
@@ -9,24 +9,44 @@ import { StorageService } from '../storage/storage.service';
 })
 export class AuthService {
   baseURL: string = 'https://shoes-api.beije.it';
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Acces-Control-Allow-Origin': '*',
-      'interceptor': 'true',
-    }),
-  };
+  token: BehaviorSubject<string> = new BehaviorSubject<string>(this.storageService.getStorage("token"));
 
   constructor(private http: HttpClient, private storageService: StorageService) {}
+
+  getHeaderOptions(isAuth: boolean = false): {headers: HttpHeaders} {
+    if (isAuth){
+      return {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Acces-Control-Allow-Origin': '*',
+          'Authorization' : `Bearer ${this.token.value}`
+        }),
+      };
+    } else {
+      return {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Acces-Control-Allow-Origin': '*',
+        }),
+      };
+    }
+  }
 
   login(body: UserLogin): Observable<any> {
     return this.http.post<any>(
       `${this.baseURL}/signin`,
       body,
-      this.httpOptions
+      this.getHeaderOptions()
     );
   }
+
+  /* getOrders(): Observable<any> {
+    return this.http
+      .get<any>(
+        `${this.baseURL}/orders/all`,
+        this.getHeaderOptions(true)
+      );
+  } */
 
   refreshToken(): Observable<any> {
     console.log("inizio refresh token");
@@ -37,7 +57,7 @@ export class AuthService {
         {
           refreshToken: refreshToken,
         },
-        this.httpOptions
+        this.getHeaderOptions()
       );
   }
 }
