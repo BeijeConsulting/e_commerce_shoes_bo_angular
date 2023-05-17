@@ -1,7 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 
+// Angular Material
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-table',
@@ -21,9 +25,30 @@ export class TableComponent {
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
+
+  constructor(public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  // trigger dialog
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      restoreFocus: false,
+      data: {
+        deleteProduct: 'Are you sure you want delete this product?',
+        deleteUser: 'Are you sure you want delete this user?',
+        deleteOrder: 'Are you sure you want delete this order?',
+        deleteCoupon: 'Are you sure you want delete this coupon?',
+        logout: 'Are you sure you want log out?',
+      },
+    });
+
+    // Manually restore focus to the menu trigger since the element that
+    // opens the dialog won't be in the DOM any more when the dialog closes.
+    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 }
 

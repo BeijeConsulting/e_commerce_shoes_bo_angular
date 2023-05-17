@@ -54,6 +54,8 @@ import { TableComponent } from './components/table/table.component';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ButtonComponent } from './components/button/button.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -90,6 +92,7 @@ function HttpLoaderFactory(http: HttpClient) {
     TableComponent,
     ButtonComponent,
     MenuProfileComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,6 +118,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatTableModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatDialogModule,
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],
