@@ -56,6 +56,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ButtonComponent } from './components/button/button.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -93,6 +95,7 @@ function HttpLoaderFactory(http: HttpClient) {
     ButtonComponent,
     MenuProfileComponent,
     DialogComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,6 +106,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     MatCheckboxModule,
     MatSelectModule,
     MatSidenavModule,
