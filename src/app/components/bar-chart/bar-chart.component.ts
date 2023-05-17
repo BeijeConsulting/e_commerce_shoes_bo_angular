@@ -8,6 +8,8 @@ import { Chart, registerables } from 'chart.js';
 })
 export class BarChartComponent implements AfterViewInit {
   @Input() chartId: string = '';
+  @Input() label: string = '';
+  @Input() data: [][] = [];
   chart?: Chart;
 
   constructor() {
@@ -18,24 +20,11 @@ export class BarChartComponent implements AfterViewInit {
     this.chart = new Chart(this.chartId, {
       type: 'bar',
       data: {
-        labels: [
-          'Red',
-          'Blue',
-          'Yellow',
-          'Green',
-          'Purple',
-          'Orange',
-          'Red',
-          'Blue',
-          'Yellow',
-          'Green',
-          'Purple',
-          'Orange',
-        ],
+        labels: this.data[0],
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+            label: this.label,
+            data: this.data[1],
             backgroundColor: ['#39f'],
             borderRadius: 10,
             barPercentage: 0.1,

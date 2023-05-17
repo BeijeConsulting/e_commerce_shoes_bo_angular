@@ -8,6 +8,8 @@ import { Chart, registerables } from 'chart.js';
 })
 export class PieChartComponent implements AfterViewInit {
   @Input() chartId: string = '';
+  @Input() label: string = '';
+  @Input() data: [][] = [];
   chart?: Chart<any>;
 
   constructor() {
@@ -18,11 +20,11 @@ export class PieChartComponent implements AfterViewInit {
     this.chart = new Chart(this.chartId, {
       type: 'pie',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: this.data[0],
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: this.label,
+            data: this.data[1],
             backgroundColor: [
               'rgb(255, 99, 132)',
               'rgb(54, 162, 235)',

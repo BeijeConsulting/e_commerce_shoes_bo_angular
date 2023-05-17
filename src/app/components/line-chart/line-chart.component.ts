@@ -8,6 +8,8 @@ import { Chart, registerables } from 'chart.js';
 })
 export class LineChartComponent implements AfterViewInit {
   @Input() chartId: string = '';
+  @Input() label: string = '';
+  @Input() data: [][] = [];
   chart?: Chart;
 
   constructor() {
@@ -18,11 +20,11 @@ export class LineChartComponent implements AfterViewInit {
     this.chart = new Chart(this.chartId, {
       type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: this.data[0],
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: this.label,
+            data: this.data[1],
             backgroundColor: ['#EAF5FF95'],
             borderColor: ['#39f'],
             borderWidth: 3,

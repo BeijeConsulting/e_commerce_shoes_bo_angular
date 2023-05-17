@@ -2,21 +2,30 @@
   <div class="col">
     <div class="card">
       <h2>Fatturato per mese</h2>
-      <app-line-chart chartId="fatturato-mese"></app-line-chart>
+      <app-line-chart
+        chartId="fatturato-mese"
+        [data]="incomePerMonth"
+      ></app-line-chart>
     </div>
   </div>
 
   <div class="col col-4">
     <div class="card">
       <h2>Fatturato per nazione</h2>
-      <app-pie-chart chartId="fatturato-mese3"></app-pie-chart>
+      <app-pie-chart
+        chartId="fatturato-nazione"
+        [data]="incomePerNation"
+      ></app-pie-chart>
     </div>
   </div>
 
   <div class="col col-8">
     <div class="card">
       <h2>Ordini per mese</h2>
-      <app-bar-chart chartId="fatturato-mese4"></app-bar-chart>
+      <app-bar-chart
+        chartId="ordini-mese"
+        [data]="ordersPerMonth"
+      ></app-bar-chart>
     </div>
   </div>
 
