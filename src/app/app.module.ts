@@ -51,6 +51,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from './components/table/table.component';
+import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -85,6 +86,7 @@ function HttpLoaderFactory(http: HttpClient) {
     AddPersonalAddressComponent,
     EditPersonalAddressComponent,
     TableComponent,
+    MenuProfileComponent,
   ],
   imports: [
     BrowserModule,
