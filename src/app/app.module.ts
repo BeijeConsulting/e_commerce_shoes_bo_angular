@@ -21,13 +21,35 @@ import { MatIconModule } from '@angular/material/icon';
 import { interceptorProvider } from './interceptor';
 import { DynamicFormInputComponent } from './components/dynamic-form-input/dynamic-form-input.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { DashboardComponent } from './screens/dashboard/dashboard.component';
+import { ProductsComponent } from './screens/products/products.component';
+import { CmsComponent } from './screens/cms/cms.component';
+import { AddProductsComponent } from './screens/add-products/add-products.component';
+import { EditProductComponent } from './screens/edit-product/edit-product.component';
+import { DetailProductComponent } from './screens/detail-product/detail-product.component';
+import { UsersComponent } from './screens/users/users.component';
+import { AddUserComponent } from './screens/add-user/add-user.component';
+import { EditUserComponent } from './screens/edit-user/edit-user.component';
+import { DetailUserComponent } from './screens/detail-user/detail-user.component';
+import { CouponsComponent } from './screens/coupons/coupons.component';
+import { AddCouponComponent } from './screens/add-coupon/add-coupon.component';
+import { EditCouponComponent } from './screens/edit-coupon/edit-coupon.component';
+import { DetailCouponComponent } from './screens/detail-coupon/detail-coupon.component';
+import { OrdersComponent } from './screens/orders/orders.component';
+import { AddOrderComponent } from './screens/add-order/add-order.component';
+import { EditOrderComponent } from './screens/edit-order/edit-order.component';
+import { DetailOrderComponent } from './screens/detail-order/detail-order.component';
+import { PersonalAreaComponent } from './screens/personal-area/personal-area.component';
+import { PersonalAddressesComponent } from './screens/personal-addresses/personal-addresses.component';
+import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
+import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DynamicFormInputComponent, DynamicFormComponent],
+  declarations: [AppComponent, LoginComponent, DynamicFormInputComponent, DynamicFormComponent, DashboardComponent, ProductsComponent, CmsComponent, AddProductsComponent, EditProductComponent, DetailProductComponent, UsersComponent, AddUserComponent, EditUserComponent, DetailUserComponent, CouponsComponent, AddCouponComponent, EditCouponComponent, DetailCouponComponent, OrdersComponent, AddOrderComponent, EditOrderComponent, DetailOrderComponent, PersonalAreaComponent, PersonalAddressesComponent, AddPersonalAddressComponent, EditPersonalAddressComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
