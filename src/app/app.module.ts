@@ -54,6 +54,8 @@ import { TableComponent } from './components/table/table.component';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ButtonComponent } from './components/button/button.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -90,6 +92,7 @@ function HttpLoaderFactory(http: HttpClient) {
     TableComponent,
     ButtonComponent,
     MenuProfileComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +103,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     MatCheckboxModule,
     MatSelectModule,
     MatSidenavModule,
