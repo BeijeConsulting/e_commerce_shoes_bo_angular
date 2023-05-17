@@ -52,6 +52,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from './components/table/table.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ButtonComponent } from './components/button/button.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -86,6 +87,7 @@ function HttpLoaderFactory(http: HttpClient) {
     AddPersonalAddressComponent,
     EditPersonalAddressComponent,
     TableComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,

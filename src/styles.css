@@ -34,3 +34,7 @@ a,
 button {
   cursor: pointer;
 }
+
+.mat-mdc-button-touch-target {
+  height: 0 !important;
+}
