@@ -10,16 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
 
 // Interceptors
 import { interceptorProvider } from './interceptor';
+
+// Screens
 import { DynamicFormInputComponent } from './components/dynamic-form-input/dynamic-form-input.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DashboardComponent } from './screens/dashboard/dashboard.component';
@@ -44,6 +39,19 @@ import { PersonalAreaComponent } from './screens/personal-area/personal-area.com
 import { PersonalAddressesComponent } from './screens/personal-addresses/personal-addresses.component';
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
+
+// Angular Material
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { TableComponent } from './components/table/table.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -77,6 +85,7 @@ function HttpLoaderFactory(http: HttpClient) {
     PersonalAddressesComponent,
     AddPersonalAddressComponent,
     EditPersonalAddressComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +108,9 @@ function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    MatTableModule,
+    MatPaginatorModule,
+    MatMenuModule,
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],
