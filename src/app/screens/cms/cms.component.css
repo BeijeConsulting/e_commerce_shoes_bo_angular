@@ -33,16 +33,12 @@ header > nav {
 }
 
 main {
-  height: 100%;
+  padding: 50px;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 main div {
-  height: 90%;
-  width: 90%;
+  margin: 0 auto;
 }
 
 li {
