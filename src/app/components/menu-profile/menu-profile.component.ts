@@ -13,6 +13,6 @@ export class MenuProfileComponent {
 
   goToPersonalArea() {
     console.log('click');
-    this.router.navigate(['personal-area']);
+    this.router.navigate(['dashboard/personal-area']);
   }
 }
