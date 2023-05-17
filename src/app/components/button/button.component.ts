@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -9,4 +9,9 @@ export class ButtonComponent {
   @Input() anchor: string = '';
   @Input() color: string = '';
   @Input() icon: string = '';
+  @Output() onClickEvent = new EventEmitter();
+
+  onClick() {
+    this.onClickEvent.emit();
+  }
 }

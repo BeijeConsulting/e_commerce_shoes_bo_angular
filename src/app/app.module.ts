@@ -54,6 +54,8 @@ import { TableComponent } from './components/table/table.component';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ButtonComponent } from './components/button/button.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
@@ -95,6 +97,7 @@ function HttpLoaderFactory(http: HttpClient) {
     TableComponent,
     ButtonComponent,
     MenuProfileComponent,
+    DialogComponent,
     LoaderComponent,
     LineChartComponent,
     BarChartComponent,
@@ -125,6 +128,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatTableModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatDialogModule,
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],
