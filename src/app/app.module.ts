@@ -52,6 +52,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from './components/table/table.component';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -99,6 +100,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatSidenavModule,
     MatIconModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
