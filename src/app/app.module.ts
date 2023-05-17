@@ -51,6 +51,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from './components/table/table.component';
+import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ButtonComponent } from './components/button/button.component';
 
@@ -88,6 +89,7 @@ function HttpLoaderFactory(http: HttpClient) {
     EditPersonalAddressComponent,
     TableComponent,
     ButtonComponent,
+    MenuProfileComponent,
   ],
   imports: [
     BrowserModule,
