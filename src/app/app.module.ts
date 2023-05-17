@@ -39,6 +39,7 @@ import { PersonalAreaComponent } from './screens/personal-area/personal-area.com
 import { PersonalAddressesComponent } from './screens/personal-addresses/personal-addresses.component';
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
+import { CardComponent } from './components/cardOrders/cardOrder.component';
 
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -58,6 +59,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -96,6 +98,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MenuProfileComponent,
     DialogComponent,
     LoaderComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,6 +126,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatPaginatorModule,
     MatMenuModule,
     MatDialogModule,
+    MatCardModule,
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],
