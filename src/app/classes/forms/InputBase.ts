@@ -6,6 +6,7 @@ export class InputBase<T> {
   order: number;
   controlType: string;
   type: string;
+  regexControl?: RegExp;
   options: { key: string; value: string }[];
 
   constructor(
@@ -17,6 +18,7 @@ export class InputBase<T> {
       order?: number;
       controlType?: string;
       type?: string;
+      regexControl?: RegExp;
       options?: { key: string; value: string }[];
     } = {}
   ) {
@@ -27,6 +29,7 @@ export class InputBase<T> {
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
     this.type = options.type || '';
+    this.regexControl = options.regexControl;
     this.options = options.options || [];
   }
 }

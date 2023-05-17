@@ -1,4 +1,4 @@
-<div class="login-container">
+<!-- <div class="login-container">
   <div class="login-box">
     <h1>CMS Beije Shoes</h1>
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -27,8 +27,17 @@
       <button mat-raised-button color="primary" type="submit">Submit</button>
     </form>
   </div>
+</div> -->
+<div
+  [ngStyle]="{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: '40px'
+  }"
+>
+  <app-dynamic-form
+    (submitEvent)="onsub($event)"
+    [inputs]="userForm$ | async"
+  ></app-dynamic-form>
 </div>
-<!-- <app-dynamic-form
-  (submitEvent)="onsub($event)"
-  [inputs]="userForm$ | async"
-></app-dynamic-form> -->

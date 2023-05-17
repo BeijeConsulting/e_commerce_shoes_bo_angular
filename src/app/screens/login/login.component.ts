@@ -26,7 +26,62 @@ export class LoginComponent implements OnInit {
     private storageService: StorageService,
     private formService: FormService
   ) {
-    this.userForm$ = this.formService.getUserForm();
+    /*
+    this.userForm$ = this.formService.editUserForm({
+      id: '10',
+      lastName: 'Rossi',
+      firstName: 'Mario',
+      birthDate: '11/29/1999',
+      email: 'mariorossi@gmail.com',
+      phoneNumber: '3333333333',
+      role: 'marketing',
+    });
+    */
+    /*
+     this.userForm$ = this.formService.addUserForm();
+     */
+    /*
+     this.userForm$ = this.formService.editProductForm({
+       brand: 'nike',
+       id: '12112',
+       images: 'images',
+       listedPrice: '300.00',
+       productName: 'Air',
+       category: 'shoes',
+       colour: 'white',
+       englishDescription: 'english description',
+       italianDescription: 'italian description',
+       quantity: '22',
+       size: '42',
+       type: 'Initial type',
+     });
+     */
+    /*
+     this.userForm$ = this.formService.addCouponForm();
+     this.userForm$ = this.formService.editOrderForm({
+      status: 'completed',
+     });
+     */
+    /*
+     this.userForm$ = this.formService.editPersonalDataForm({
+       firstName: 'Fra',
+       lastName: 'Sci',
+       birthDate: '11/29/1999',
+       email: 'fra@gmail.com',
+       password: 'Password@1',
+       phoneNumber: '3333333333',
+     });
+*/
+
+    this.userForm$ = this.formService.personalAddressForm({
+      label: 'label',
+      fullName: 'Mario Rossi',
+      address: 'Via Roma',
+      country: 'Italia',
+      phoneNumber: '333333333',
+      zipCode: '39239',
+      instructions: 'adsfashfk',
+    });
   }
 
   ngOnInit(): void {

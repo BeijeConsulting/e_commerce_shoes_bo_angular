@@ -16,6 +16,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 // Interceptors
 import { interceptorProvider } from './interceptor';
@@ -49,7 +52,34 @@ function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DynamicFormInputComponent, DynamicFormComponent, DashboardComponent, ProductsComponent, CmsComponent, AddProductsComponent, EditProductComponent, DetailProductComponent, UsersComponent, AddUserComponent, EditUserComponent, DetailUserComponent, CouponsComponent, AddCouponComponent, EditCouponComponent, DetailCouponComponent, OrdersComponent, AddOrderComponent, EditOrderComponent, DetailOrderComponent, PersonalAreaComponent, PersonalAddressesComponent, AddPersonalAddressComponent, EditPersonalAddressComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DynamicFormInputComponent,
+    DynamicFormComponent,
+    DashboardComponent,
+    ProductsComponent,
+    CmsComponent,
+    AddProductsComponent,
+    EditProductComponent,
+    DetailProductComponent,
+    UsersComponent,
+    AddUserComponent,
+    EditUserComponent,
+    DetailUserComponent,
+    CouponsComponent,
+    AddCouponComponent,
+    EditCouponComponent,
+    DetailCouponComponent,
+    OrdersComponent,
+    AddOrderComponent,
+    EditOrderComponent,
+    DetailOrderComponent,
+    PersonalAreaComponent,
+    PersonalAddressesComponent,
+    AddPersonalAddressComponent,
+    EditPersonalAddressComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -62,6 +92,9 @@ function HttpLoaderFactory(http: HttpClient) {
     MatCheckboxModule,
     MatSelectModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
