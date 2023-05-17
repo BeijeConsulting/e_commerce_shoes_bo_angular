@@ -1,1 +1,63 @@
-<p>cms works!</p>
+<header>
+  <nav>
+    <a class="logo">
+      <img src="../../../assets/images/logo/belle-scarpe-logo.png" />
+    </a>
+    <div class="actions">
+      <div>language switcher</div>
+      <div>icona utente</div>
+    </div>
+  </nav>
+</header>
+<mat-drawer-container class="container">
+  <mat-drawer mode="side" opened class="sidebar">
+    <nav>
+      <ul>
+        <li>
+          <a>
+            <mat-icon>home</mat-icon>
+            <div>Bacheca</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>shopping_basket</mat-icon>
+            <div>Gestisci prodotti</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>group</mat-icon>
+            <div>Gestisci utenti</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>label</mat-icon>
+            <div>Gestisci coupon</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>shopping_cart</mat-icon>
+            <div>Gestisci ordini</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>person</mat-icon>
+            <div>Area personale</div>
+          </a>
+        </li>
+      </ul>
+      <button><mat-icon>exit_to_app</mat-icon> disconnettiti</button>
+    </nav>
+  </mat-drawer>
+  <mat-drawer-content class="content">
+    <main>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </mat-drawer-content>
+</mat-drawer-container>
