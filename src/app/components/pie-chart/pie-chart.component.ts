@@ -26,9 +26,22 @@ export class PieChartComponent implements AfterViewInit {
             label: this.label,
             data: this.data[1],
             backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)',
+              '#ffa600',
+              '#f95d6a',
+              '#a05195',
+              '#665191',
+              '#ffa600',
+              '#f95d6a',
+              '#a05195',
+              '#665191',
+              '#ffa600',
+              '#f95d6a',
+              '#a05195',
+              '#665191',
+              '#ffa600',
+              '#f95d6a',
+              '#a05195',
+              '#665191',
             ],
           },
         ],
@@ -36,11 +49,6 @@ export class PieChartComponent implements AfterViewInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
       },
     });
   }

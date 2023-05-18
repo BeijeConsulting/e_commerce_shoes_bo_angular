@@ -10,6 +10,7 @@ import { FormService } from 'src/app/services/form/form.service';
 })
 export class PersonalAreaComponent {
   editPersonalDataForm$: Observable<InputBase<string>[]>;
+  showPersonalDataForm: boolean = false;
 
   constructor(private formService: FormService) {
     this.editPersonalDataForm$ = formService.editPersonalDataForm({
@@ -22,9 +23,6 @@ export class PersonalAreaComponent {
     });
   }
 
-  onSubmit(data: any) {
-    console.log('AddProductScreen Submit: ', data);
-  }
   user: any = {
     telephone: '3337571233',
     email: 'paolo1@gmail.com',
@@ -70,4 +68,16 @@ export class PersonalAreaComponent {
     cart_items: 2,
     birth_date: '1999-02-10',
   };
+
+  showForm(): void {
+    this.showPersonalDataForm = true;
+  }
+
+  hideForm(): void {
+    this.showPersonalDataForm = false;
+  }
+
+  onSubmit(data: any) {
+    console.log('AddProductScreen Submit: ', data);
+  }
 }

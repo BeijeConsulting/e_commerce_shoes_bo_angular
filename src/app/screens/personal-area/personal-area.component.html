@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!showPersonalDataForm">
   <div class="user__h1">
     <h1>{{ "personalArea" | translate }}</h1>
   </div>
@@ -8,17 +8,26 @@
       <a routerLink="/dashboard/personal-area/addresses" mat-button>
         {{ "addresses" | translate | uppercase }}
       </a>
-      <button mat-button>
+      <button mat-button (click)="showForm()">
         {{ "edit" | translate | uppercase }}
       </button>
     </app-card-user>
   </div>
+</div>
 
-  <p>personal-area works!</p>
-  <h1>Edit Persona Data</h1>
+<div class="container" *ngIf="showPersonalDataForm">
+  <h1 class="user__h1">Edit Persona Data</h1>
   <app-dynamic-form
     submitButtonLabel="Edit"
     [inputs]="editPersonalDataForm$ | async"
     (submitEvent)="onSubmit($event)"
   ></app-dynamic-form>
+  <button
+    (click)="hideForm()"
+    mat-fab
+    color="primary"
+    [ngStyle]="{ position: 'absolute', top: '5px', left: '60px' }"
+  >
+    <mat-icon> keyboard_arrow_left </mat-icon>
+  </button>
 </div>
