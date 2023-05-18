@@ -71,6 +71,7 @@ import { SizeTableComponent } from './components/size-table/size-table.component
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductTableComponent } from './components/product-table/product-table.component';
+import { UserTableComponent } from './components/user-table/user-table.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -120,6 +121,7 @@ function HttpLoaderFactory(http: HttpClient) {
     TabComponent,
     DialogLogoutComponent,
     ProductTableComponent,
+    UserTableComponent,
   ],
   imports: [
     BrowserModule,
