@@ -10,6 +10,7 @@ import { FormControlService } from 'src/app/services/form/form-control.service';
 })
 export class DynamicFormComponent implements OnInit {
   @Input() inputs: InputBase<string>[] | null = [];
+  @Input() submitButtonLabel: string = 'Submit';
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
   form!: FormGroup;

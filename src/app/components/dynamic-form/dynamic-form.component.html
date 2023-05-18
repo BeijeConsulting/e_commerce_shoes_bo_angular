@@ -8,7 +8,12 @@
     </div>
 
     <div class="form-row">
-      <button type="submit" [disabled]="!form.valid">Save</button>
+      <app-button
+        color="primary"
+        [isDisabled]="!form.valid"
+        [anchor]="submitButtonLabel"
+        (onClickEvent)="onSubmit()"
+      />
     </div>
   </form>
 </div>

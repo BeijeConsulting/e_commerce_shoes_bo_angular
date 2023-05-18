@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CheckboxInput } from 'src/app/classes/forms/CheckboxInput';
 import { DateInput } from 'src/app/classes/forms/DateInput';
+import { ImagePicker } from 'src/app/classes/forms/ImagePicker';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { MultiLine } from 'src/app/classes/forms/MultiLineInput';
 import { PasswordInput } from 'src/app/classes/forms/PasswordInput';
@@ -248,7 +249,16 @@ export class FormService {
         order: 12,
       }),
 
-      //AGGIUNGERE IMAGE PICKER
+      new ImagePicker(
+        {
+          key: 'productImagePicker',
+          label: 'Product Images',
+          required: true,
+          value: '',
+          order: 12,
+        },
+        { minNumber: 2 }
+      ),
     ];
 
     return of(questions.sort((a, b) => a.order - b.order));

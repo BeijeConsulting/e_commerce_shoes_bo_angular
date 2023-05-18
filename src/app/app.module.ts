@@ -64,6 +64,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -135,6 +136,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatPaginatorModule,
     MatMenuModule,
     MatDialogModule,
+    MatToolbarModule,
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],

@@ -73,15 +73,17 @@ export class LoginComponent implements OnInit {
      });
 */
 
-    this.userForm$ = this.formService.personalAddressForm({
-      label: 'label',
-      fullName: 'Mario Rossi',
-      address: 'Via Roma',
-      country: 'Italia',
-      phoneNumber: '333333333',
-      zipCode: '39239',
-      instructions: 'adsfashfk',
-    });
+    // this.userForm$ = this.formService.personalAddressForm({
+    //   label: 'label',
+    //   fullName: 'Mario Rossi',
+    //   address: 'Via Roma',
+    //   country: 'Italia',
+    //   phoneNumber: '333333333',
+    //   zipCode: '39239',
+    //   instructions: 'adsfashfk',
+    // });
+
+    this.userForm$ = this.formService.addProductForm();
   }
 
   ngOnInit(): void {

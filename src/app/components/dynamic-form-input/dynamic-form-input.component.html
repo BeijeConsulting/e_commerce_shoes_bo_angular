@@ -94,5 +94,60 @@
         [type]="input.type"
       ></textarea>
     </mat-form-field>
+
+    <div *ngSwitchCase="'imagepicker'">
+      <p *ngFor="let fileName of selectedFileNames">{{ fileName }}</p>
+      <div
+        [ngStyle]="{
+          margin: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }"
+      >
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="fileInput.click()"
+        >
+          Choose Image
+        </button>
+        <button
+          *ngIf="selectedFileNames.length > 0"
+          type="button"
+          mat-raised-button
+          color="warn"
+          (click)="clearImages(input.key)"
+        >
+          Clear Images
+        </button>
+      </div>
+
+      <input
+        hidden
+        (change)="selectFiles($event, input.key)"
+        type="text"
+        [formControlName]="input.key"
+      />
+      <input
+        hidden
+        accept="image/*"
+        (change)="selectFiles($event, input.key)"
+        #fileInput
+        type="file"
+        id="file"
+      />
+    </div>
+
+    <!-- <div>
+        <img *ngFor="let preview of previews" [src]="preview" class="preview" />
+      </div> -->
+
+    <!-- <div *ngIf="message.length" class="message">
+        <ul *ngFor="let msg of message; let i = index">
+          <li>{{ msg }}</li>
+        </ul>
+      </div> -->
   </div>
 </div>

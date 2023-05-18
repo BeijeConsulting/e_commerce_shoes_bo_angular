@@ -5,6 +5,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { ImagePicker } from 'src/app/classes/forms/ImagePicker';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 
 @Injectable({
@@ -30,6 +31,10 @@ export class FormControlService {
     if (input.value) {
       initialValue = input.value;
       console.log('initialValue: ', initialValue);
+    }
+
+    if (input.controlType === 'imagepicker' && input instanceof ImagePicker) {
+      validatorsArr.push(Validators.minLength(input.minNumber));
     }
 
     return new FormControl(initialValue, validatorsArr);
