@@ -53,7 +53,6 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { LoaderComponent } from './components/loader/loader.component';
 
 // Angular Material
-import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
@@ -67,6 +66,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SizeTableComponent } from './components/size-table/size-table.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TabComponent } from './components/tab/tab.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -113,6 +115,7 @@ function HttpLoaderFactory(http: HttpClient) {
     BarChartComponent,
     PieChartComponent,
     SizeTableComponent,
+    TabComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +144,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     MatDialogModule,
     MatCardModule,
+    MatTabsModule,
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],

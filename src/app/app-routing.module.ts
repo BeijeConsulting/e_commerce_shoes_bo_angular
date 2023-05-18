@@ -61,19 +61,19 @@ const routes: Routes = [
         component: EditProductComponent,
       },
       {
-        path: 'products/users',
+        path: 'users',
         component: UsersComponent,
       },
       {
-        path: 'products/users/add-user',
+        path: 'users/add-user',
         component: AddUserComponent,
       },
       {
-        path: 'products/users/edit-user/:id',
+        path: 'users/edit-user/:id',
         component: EditUserComponent,
       },
       {
-        path: 'products/users/detail-user/:id',
+        path: 'users/detail-user/:id',
         component: DetailUserComponent,
       },
       {
