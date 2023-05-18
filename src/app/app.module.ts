@@ -39,7 +39,7 @@ import { PersonalAreaComponent } from './screens/personal-area/personal-area.com
 import { PersonalAddressesComponent } from './screens/personal-addresses/personal-addresses.component';
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
-import { CardComponent } from './components/cardOrders/cardOrder.component';
+import { CardComponent } from './components/card-order/card-order.component';
 import { CardProductComponent } from './components/card-product/card-product.component';
 import { CardUserComponent } from './components/card-user/card-user.component';
 import { CardCouponComponent } from './components/card-coupon/card-coupon.component';
@@ -72,6 +72,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
+import { OrderTableComponent } from './components/order-table/order-table.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -122,6 +123,7 @@ function HttpLoaderFactory(http: HttpClient) {
     DialogLogoutComponent,
     ProductTableComponent,
     UserTableComponent,
+    OrderTableComponent,
   ],
   imports: [
     BrowserModule,
