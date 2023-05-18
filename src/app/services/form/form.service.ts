@@ -257,7 +257,7 @@ export class FormService {
           value: '',
           order: 12,
         },
-        { minNumber: 2 }
+        { minNumber: 3 }
       ),
     ];
 
@@ -438,7 +438,7 @@ export class FormService {
         order: 1,
       }),
 
-      new TextInput({
+      new MultiLine({
         key: 'italianDescription',
         label: 'Italian Description',
         required: true,
@@ -446,7 +446,7 @@ export class FormService {
         order: 1,
       }),
 
-      new TextInput({
+      new MultiLine({
         key: 'englishDescription',
         label: 'English Description',
         required: true,
@@ -516,7 +516,7 @@ export class FormService {
         order: 1,
       }),
 
-      new TextInput({
+      new MultiLine({
         key: 'italianDescription',
         label: 'Italian Description',
         required: true,
@@ -524,7 +524,7 @@ export class FormService {
         order: 1,
       }),
 
-      new TextInput({
+      new MultiLine({
         key: 'englishDescription',
         label: 'English Description',
         required: true,
@@ -727,7 +727,7 @@ export class FormService {
         order: 1,
       }),
 
-      new TextInput({
+      new MultiLine({
         key: 'instuctions',
         label: 'Instructions',
         required: false,

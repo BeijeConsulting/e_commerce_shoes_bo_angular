@@ -1,1 +1,8 @@
-<p>add-products works!</p>
+<div class="main-container">
+  <h1>Add New Product</h1>
+  <app-dynamic-form
+    submitButtonLabel="Add Product"
+    [inputs]="addProductForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

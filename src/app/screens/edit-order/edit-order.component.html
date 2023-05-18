@@ -1,1 +1,8 @@
-<p>edit-order works!</p>
+<div class="main-container">
+  <h1>Edit Order</h1>
+  <app-dynamic-form
+    submitButtonLabel="Edit Product"
+    [inputs]="editOrderForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

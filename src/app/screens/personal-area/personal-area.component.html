@@ -1,1 +1,9 @@
-<p>personal-area works!</p>
+<div class="main-container">
+  <p>personal-area works!</p>
+  <h1>Edit Persona Data</h1>
+  <app-dynamic-form
+    submitButtonLabel="Edit"
+    [inputs]="editPersonalDataForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

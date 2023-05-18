@@ -1,1 +1,8 @@
-<p>add-personal-address works!</p>
+<div class="main-container">
+  <h1>Add Personal Address</h1>
+  <app-dynamic-form
+    submitButtonLabel="Edit Product"
+    [inputs]="personalAddressForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

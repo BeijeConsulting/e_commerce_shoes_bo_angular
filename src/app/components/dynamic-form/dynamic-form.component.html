@@ -1,18 +1,18 @@
-<div>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div *ngFor="let input of inputs" class="form-row">
+<div class="dynamic-form-container" class="dynamic-form-input">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" class="dynamic-form-input">
+    <div *ngFor="let input of inputs" [ngStyle]="{ width: '400px' }">
       <app-dynamic-form-input
         [input]="input"
         [form]="form"
       ></app-dynamic-form-input>
     </div>
 
-    <div class="form-row">
+    <div [ngStyle]="{ marginTop: '40px' }">
       <app-button
         color="primary"
+        type="submit"
         [isDisabled]="!form.valid"
         [anchor]="submitButtonLabel"
-        (onClickEvent)="onSubmit()"
       />
     </div>
   </form>

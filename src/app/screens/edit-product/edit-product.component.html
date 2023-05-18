@@ -1,1 +1,8 @@
-<p>edit-product works!</p>
+<div class="main-container">
+  <h1>Edit Product</h1>
+  <app-dynamic-form
+    submitButtonLabel="Edit Product"
+    [inputs]="editProductForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

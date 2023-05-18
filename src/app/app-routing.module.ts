@@ -53,7 +53,7 @@ const routes: Routes = [
         component: DetailProductComponent,
       },
       {
-        path: 'products/product/add-product/',
+        path: 'products/product/add-product',
         component: AddProductsComponent,
       },
       {
