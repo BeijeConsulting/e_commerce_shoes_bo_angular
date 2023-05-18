@@ -63,6 +63,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CardProductComponent } from './components/card-product/card-product.component';
 import { CardUserComponent } from './components/card-user/card-user.component';
 import { CardCouponComponent } from './components/card-coupon/card-coupon.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -105,6 +108,9 @@ function HttpLoaderFactory(http: HttpClient) {
     CardProductComponent,
     CardUserComponent,
     CardCouponComponent,
+    LineChartComponent,
+    BarChartComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
