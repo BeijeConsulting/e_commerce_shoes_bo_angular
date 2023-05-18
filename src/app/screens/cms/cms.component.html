@@ -4,7 +4,7 @@
       <img src="../../../assets/images/logo/belle-scarpe-logo.png" />
     </a>
     <div class="actions">
-      <div>language switcher</div>
+      <app-language-switcher></app-language-switcher>
       <!-- menuProfile -->
       <app-menu-profile></app-menu-profile>
     </div>
@@ -17,41 +17,41 @@
         <li>
           <a>
             <mat-icon>home</mat-icon>
-            <div>Bacheca</div>
+            <div>{{ "dashboard" }}</div>
           </a>
         </li>
         <li>
           <a routerLink='/dashboard/products' routerLinkActive='active'>
             <mat-icon>shopping_basket</mat-icon>
-            <div>Gestisci prodotti</div>
+            <div>{{ "manageProducts" }}</div>
           </a>
         </li>
         <li>
-          <a routerLink='/dashboard/users' routerLinkActive='active'>
+          <a routerLink="/dashboard/users" routerLinkActive="active">
             <mat-icon>group</mat-icon>
-            <div>Gestisci utenti</div>
+            <div>{{ "manageUsers" }}</div>
           </a>
         </li>
         <li>
           <a routerLink='/dashboard/coupons' routerLinkActive='active'>
             <mat-icon>label</mat-icon>
-            <div>Gestisci coupon</div>
+            <div>{{ "manageCoupons" }}</div>
           </a>
         </li>
         <li>
           <a routerLink='/dashboard/orders' routerLinkActive='active'>
             <mat-icon>shopping_cart</mat-icon>
-            <div>Gestisci ordini</div>
+            <div>{{ "manageOrders" }}</div>
           </a>
         </li>
         <li>
           <a>
             <mat-icon>person</mat-icon>
-            <div>Area personale</div>
+            <div>{{ "personalArea" }}</div>
           </a>
         </li>
       </ul>
-      <app-button #menuTrigger anchor="DISCONNETTITI" color="primary" icon="exit_to_app"
+      <app-button #menuTrigger label="DISCONNETTITI" color="primary" icon="exit_to_app"
         (onClickEvent)='openDialog()'></app-button>
     </nav>
   </mat-drawer>

@@ -1,0 +1,20 @@
+<div class="language-menu">
+  <img
+    (click)="toggleMenu()"
+    [src]="'../../../assets/images/flags/' + selectedLanguage + '.png'"
+  />
+  <div class="dropdown" *ngIf="showMenu">
+    <img
+      *ngIf="selectedLanguage !== 'en'"
+      data-language="en"
+      src="../../../assets/images/flags/en.png"
+      (click)="changeLanguage($event)"
+    />
+    <img
+      *ngIf="selectedLanguage !== 'it'"
+      data-language="it"
+      src="../../../assets/images/flags/it.png"
+      (click)="changeLanguage($event)"
+    />
+  </div>
+</div>

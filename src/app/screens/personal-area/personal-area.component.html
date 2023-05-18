@@ -1,1 +1,16 @@
-<p>personal-area works!</p>
+<div class="container">
+  <div class="user__h1">
+    <h1>{{ "personalArea" | translate }}</h1>
+  </div>
+
+  <div class="card__container">
+    <app-card-user [user]="user">
+      <a routerLink="/dashboard/personal-area/addresses" mat-button>
+        {{ "addresses" | translate | uppercase }}
+      </a>
+      <button mat-button>
+        {{ "edit" | translate | uppercase }}
+      </button>
+    </app-card-user>
+  </div>
+</div>

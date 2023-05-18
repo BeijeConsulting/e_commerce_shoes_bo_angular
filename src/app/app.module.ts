@@ -10,6 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 // Interceptors
 import { interceptorProvider } from './interceptor';
@@ -67,12 +70,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { SizeTableComponent } from './components/size-table/size-table.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { OrderTableComponent } from './components/order-table/order-table.component';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -124,6 +129,7 @@ function HttpLoaderFactory(http: HttpClient) {
     ProductTableComponent,
     UserTableComponent,
     OrderTableComponent,
+    LanguageSwitcherComponent,
   ],
   imports: [
     BrowserModule,
@@ -139,6 +145,9 @@ function HttpLoaderFactory(http: HttpClient) {
     MatSelectModule,
     MatSidenavModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -151,6 +160,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatPaginatorModule,
     MatMenuModule,
     MatDialogModule,
+    MatToolbarModule,
     MatCardModule,
     MatTabsModule,
   ],

@@ -28,7 +28,18 @@
     </form>
   </div>
 </div>
-<!-- <app-dynamic-form
-  (submitEvent)="onsub($event)"
-  [inputs]="userForm$ | async"
-></app-dynamic-form> -->
+
+<!-- <div
+  [ngStyle]="{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: '40px'
+  }"
+>
+  <app-dynamic-form
+    submitButtonLabel="Add Product"
+    (submitEvent)="onsub($event)"
+    [inputs]="userForm$ | async"
+  ></app-dynamic-form>
+</div> -->

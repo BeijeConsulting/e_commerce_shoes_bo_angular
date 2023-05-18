@@ -38,3 +38,8 @@ button {
 .mat-mdc-button-touch-target {
   height: 0 !important;
 }
+
+.logout-button > button {
+  width: 100% !important;
+  text-transform: uppercase !important;
+}

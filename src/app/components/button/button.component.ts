@@ -6,9 +6,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./button.component.css'],
 })
 export class ButtonComponent {
-  @Input() anchor: string = '';
+  @Input() label: string = '';
   @Input() color: string = '';
   @Input() icon: string = '';
+  @Input() isDisabled: boolean = false;
   @Output() onClickEvent = new EventEmitter();
 
   onClick() {

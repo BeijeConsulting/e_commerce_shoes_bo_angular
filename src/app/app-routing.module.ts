@@ -113,7 +113,7 @@ const routes: Routes = [
         component: PersonalAreaComponent,
       },
       {
-        path: 'personal-area/address',
+        path: 'personal-area/addresses',
         component: PersonalAddressesComponent,
       },
       {
