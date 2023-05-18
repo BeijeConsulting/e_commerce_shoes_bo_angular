@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class CouponsComponent {
   constructor(private router: Router) {}
 
-  addCouon() {
+  addCoupon() {
     this.router.navigate(['dashboard/coupons/add-coupon']);
   }
 }

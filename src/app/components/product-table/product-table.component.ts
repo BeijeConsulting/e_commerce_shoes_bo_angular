@@ -19,11 +19,11 @@ export class ProductTableComponent {
   displayedColumns: string[] = [
     'id',
     'image',
-    'marca',
-    'nome',
-    'categoria',
-    'prezzo',
-    'azioni',
+    'brand',
+    'name',
+    'category',
+    'price',
+    'actions',
   ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -42,10 +42,6 @@ export class ProductTableComponent {
       restoreFocus: false,
       data: {
         deleteProduct: `Are you sure you want delete ${value}?`,
-        // deleteUser: 'Are you sure you want delete this user?',
-        // deleteOrder: 'Are you sure you want delete this order?',
-        // deleteCoupon: 'Are you sure you want delete this coupon?',
-        // logout: 'Are you sure you want log out?',
       },
     });
 
