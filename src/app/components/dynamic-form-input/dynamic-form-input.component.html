@@ -1,38 +1,153 @@
 <div [formGroup]="form">
-  <label [attr.for]="input.key">{{ input.label }}</label>
-
   <div [ngSwitch]="input.controlType">
-    <input
+    <mat-form-field
       *ngSwitchCase="'text'"
-      [formControlName]="input.key"
-      [id]="input.key"
-      [type]="input.type"
-    />
+      appearance="outline"
+      class="full-width"
+    >
+      <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+      <input
+        matInput
+        [formControlName]="input.key"
+        [id]="input.key"
+        [type]="input.type"
+      />
+    </mat-form-field>
 
-    <input
+    <mat-checkbox
       *ngSwitchCase="'checkbox'"
       [formControlName]="input.key"
       [id]="input.key"
-      [type]="input.type"
-    />
-
-    <input
-      *ngSwitchCase="'date'"
-      [formControlName]="input.key"
-      [id]="input.key"
-      [type]="input.type"
-    />
-
-    <select
-      [id]="input.key"
-      *ngSwitchCase="'select'"
-      [formControlName]="input.key"
+      >{{ input.label }}</mat-checkbox
     >
-      <option *ngFor="let opt of input.options" [value]="opt.key">
-        {{ opt.value }}
-      </option>
-    </select>
-  </div>
+    <mat-form-field
+      *ngSwitchCase="'date'"
+      appearance="outline"
+      class="full-width"
+    >
+      <mat-label>{{ input.label }}</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [formControlName]="input.key"
+        [id]="input.key"
+        [type]="input.type"
+      />
+      <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <div class="errorMessage" *ngIf="!isValid">{{ input.label }} is required</div>
+    <mat-form-field
+      *ngSwitchCase="'select'"
+      appearance="outline"
+      class="full-width"
+    >
+      <mat-label>{{ input.label }}</mat-label>
+      <mat-select [id]="input.key" [formControlName]="input.key">
+        <mat-option
+          *ngFor="let opt of input.options"
+          [value]="opt.key"
+          selected="true"
+        >
+          {{ opt.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field
+      class="full-width"
+      appearance="outline"
+      *ngSwitchCase="'password'"
+    >
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [formControlName]="input.key"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="toggleVisibility()"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field
+      *ngSwitchCase="'multiline'"
+      appearance="outline"
+      class="full-width"
+    >
+      <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+      <textarea
+        matInput
+        [formControlName]="input.key"
+        [id]="input.key"
+        [type]="input.type"
+      ></textarea>
+    </mat-form-field>
+
+    <div *ngSwitchCase="'imagepicker'">
+      <p *ngFor="let fileName of selectedFileNames">{{ fileName }}</p>
+      <div
+        [ngStyle]="{
+          margin: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px'
+        }"
+      >
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="fileInput.click()"
+        >
+          Choose Image
+        </button>
+        <button
+          *ngIf="selectedFileNames.length > 0"
+          type="button"
+          mat-raised-button
+          color="warn"
+          (click)="clearImages(input.key)"
+        >
+          Clear Images
+        </button>
+      </div>
+
+      <input
+        hidden
+        (change)="selectFiles($event, input.key)"
+        type="text"
+        [formControlName]="input.key"
+      />
+      <input
+        hidden
+        accept="image/*"
+        (change)="selectFiles($event, input.key)"
+        #fileInput
+        type="file"
+        id="file"
+      />
+    </div>
+
+    <!-- <div>
+        <img *ngFor="let preview of previews" [src]="preview" class="preview" />
+      </div> -->
+
+    <!-- <div *ngIf="message.length" class="message">
+        <ul *ngFor="let msg of message; let i = index">
+          <li>{{ msg }}</li>
+        </ul>
+      </div> -->
+  </div>
 </div>

@@ -10,6 +10,7 @@ import { FormControlService } from 'src/app/services/form/form-control.service';
 })
 export class DynamicFormComponent implements OnInit {
   @Input() inputs: InputBase<string>[] | null = [];
+  @Input() submitButtonLabel: string = 'Submit';
   @Output() submitEvent: EventEmitter<any> = new EventEmitter();
 
   form!: FormGroup;
@@ -21,6 +22,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('form: ', this.form);
     this.submitEvent.emit(this.form.getRawValue());
   }
 }
