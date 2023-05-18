@@ -4,14 +4,14 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css'],
+  selector: 'app-dialog-logout',
+  templateUrl: './dialog-logout.component.html',
+  styleUrls: ['./dialog-logout.component.css'],
 })
-export class DialogComponent implements OnInit, OnDestroy {
+export class DialogLogoutComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private matDialogRef: MatDialogRef<DialogComponent>
+    private matDialogRef: MatDialogRef<DialogLogoutComponent>
   ) {}
 
   ngOnInit(): void {}
@@ -20,8 +20,8 @@ export class DialogComponent implements OnInit, OnDestroy {
     this.matDialogRef.close(this.data);
   }
 
-  onDelete() {
-    alert('delete successfully'); // only for test
+  onLogout() {
+    alert('logout successfully'); // only for test
     this.closeDialog();
   }
 

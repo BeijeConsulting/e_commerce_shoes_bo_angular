@@ -6,6 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+
+// Router
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,21 +37,22 @@ export class TableComponent {
   }
 
   // trigger dialog
-  openDialog() {
+  openDialog(value?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteProduct: 'Are you sure you want delete this product?',
-        deleteUser: 'Are you sure you want delete this user?',
-        deleteOrder: 'Are you sure you want delete this order?',
-        deleteCoupon: 'Are you sure you want delete this coupon?',
-        logout: 'Are you sure you want log out?',
+        deleteProduct: `Are you sure you want delete ${value}?`,
+        // deleteUser: 'Are you sure you want delete this user?',
+        // deleteOrder: 'Are you sure you want delete this order?',
+        // deleteCoupon: 'Are you sure you want delete this coupon?',
+        // logout: 'Are you sure you want log out?',
       },
     });
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.
-    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    dialogRef.afterClosed();
+    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
   detailUser(id: number | string) {

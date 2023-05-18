@@ -1,0 +1,20 @@
+.dialog__container {
+  max-width: 400px;
+}
+
+.dialog__h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 40px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.container__buttons {
+  /* border: 2px solid red; */
+  width: 100%;
+  margin: 12%;
+  display: flex;
+  justify-content: space-between;
+}

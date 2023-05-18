@@ -33,7 +33,7 @@
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink='/dashboard/coupons' routerLinkActive='active'>
             <mat-icon>label</mat-icon>
             <div>Gestisci coupon</div>
           </a>
@@ -51,7 +51,8 @@
           </a>
         </li>
       </ul>
-      <app-button anchor="DISCONNETTITI" color="primary" icon="exit_to_app"></app-button>
+      <app-button #menuTrigger anchor="DISCONNETTITI" color="primary" icon="exit_to_app"
+        (onClickEvent)='openDialog()'></app-button>
     </nav>
   </mat-drawer>
   <mat-drawer-content class="content">
