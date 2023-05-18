@@ -68,17 +68,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-<<<<<<< HEAD
-import { LineChartComponent } from './components/line-chart/line-chart.component';
-import { BarChartComponent } from './components/bar-chart/bar-chart.component';
-import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-=======
 import { SizeTableComponent } from './components/size-table/size-table.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TabComponent } from './components/tab/tab.component';
->>>>>>> develop
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -156,12 +150,9 @@ function HttpLoaderFactory(http: HttpClient) {
     MatPaginatorModule,
     MatMenuModule,
     MatDialogModule,
-<<<<<<< HEAD
     MatToolbarModule,
-=======
     MatCardModule,
     MatTabsModule,
->>>>>>> develop
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],
