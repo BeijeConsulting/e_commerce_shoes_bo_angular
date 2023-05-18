@@ -6,12 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card-user.component.css'],
 })
 export class CardUserComponent {
-  @Input() id: string | number = '';
-  @Input() phone: string = '';
-  @Input() email: string = '';
-  @Input() address1: string = '';
-  @Input() address2: string = '';
-  @Input() lastName: string = '';
-  @Input() name: string = '';
-  @Input() birthDate: string = '';
+  @Input() user: any = '';
 }

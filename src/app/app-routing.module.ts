@@ -49,15 +49,15 @@ const routes: Routes = [
         component: ProductsComponent,
       },
       {
-        path: 'products/product/details/:id',
+        path: 'products/detail-product/:id',
         component: DetailProductComponent,
       },
       {
-        path: 'products/product/add-product',
+        path: 'products/add-product',
         component: AddProductsComponent,
       },
       {
-        path: 'products/product/edit-product/:id',
+        path: 'products/edit-product/:id',
         component: EditProductComponent,
       },
       {
@@ -113,7 +113,7 @@ const routes: Routes = [
         component: PersonalAreaComponent,
       },
       {
-        path: 'personal-area/address',
+        path: 'personal-area/addresses',
         component: PersonalAddressesComponent,
       },
       {

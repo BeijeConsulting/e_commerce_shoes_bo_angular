@@ -6,23 +6,27 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+
+// Router
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css'],
+  selector: 'app-order-table',
+  templateUrl: './order-table.component.html',
+  styleUrls: ['./order-table.component.css'],
 })
-export class TableComponent {
+export class OrderTableComponent {
   displayedColumns: string[] = [
     'id',
-    'image',
-    'marca',
-    'nome',
-    'categoria',
-    'prezzo',
-    'azioni',
+    'userId',
+    'date',
+    'paymentState',
+    'state',
+    'total',
+    'transaction',
+    'actions',
   ];
+
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -35,26 +39,23 @@ export class TableComponent {
   }
 
   // trigger dialog
-  openDialog() {
+  openDialog(value?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteProduct: 'Are you sure you want delete this product?',
-        deleteUser: 'Are you sure you want delete this user?',
-        deleteOrder: 'Are you sure you want delete this order?',
-        deleteCoupon: 'Are you sure you want delete this coupon?',
-        logout: 'Are you sure you want log out?',
+        deleteProduct: `Are you sure you want delete ${value}?`,
       },
     });
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.
-    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    dialogRef.afterClosed();
+    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
-  detailUser(id: number | string) {
+  detailCoupon(id: number | string) {
     // console.log('detail', id);
-    this.router.navigate([`/dashboard/users/detail-user/${id}`]);
+    this.router.navigate([`/dashboard/orders/detail-order/${id}`]);
   }
 }
 

@@ -1,1 +1,9 @@
-<p>Products screen</p>
+<div class='products__h1'>
+  <h1>Gestisci Prodotti</h1>
+</div>
+
+<div class='button__container'>
+  <app-button color="primary" label='AGGIUNGI PRODOTTO' icon="add" (onClickEvent)="addProduct()"></app-button>
+</div>
+
+<app-product-table></app-product-table>
