@@ -24,6 +24,7 @@ import { PersonalAreaComponent } from './screens/personal-area/personal-area.com
 import { PersonalAddressesComponent } from './screens/personal-addresses/personal-addresses.component';
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
+import { CmsComponent } from './screens/cms/cms.component';
 
 const routes: Routes = [
   {
@@ -37,87 +38,93 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-  },
-  {
-    path: 'products',
-    component: ProductsComponent,
-  },
-  {
-    path: 'products/product/details/:id',
-    component: DetailProductComponent,
-  },
-  {
-    path: 'products/product/add-product/',
-    component: AddProductsComponent,
-  },
-  {
-    path: 'products/product/edit-product/:id',
-    component: EditProductComponent,
-  },
-  {
-    path: 'products/users',
-    component: UsersComponent,
-  },
-  {
-    path: 'products/users/add-user',
-    component: AddUserComponent,
-  },
-  {
-    path: 'products/users/edit-user/:id',
-    component: EditUserComponent,
-  },
-  {
-    path: 'products/users/detail-user/:id',
-    component: DetailUserComponent,
-  },
-  {
-    path: 'coupons',
-    component: CouponsComponent,
-  },
-  {
-    path: 'coupons/add-coupon',
-    component: AddCouponComponent,
-  },
-  {
-    path: 'coupons/edit-coupon/:id',
-    component: EditCouponComponent,
-  },
-  {
-    path: 'coupons/detail-coupon/:id',
-    component: DetailCouponComponent,
-  },
-  {
-    path: 'orders',
-    component: OrdersComponent,
-  },
-  {
-    path: 'orders/add-order',
-    component: AddOrderComponent,
-  },
-  {
-    path: 'orders/edit-order/:id',
-    component: EditOrderComponent,
-  },
-  {
-    path: 'orders/detail-order/:id',
-    component: DetailOrderComponent,
-  },
-  {
-    path: 'personal-area',
-    component: PersonalAreaComponent,
-  },
-  {
-    path: 'personal-area/address',
-    component: PersonalAddressesComponent,
-  },
-  {
-    path: 'personal-area/add-address',
-    component: AddPersonalAddressComponent,
-  },
-  {
-    path: 'personal-area/edit-address/:id',
-    component: EditPersonalAddressComponent,
+    component: CmsComponent,
+    children: [
+      {
+        path: '',
+        component: DashboardComponent,
+      },
+      {
+        path: 'products',
+        component: ProductsComponent,
+      },
+      {
+        path: 'products/product/details/:id',
+        component: DetailProductComponent,
+      },
+      {
+        path: 'products/product/add-product/',
+        component: AddProductsComponent,
+      },
+      {
+        path: 'products/product/edit-product/:id',
+        component: EditProductComponent,
+      },
+      {
+        path: 'products/users',
+        component: UsersComponent,
+      },
+      {
+        path: 'products/users/add-user',
+        component: AddUserComponent,
+      },
+      {
+        path: 'products/users/edit-user/:id',
+        component: EditUserComponent,
+      },
+      {
+        path: 'products/users/detail-user/:id',
+        component: DetailUserComponent,
+      },
+      {
+        path: 'coupons',
+        component: CouponsComponent,
+      },
+      {
+        path: 'coupons/add-coupon',
+        component: AddCouponComponent,
+      },
+      {
+        path: 'coupons/edit-coupon/:id',
+        component: EditCouponComponent,
+      },
+      {
+        path: 'coupons/detail-coupon/:id',
+        component: DetailCouponComponent,
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
+      },
+      {
+        path: 'orders/add-order',
+        component: AddOrderComponent,
+      },
+      {
+        path: 'orders/edit-order/:id',
+        component: EditOrderComponent,
+      },
+      {
+        path: 'orders/detail-order/:id',
+        component: DetailOrderComponent,
+      },
+      {
+        path: 'personal-area',
+        component: PersonalAreaComponent,
+      },
+      {
+        path: 'personal-area/address',
+        component: PersonalAddressesComponent,
+      },
+      {
+        path: 'personal-area/add-address',
+        component: AddPersonalAddressComponent,
+      },
+      {
+        path: 'personal-area/edit-address/:id',
+        component: EditPersonalAddressComponent,
+      },
+    ],
   },
 ];
 

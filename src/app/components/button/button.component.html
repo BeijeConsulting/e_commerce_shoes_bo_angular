@@ -1,0 +1,10 @@
+<button mat-raised-button [color]="color" (click)="onClick()">
+  <div class="button">
+    <mat-icon *ngIf="icon">
+      {{ icon }}
+    </mat-icon>
+    <div>
+      {{ anchor }}
+    </div>
+  </div>
+</button>
