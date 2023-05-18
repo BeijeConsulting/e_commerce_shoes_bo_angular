@@ -1,31 +1,39 @@
 <mat-card class="example-card">
+  <mat-card-content>
+    <p>
+      <strong>{{ "telephone" | translate }}</strong
+      >: {{ user.telephone }}
+    </p>
+  </mat-card-content>
+  <mat-card-content>
+    <p><strong>email</strong>: {{ user.email }}</p>
+  </mat-card-content>
+  <mat-card-content *ngFor="let address of user.addresses; let i = index">
+    <p>
+      <strong>{{ "address" | translate }} {{ i + 1 }}</strong
+      >: {{ address.street_address }}
+    </p>
+  </mat-card-content>
+  <mat-card-content>
+    <p>
+      <strong>{{ "first_name" | translate }}</strong
+      >: {{ user.first_name }}
+    </p>
+  </mat-card-content>
+  <mat-card-content>
+    <p>
+      <strong>{{ "last_name" | translate }}</strong
+      >: {{ user.last_name }}
+    </p>
+  </mat-card-content>
+  <mat-card-content>
+    <p>
+      <strong>{{ "birthDate" | translate }}</strong
+      >: {{ user.birth_date }}
+    </p>
+  </mat-card-content>
 
-  <mat-card-content>
-    <p>Id: {{id}}</p>
-  </mat-card-content>
-  <mat-card-content>
-    <p> Telephone:{{phone}}</p>
-  </mat-card-content>
-  <mat-card-content>
-    <p> Email :{{email}}</p>
-  </mat-card-content>
-  <mat-card-content>
-    <p> Address 1 :{{address1}}</p>
-  </mat-card-content>
-  <mat-card-content>
-    <p> Address 2 :{{address2}}</p>
-  </mat-card-content>
-  <mat-card-content>
-    <p> Last Name :{{lastName}}</p>
-  </mat-card-content>
-  <mat-card-content>
-    <p> Name :{{name}}</p>
-  </mat-card-content>
-  <mat-card-content>
-    <p> Birthdate :{{birthDate}}</p>
-  </mat-card-content>
-
-  <!-- <mat-card-actions>
-    <button mat-button>BACK</button>
-  </mat-card-actions> -->
+  <mat-card-actions>
+    <ng-content></ng-content>
+  </mat-card-actions>
 </mat-card>
