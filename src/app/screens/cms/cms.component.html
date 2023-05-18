@@ -15,13 +15,17 @@
     <nav>
       <ul>
         <li>
-          <a>
+          <a
+            routerLink="/dashboard"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+          >
             <mat-icon>home</mat-icon>
             <div>{{ "dashboard" | translate }}</div>
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink="/dashboard/products" routerLinkActive="active">
             <mat-icon>shopping_basket</mat-icon>
             <div>{{ "manageProducts" | translate }}</div>
           </a>
@@ -33,19 +37,19 @@
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink="/dashboard/coupons" routerLinkActive="active">
             <mat-icon>label</mat-icon>
             <div>{{ "manageCoupons" | translate }}</div>
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink="/dashboard/orders" routerLinkActive="active">
             <mat-icon>shopping_cart</mat-icon>
             <div>{{ "manageOrders" | translate }}</div>
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink="/dashboard/personal-area" routerLinkActive="active">
             <mat-icon>person</mat-icon>
             <div>{{ "personalArea" | translate }}</div>
           </a>
@@ -67,63 +71,3 @@
     </main>
   </div>
 </div>
-
-<!-- <mat-drawer-container class="container">
-  <mat-drawer mode="side" opened class="sidebar">
-    <nav>
-      <ul>
-        <li>
-          <a routerLink="/dashboard">
-            <mat-icon>home</mat-icon>
-            <div>{{ "dashboard" | translate }}</div>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/dashboard/products" routerLinkActive="active">
-            <mat-icon>shopping_basket</mat-icon>
-            <div>{{ "manageProducts" | translate }}</div>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/dashboard/users" routerLinkActive="active">
-            <mat-icon>group</mat-icon>
-            <div>{{ "manageUsers" }}</div>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/dashboard/coupons" routerLinkActive="active">
-            <mat-icon>label</mat-icon>
-            <div>{{ "manageCoupons" }}</div>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/dashboard/orders" routerLinkActive="active">
-            <mat-icon>shopping_cart</mat-icon>
-            <div>{{ "manageOrders" }}</div>
-          </a>
-        </li>
-        <li>
-          <a>
-            <mat-icon>person</mat-icon>
-            <div>{{ "personalArea" }}</div>
-          </a>
-        </li>
-      </ul>
-      <app-button
-        #menuTrigger
-        label="DISCONNETTITI"
-        color="primary"
-        icon="exit_to_app"
-        (onClickEvent)="openDialog()"
-      ></app-button>
-    </nav>
-  </mat-drawer>
-  <mat-drawer-content class="content">
-    <main>
-      <div>
-        <router-outlet></router-outlet>
-      </div>
-    </main>
-  </mat-drawer-content>
-</mat-drawer-container>
- -->
