@@ -40,6 +40,12 @@ import { PersonalAddressesComponent } from './screens/personal-addresses/persona
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 import { CardComponent } from './components/cardOrders/cardOrder.component';
+import { CardProductComponent } from './components/card-product/card-product.component';
+import { CardUserComponent } from './components/card-user/card-user.component';
+import { CardCouponComponent } from './components/card-coupon/card-coupon.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -60,12 +66,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
-import { CardProductComponent } from './components/card-product/card-product.component';
-import { CardUserComponent } from './components/card-user/card-user.component';
-import { CardCouponComponent } from './components/card-coupon/card-coupon.component';
-import { LineChartComponent } from './components/line-chart/line-chart.component';
-import { BarChartComponent } from './components/bar-chart/bar-chart.component';
-import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TabComponent } from './components/tab/tab.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -111,6 +113,7 @@ function HttpLoaderFactory(http: HttpClient) {
     LineChartComponent,
     BarChartComponent,
     PieChartComponent,
+    TabComponent,
   ],
   imports: [
     BrowserModule,
@@ -139,6 +142,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     MatDialogModule,
     MatCardModule,
+    MatTabsModule,
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],
