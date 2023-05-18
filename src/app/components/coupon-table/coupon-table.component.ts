@@ -12,18 +12,20 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css'],
+  templateUrl: './coupon-table.component.html',
+  styleUrls: ['./coupon-table.component.css'],
 })
 export class TableComponent {
   displayedColumns: string[] = [
     'id',
-    'image',
-    'marca',
-    'nome',
-    'categoria',
-    'prezzo',
-    'azioni',
+    'code',
+    'maxUses',
+    'expirationDate',
+    'state',
+    'type',
+    'value',
+    'minOrder',
+    'actions',
   ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -55,9 +57,9 @@ export class TableComponent {
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
-  detailUser(id: number | string) {
+  detailCoupon(id: number | string) {
     // console.log('detail', id);
-    this.router.navigate([`/dashboard/users/detail-user/${id}`]);
+    this.router.navigate([`/dashboard/coupons/detail-coupon/${id}`]);
   }
 }
 

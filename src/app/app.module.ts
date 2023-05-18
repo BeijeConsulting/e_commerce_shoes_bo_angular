@@ -46,11 +46,13 @@ import { CardCouponComponent } from './components/card-coupon/card-coupon.compon
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
-import { TableComponent } from './components/table/table.component';
+import { TableComponent } from './components/coupon-table/coupon-table.component';
 import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { ButtonComponent } from './components/button/button.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { TabComponent } from './components/tab/tab.component';
+import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
 
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -68,8 +70,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SizeTableComponent } from './components/size-table/size-table.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
-import { TabComponent } from './components/tab/tab.component';
-import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
+import { ProductTableComponent } from './components/product-table/product-table.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -118,6 +119,7 @@ function HttpLoaderFactory(http: HttpClient) {
     SizeTableComponent,
     TabComponent,
     DialogLogoutComponent,
+    ProductTableComponent,
   ],
   imports: [
     BrowserModule,

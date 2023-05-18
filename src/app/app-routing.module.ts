@@ -49,15 +49,15 @@ const routes: Routes = [
         component: ProductsComponent,
       },
       {
-        path: 'products/product/detail-product/:id',
+        path: 'products/detail-product/:id',
         component: DetailProductComponent,
       },
       {
-        path: 'products/product/add-product/',
+        path: 'products/add-product',
         component: AddProductsComponent,
       },
       {
-        path: 'products/product/edit-product/:id',
+        path: 'products/edit-product/:id',
         component: EditProductComponent,
       },
       {
