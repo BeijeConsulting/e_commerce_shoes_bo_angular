@@ -10,20 +10,78 @@
     </div>
   </nav>
 </header>
-<mat-drawer-container class="container">
+<div class="main-wrapper">
+  <div class="sidebar">
+    <nav>
+      <ul>
+        <li>
+          <a>
+            <mat-icon>home</mat-icon>
+            <div>{{ "dashboard" | translate }}</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>shopping_basket</mat-icon>
+            <div>{{ "manageProducts" | translate }}</div>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/dashboard/users" routerLinkActive="active">
+            <mat-icon>group</mat-icon>
+            <div>{{ "manageUsers" | translate }}</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>label</mat-icon>
+            <div>{{ "manageCoupons" | translate }}</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>shopping_cart</mat-icon>
+            <div>{{ "manageOrders" | translate }}</div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon>person</mat-icon>
+            <div>{{ "personalArea" | translate }}</div>
+          </a>
+        </li>
+      </ul>
+      <app-button
+        class="logout-button"
+        label="logout"
+        color="primary"
+        icon="exit_to_app"
+      ></app-button>
+    </nav>
+  </div>
+  <div class="content">
+    <main>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- <mat-drawer-container class="container">
   <mat-drawer mode="side" opened class="sidebar">
     <nav>
       <ul>
         <li>
           <a>
             <mat-icon>home</mat-icon>
-            <div>{{ "dashboard" }}</div>
+            <div>{{ "dashboard" | translate }}</div>
           </a>
         </li>
         <li>
           <a>
             <mat-icon>shopping_basket</mat-icon>
-            <div>{{ "manageProducts" }}</div>
+            <div>{{ "manageProducts" | translate }}</div>
           </a>
         </li>
         <li>
@@ -67,3 +125,4 @@
     </main>
   </mat-drawer-content>
 </mat-drawer-container>
+ -->

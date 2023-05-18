@@ -11,8 +11,8 @@ header > nav {
   align-items: center;
 }
 
-.container {
-  height: calc(100vh - 70px);
+.logo {
+  height: 70%;
 }
 
 .actions {
@@ -21,34 +21,44 @@ header > nav {
   gap: 20px;
 }
 
-.sidebar {
-  padding: 50px 40px 20px;
+li {
+  margin-bottom: 25px;
 }
 
-.container nav {
+.main-wrapper a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.main-wrapper {
+  height: calc(100vh - 70px);
+  display: flex;
+}
+
+.main-wrapper nav {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+.sidebar {
+  padding: 50px 40px 20px;
+}
+
+.content {
+  width: 100%;
+  overflow-y: auto;
+  background-color: #fafafa;
+}
+
 main {
   padding: 50px;
-  width: 100%;
 }
 
 main div {
   margin: 0 auto;
-}
-
-li {
-  margin-bottom: 25px;
-}
-
-.container a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 a {
@@ -64,6 +74,6 @@ a:hover {
   color: #0371bc;
 }
 
-.logo {
-  height: 70%;
+ul {
+  width: 200px;
 }
