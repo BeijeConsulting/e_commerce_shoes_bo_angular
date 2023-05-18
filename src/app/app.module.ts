@@ -61,6 +61,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { CardProductComponent } from './components/card-product/card-product.component';
+import { CardUserComponent } from './components/card-user/card-user.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -101,6 +102,7 @@ function HttpLoaderFactory(http: HttpClient) {
     LoaderComponent,
     CardComponent,
     CardProductComponent,
+    CardUserComponent,
   ],
   imports: [
     BrowserModule,
