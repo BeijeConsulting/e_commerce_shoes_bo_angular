@@ -15,11 +15,7 @@
     <nav>
       <ul>
         <li>
-          <a
-            routerLink="/dashboard"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
-          >
+          <a routerLink="/dashboard" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
             <mat-icon>home</mat-icon>
             <div>{{ "dashboard" | translate }}</div>
           </a>
@@ -55,12 +51,8 @@
           </a>
         </li>
       </ul>
-      <app-button
-        class="logout-button"
-        label="logout"
-        color="primary"
-        icon="exit_to_app"
-      ></app-button>
+      <app-button #menuTrigger label="DISCONNETTITI" color="primary" icon="exit_to_app"
+        (onClickEvent)='openDialog()'></app-button>
     </nav>
   </div>
   <div class="content">
