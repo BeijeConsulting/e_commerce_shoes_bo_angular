@@ -4,7 +4,7 @@ import {
   HttpHeaders,
   HttpInterceptor,
   HttpRequest,
-  HttpEvent
+  HttpEvent,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { switchMap, catchError, throwError, Observable } from 'rxjs';
@@ -35,16 +35,16 @@ export class InterceptorProvider implements HttpInterceptor {
       console.log('chiamata autenticata');
 
       return next.handle(request).pipe(
-        catchError(err => {
-          if (err instanceof HttpErrorResponse && err.status === 401){
-            console.log("401 entrato")
-              
+        catchError((err) => {
+          if (err instanceof HttpErrorResponse && err.status === 401) {
+            console.log('401 entrato');
+
             return this.handle401Error(request, next);
           } else {
             return throwError(() => new Error(err));
           }
         })
-      )
+      );
     }
     return next.handle(request);
   }
@@ -66,7 +66,7 @@ export class InterceptorProvider implements HttpInterceptor {
 
       return this.authService.refreshToken().pipe(
         switchMap((res) => {
-          console.log("nuovo refresh token")
+          console.log('nuovo refresh token');
           this.isRefreshing = false;
           const newToken: string = res.token;
 
@@ -74,9 +74,11 @@ export class InterceptorProvider implements HttpInterceptor {
           this.storageService.setStorage('token', newToken);
           this.authService.token.next(newToken);
           return next.handle(this.addToken(request, newToken));
-        }));
+        })
+      );
     }
-    return next.handle(request);
+    // return next.handle(request);
+    return throwError(() => new Error('ERROR: Failed refresh Token'));
   }
 }
 
