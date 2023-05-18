@@ -42,6 +42,18 @@ import { PersonalAreaComponent } from './screens/personal-area/personal-area.com
 import { PersonalAddressesComponent } from './screens/personal-addresses/personal-addresses.component';
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
+import { CardComponent } from './components/cardOrders/cardOrder.component';
+import { CardProductComponent } from './components/card-product/card-product.component';
+import { CardUserComponent } from './components/card-user/card-user.component';
+import { CardCouponComponent } from './components/card-coupon/card-coupon.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { TableComponent } from './components/table/table.component';
+import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
+import { ButtonComponent } from './components/button/button.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -53,18 +65,20 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TableComponent } from './components/table/table.component';
-import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { ButtonComponent } from './components/button/button.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from './components/dialog/dialog.component';
-import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+<<<<<<< HEAD
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+=======
+import { SizeTableComponent } from './components/size-table/size-table.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TabComponent } from './components/tab/tab.component';
+>>>>>>> develop
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -103,9 +117,15 @@ function HttpLoaderFactory(http: HttpClient) {
     MenuProfileComponent,
     DialogComponent,
     LoaderComponent,
+    CardComponent,
+    CardProductComponent,
+    CardUserComponent,
+    CardCouponComponent,
     LineChartComponent,
     BarChartComponent,
     PieChartComponent,
+    SizeTableComponent,
+    TabComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,7 +156,12 @@ function HttpLoaderFactory(http: HttpClient) {
     MatPaginatorModule,
     MatMenuModule,
     MatDialogModule,
+<<<<<<< HEAD
     MatToolbarModule,
+=======
+    MatCardModule,
+    MatTabsModule,
+>>>>>>> develop
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],

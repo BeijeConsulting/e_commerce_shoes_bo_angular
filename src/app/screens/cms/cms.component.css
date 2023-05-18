@@ -51,7 +51,16 @@ li {
   gap: 10px;
 }
 
+a {
+  color: #002d5c;
+  text-decoration: none;
+}
+
 a:hover {
+  color: #0371bc;
+}
+
+.active {
   color: #0371bc;
 }
 
