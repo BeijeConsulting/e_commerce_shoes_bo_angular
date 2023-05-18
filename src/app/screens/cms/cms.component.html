@@ -73,13 +73,13 @@
     <nav>
       <ul>
         <li>
-          <a>
+          <a routerLink="/dashboard">
             <mat-icon>home</mat-icon>
             <div>{{ "dashboard" | translate }}</div>
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink="/dashboard/products" routerLinkActive="active">
             <mat-icon>shopping_basket</mat-icon>
             <div>{{ "manageProducts" | translate }}</div>
           </a>
@@ -91,13 +91,13 @@
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink="/dashboard/coupons" routerLinkActive="active">
             <mat-icon>label</mat-icon>
             <div>{{ "manageCoupons" }}</div>
           </a>
         </li>
         <li>
-          <a>
+          <a routerLink="/dashboard/orders" routerLinkActive="active">
             <mat-icon>shopping_cart</mat-icon>
             <div>{{ "manageOrders" }}</div>
           </a>
@@ -110,10 +110,11 @@
         </li>
       </ul>
       <app-button
-        class="logout-button"
-        label="logout"
+        #menuTrigger
+        label="DISCONNETTITI"
         color="primary"
         icon="exit_to_app"
+        (onClickEvent)="openDialog()"
       ></app-button>
     </nav>
   </mat-drawer>

@@ -1,1 +1,8 @@
-<p>add-user works!</p>
+<div class="main-container">
+  <h1>Add User</h1>
+  <app-dynamic-form
+    submitButtonLabel="Add User"
+    [inputs]="addUserForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

@@ -1,1 +1,8 @@
-<p>add-coupon works!</p>
+<div class="main-container">
+  <h1>Add Coupon</h1>
+  <app-dynamic-form
+    submitButtonLabel="Add Coupon"
+    [inputs]="addCouponForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

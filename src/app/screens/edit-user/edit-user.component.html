@@ -1,1 +1,8 @@
-<p>edit-user works!</p>
+<div class="main-container">
+  <h1>Edit User</h1>
+  <app-dynamic-form
+    submitButtonLabel="Edit User"
+    [inputs]="editUserForm$ | async"
+    (submitEvent)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>
