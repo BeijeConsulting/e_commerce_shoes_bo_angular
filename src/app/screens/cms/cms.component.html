@@ -21,7 +21,7 @@
           </a>
         </li>
         <li>
-          <a routerLink='/dashboard/products' routerLinkActive='active'>
+          <a routerLink="/dashboard/products" routerLinkActive="active">
             <mat-icon>shopping_basket</mat-icon>
             <div>{{ "manageProducts" }}</div>
           </a>
@@ -33,13 +33,13 @@
           </a>
         </li>
         <li>
-          <a routerLink='/dashboard/coupons' routerLinkActive='active'>
+          <a routerLink="/dashboard/coupons" routerLinkActive="active">
             <mat-icon>label</mat-icon>
             <div>{{ "manageCoupons" }}</div>
           </a>
         </li>
         <li>
-          <a routerLink='/dashboard/orders' routerLinkActive='active'>
+          <a routerLink="/dashboard/orders" routerLinkActive="active">
             <mat-icon>shopping_cart</mat-icon>
             <div>{{ "manageOrders" }}</div>
           </a>
@@ -51,16 +51,13 @@
           </a>
         </li>
       </ul>
-<<<<<<< HEAD
       <app-button
+        #menuTrigger
         label="DISCONNETTITI"
         color="primary"
         icon="exit_to_app"
+        (onClickEvent)="openDialog()"
       ></app-button>
-=======
-      <app-button #menuTrigger label="DISCONNETTITI" color="primary" icon="exit_to_app"
-        (onClickEvent)='openDialog()'></app-button>
->>>>>>> develop
     </nav>
   </mat-drawer>
   <mat-drawer-content class="content">
