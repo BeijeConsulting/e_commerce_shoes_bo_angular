@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     <div class="card">
-      <h2>Fatturato per mese</h2>
+      <h2>{{ "monthlyIncome" | translate }}</h2>
       <app-line-chart
         chartId="fatturato-mese"
         [data]="incomePerMonth"
@@ -11,7 +11,7 @@
 
   <div class="col col-4">
     <div class="card">
-      <h2>Fatturato per nazione</h2>
+      <h2>{{ "countrySells" | translate }}</h2>
       <app-pie-chart
         chartId="fatturato-nazione"
         [data]="incomePerNation"
@@ -21,7 +21,7 @@
 
   <div class="col col-8">
     <div class="card">
-      <h2>Ordini per mese</h2>
+      <h2>{{ "monthlyOrders" | translate }}</h2>
       <app-bar-chart
         chartId="ordini-mese"
         [data]="ordersPerMonth"
@@ -31,7 +31,7 @@
 
   <div class="col">
     <div class="card">
-      <h2>Ultimi ordini</h2>
+      <h2>{{ "latestOrders" | translate }}</h2>
     </div>
   </div>
 </div>

@@ -69,6 +69,7 @@ import { SizeTableComponent } from './components/size-table/size-table.component
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TabComponent } from './components/tab/tab.component';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -116,6 +117,7 @@ function HttpLoaderFactory(http: HttpClient) {
     PieChartComponent,
     SizeTableComponent,
     TabComponent,
+    LanguageSwitcherComponent,
   ],
   imports: [
     BrowserModule,

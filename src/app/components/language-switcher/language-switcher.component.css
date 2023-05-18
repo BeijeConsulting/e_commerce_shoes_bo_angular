@@ -1,0 +1,17 @@
+.language-menu {
+  position: relative;
+  height: 30px;
+  cursor: pointer;
+}
+
+.language-menu .dropdown {
+  z-index: 100;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+}
+
+.language-menu img {
+  border-radius: 3px;
+}
