@@ -1,1 +1,33 @@
+.product > div {
+  display: flex;
+}
 
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.product-details,
+.product-images {
+  flex-basis: 50%;
+}
+
+.product-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-images .col {
+  width: calc(100% / 3);
+  padding: 0 20px 20px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}

@@ -6,9 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card-product.component.css'],
 })
 export class CardProductComponent {
-  @Input() description: string = '';
-  @Input() id: string | number = '';
-  @Input() initialPrice: string | number = '';
-  @Input() listPrce: string | number = '';
-  @Input() color: string = '';
+  @Input() product: any = '';
 }

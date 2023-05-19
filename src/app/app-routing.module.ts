@@ -28,6 +28,8 @@ import { CmsComponent } from './screens/cms/cms.component';
 import {
   getOrderByIdResolverFn,
   getOrdersResolverFn,
+  getProductsResolverFn,
+  getSingleProductResolverFn,
   getUsersResolverFn,
 } from './resolvers/resolvers';
 
@@ -52,10 +54,12 @@ const routes: Routes = [
       {
         path: 'products',
         component: ProductsComponent,
+        resolve: { productsResolver: getProductsResolverFn },
       },
       {
         path: 'products/detail-product/:id',
         component: DetailProductComponent,
+        resolve: { productsResolver: getSingleProductResolverFn },
       },
       {
         path: 'products/add-product',
