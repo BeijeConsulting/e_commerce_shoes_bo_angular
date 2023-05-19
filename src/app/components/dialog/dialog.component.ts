@@ -22,6 +22,7 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   onDelete() {
     alert('delete successfully'); // only for test
+
     this.closeDialog();
   }
 
