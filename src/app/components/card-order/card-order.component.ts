@@ -21,6 +21,6 @@ export class CardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('detailOrder in card details', this.data);
+    // console.log('detailOrder in card details', this.data);
   }
 }
