@@ -66,7 +66,11 @@
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item #menuTrigger (click)="openDialog(element.name)">
+          <button
+            mat-menu-item
+            #menuTrigger
+            (click)="openDialog(element.name, element.id)"
+          >
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>

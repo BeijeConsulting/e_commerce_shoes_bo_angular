@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 // Angular material
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-dialog',
@@ -11,7 +12,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class DialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private matDialogRef: MatDialogRef<DialogComponent>
+    private matDialogRef: MatDialogRef<DialogComponent>,
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {}
@@ -21,7 +23,9 @@ export class DialogComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    alert('delete successfully'); // only for test
+    this.productService.deleteSingleProduct(this.data.id).subscribe(() => {
+      this.productService.refresh.next(!this.productService.refresh.value);
+    });
     this.closeDialog();
   }
 

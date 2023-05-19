@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
+  refresh: BehaviorSubject<boolean> = new BehaviorSubject(true);
   baseURL: string;
 
   constructor(private authService: AuthService, private http: HttpClient) {
