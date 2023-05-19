@@ -51,7 +51,6 @@ export class ProductTableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['products']) {
-      console.log('Nuovo valore di myProperty:', this.products);
       this.dataSource = new MatTableDataSource<any>(this.products);
     }
   }

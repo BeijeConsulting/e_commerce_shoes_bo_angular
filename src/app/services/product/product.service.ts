@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  refresh: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  products: Subject<any> = new Subject();
   baseURL: string;
 
   constructor(private authService: AuthService, private http: HttpClient) {
@@ -15,10 +15,17 @@ export class ProductService {
   }
 
   getProducts(page: number, perPage: number, lang: string): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseURL}/products/page=${page}/perPage=${perPage}/${lang}`,
-      this.authService.getHeaderOptions(true)
-    );
+    const result = new Subject();
+    this.http
+      .get<any>(
+        `${this.baseURL}/products/page=${page}/perPage=${perPage}/${lang}`,
+        this.authService.getHeaderOptions(true)
+      )
+      .subscribe((res) => {
+        this.products.next(res);
+        result.next(res);
+      });
+    return result.asObservable();
   }
 
   getSingleProduct(id: number): Observable<any> {

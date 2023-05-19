@@ -23,9 +23,10 @@ export class DialogComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    this.productService.deleteSingleProduct(this.data.id).subscribe(() => {
-      this.productService.refresh.next(!this.productService.refresh.value);
-    });
+    this.productService
+      .deleteSingleProduct(this.data.id)
+      .subscribe(() => this.productService.getProducts(1, 5, 'it'));
+
     this.closeDialog();
   }
 

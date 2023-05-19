@@ -27,13 +27,10 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productService.refresh.subscribe(() => {
-      this.productService
-        .getProducts(this.page, this.perPage, 'it')
-        .subscribe((res) => {
-          console.log('aggiornati');
-          this.products = res.products;
-        });
+    this.productService.products.subscribe((res) => {
+      console.log('utente eliminato', res);
+      this.products = [...res.products];
+      this.productsLenght = res.results;
     });
   }
 
@@ -45,10 +42,6 @@ export class ProductsComponent implements OnInit {
     this.page = e.pageIndex + 1;
     this.perPage = e.pageSize;
 
-    this.productService
-      .getProducts(this.page, this.perPage, 'it')
-      .subscribe((res) => {
-        this.products = res.products;
-      });
+    this.productService.getProducts(this.page, this.perPage, 'it');
   }
 }
