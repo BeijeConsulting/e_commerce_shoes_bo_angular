@@ -1,31 +1,67 @@
-<mat-card class="example-card">
+<mat-card>
 
   <mat-card-content>
-    <p>Id: {{id}}</p>
+    <p>Id:
+      <span>
+        {{data.id}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p> Transaction:{{transaction}}</p>
+    <p> Transaction:
+      <span>
+        {{data.transaction}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p> Transaction Date :{{transactionDate}}</p>
+    <p> Transaction Date:
+      <span>
+        {{data.transaction_date}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p> Payment Status :{{paymentStatus}}</p>
+    <p> Payment Status:
+      <span>
+        {{data.payment_status}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p> Status :{{status}}</p>
+    <p> Status:
+      <span>
+        {{data.status}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p> Total price :{{status}}</p>
+    <p> Total price:
+      <span>
+        {{data.total_price}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p>Created at :{{createdAt}}</p>
+    <p>Created at:
+      <span>
+        {{data.created_at}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p>Id user :{{userId}}</p>
+    <p>Id user:
+      <span>
+        {{data.user_id}}
+      </span>
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p>Addresses :{{addresses}}</p>
+    <p>Addresses:
+      <span>
+        {{data.address}}
+      </span>
+    </p>
   </mat-card-content>
   <!-- <mat-card-actions>
     <button mat-button>BACK</button>

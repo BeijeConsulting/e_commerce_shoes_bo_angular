@@ -25,11 +25,12 @@ import { PersonalAddressesComponent } from './screens/personal-addresses/persona
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 import { CmsComponent } from './screens/cms/cms.component';
-import { getUsersResolverFn } from './resolvers/resolvers';
-// Products
 import {
+  getOrderByIdResolverFn,
+  getOrdersResolverFn,
   getProductsResolverFn,
   getSingleProductResolverFn,
+  getUsersResolverFn,
 } from './resolvers/resolvers';
 
 const routes: Routes = [
@@ -104,6 +105,7 @@ const routes: Routes = [
       {
         path: 'orders',
         component: OrdersComponent,
+        resolve: { ordersResolver: getOrdersResolverFn },
       },
       {
         path: 'orders/add-order',
@@ -116,6 +118,7 @@ const routes: Routes = [
       {
         path: 'orders/detail-order/:id',
         component: DetailOrderComponent,
+        resolve: { ordersResolver: getOrderByIdResolverFn },
       },
       {
         path: 'personal-area',
