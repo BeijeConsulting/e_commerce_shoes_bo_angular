@@ -68,6 +68,7 @@ const routes: Routes = [
       {
         path: 'products/edit-product/:id',
         component: EditProductComponent,
+        resolve: { productsResolver: getSingleProductResolverFn },
       },
       {
         path: 'users',

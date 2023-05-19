@@ -75,8 +75,13 @@ export class ProductTableComponent implements OnInit, OnChanges {
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
-  detailProduct(id: number | string) {
+  goToProductDetail(id: number | string) {
     // console.log('detail', id);
     this.router.navigate([`/dashboard/products/detail-product/${id}`]);
+  }
+
+  goToProductDelete(id: number | string) {
+    // console.log('detail', id);
+    this.router.navigate([`/dashboard/products/edit-product/${id}`]);
   }
 }
