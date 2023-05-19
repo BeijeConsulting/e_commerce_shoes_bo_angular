@@ -26,6 +26,11 @@ import { AddPersonalAddressComponent } from './screens/add-personal-address/add-
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 import { CmsComponent } from './screens/cms/cms.component';
 import { getUsersResolverFn } from './resolvers/resolvers';
+// Products
+import {
+  getProductsResolverFn,
+  getSingleProductResolverFn,
+} from './resolvers/resolvers';
 
 const routes: Routes = [
   {
@@ -48,10 +53,12 @@ const routes: Routes = [
       {
         path: 'products',
         component: ProductsComponent,
+        resolve: { productsResolver: getProductsResolverFn },
       },
       {
         path: 'products/detail-product/:id',
         component: DetailProductComponent,
+        resolve: { productsResolver: getSingleProductResolverFn },
       },
       {
         path: 'products/add-product',

@@ -1,1 +1,14 @@
-<app-size-table></app-size-table>
+<div class="product">
+  <h1>{{ product.brand }} {{ product.name }}</h1>
+  <div>
+    <div class="product-details">
+      <app-card-product [product]="product"></app-card-product>
+      <app-size-table [data]="sizes"></app-size-table>
+    </div>
+    <div class="product-images">
+      <div class="col" *ngFor="let image of images">
+        <img [src]="image.imagePath" />
+      </div>
+    </div>
+  </div>
+</div>
