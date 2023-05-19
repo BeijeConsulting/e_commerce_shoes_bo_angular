@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private route: ActivatedRoute) {
+    console.log(this.route.snapshot.data['usersResolver']);
+  }
 
   addUser() {
     this.router.navigate(['dashboard/users/add-user']);
