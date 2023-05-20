@@ -46,4 +46,12 @@ export class UserService {
       this.authService.getHeaderOptions(true)
     );
   }
+
+  editUser(id: number, newData: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.baseURL}/admin/user/${id}`,
+      newData,
+      this.authService.getHeaderOptions(true)
+    );
+  }
 }

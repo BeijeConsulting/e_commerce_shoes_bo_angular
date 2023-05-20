@@ -106,6 +106,25 @@ export class UserTableComponent implements OnInit, OnDestroy {
     ]);
   }
 
+  editUser(user: UserDataApi): void {
+    console.log(user);
+
+    const userAdapt: UserData = {
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      id: String(user.id),
+      role: user.authories.length === 1 ? user.authories[0] : user.authories[1],
+      phoneNumber: user.telephone,
+      birthDate: user.birth_date,
+    };
+
+    this.router.navigate([
+      `/dashboard/users/edit-user/${user.id}`,
+      { user: JSON.stringify(userAdapt) },
+    ]);
+  }
+
   pageEvent(e: any): void {
     // console.log('page event: ', e);
 

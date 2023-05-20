@@ -27,6 +27,7 @@ export class FormService {
         required: true,
         value: userData.id,
         order: 1,
+        readonly: true,
       }),
 
       new TextInput({
@@ -77,9 +78,10 @@ export class FormService {
         label: 'role',
         value: userData.role,
         options: [
-          { key: 'admin', value: 'Admin' },
-          { key: 'dataEntry', value: 'Data Entry' },
-          { key: 'marketing', value: 'Marketing' },
+          { key: 'ADMIN', value: 'Admin' },
+          { key: 'USER', value: 'User' },
+          { key: 'DATA_ENTRY', value: 'Data Entry' },
+          { key: 'MARKETING', value: 'Marketing' },
         ],
         order: 7,
       }),

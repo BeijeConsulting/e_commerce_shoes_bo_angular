@@ -16,6 +16,7 @@ export interface UserDataApi {
   email: string;
   first_name: string;
   last_name: string;
+  birth_date: string;
   authories: string[];
   addresses: UserAddressApi[];
 }
