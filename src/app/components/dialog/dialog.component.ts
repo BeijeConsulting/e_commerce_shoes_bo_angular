@@ -2,6 +2,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 // Angular material
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { finalize, forkJoin, switchMap } from 'rxjs';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-dialog',
@@ -11,7 +13,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class DialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private matDialogRef: MatDialogRef<DialogComponent>
+    private matDialogRef: MatDialogRef<DialogComponent>,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {}
@@ -21,9 +24,45 @@ export class DialogComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    alert('delete successfully'); // only for test
+    // alert('delete successfully'); // only for test
 
-    this.closeDialog();
+    if (this.data.hasOwnProperty('userId')) {
+      console.log(this.data);
+      console.log('users table state:', this.userService.userTableDataState);
+      console.log(
+        'employees table state:',
+        this.userService.employeesTableDataState
+      );
+
+      const userTableState = this.userService.userTableDataState;
+      const employeesTableState = this.userService.employeesTableDataState;
+
+      this.userService
+        .deleteUser(this.data.userId)
+        .pipe(
+          switchMap(() => {
+            return forkJoin({
+              users: this.userService.getUsers(
+                userTableState.page,
+                userTableState.size,
+                false
+              ),
+              employees: this.userService.getUsers(
+                employeesTableState.page,
+                employeesTableState.size,
+                true
+              ),
+            });
+          }),
+          finalize(() => {
+            this.closeDialog();
+          })
+        )
+        .subscribe({
+          next: () => console.log('User Deleted'),
+          error: (err) => console.log(err),
+        });
+    }
   }
 
   ngOnDestroy(): void {

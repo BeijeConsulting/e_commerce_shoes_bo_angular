@@ -17,6 +17,9 @@ export class UserService {
   usersResponse$ = new BehaviorSubject<UserDataResponseApi | null>(null);
   employeeResponse$ = new BehaviorSubject<UserDataResponseApi | null>(null);
 
+  userTableDataState = { page: 1, size: 10 };
+  employeesTableDataState = { page: 1, size: 10 };
+
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   getUsers(
@@ -51,6 +54,13 @@ export class UserService {
     return this.http.put<any>(
       `${this.baseURL}/admin/user/${id}`,
       newData,
+      this.authService.getHeaderOptions(true)
+    );
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete<any>(
+      `${this.baseURL}/admin/user/${id}`,
       this.authService.getHeaderOptions(true)
     );
   }

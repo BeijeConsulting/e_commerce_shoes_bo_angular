@@ -79,11 +79,12 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
 
   // trigger dialog
-  openDialog(value?: string) {
+  openDialog(id?: string, item?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteProduct: `Are you sure you want delete ${value}?`,
+        msg: `Are you sure you want delete this ${item}?`,
+        userId: id,
         // deleteUser: 'Are you sure you want delete this user?',
         // deleteOrder: 'Are you sure you want delete this order?',
         // deleteCoupon: 'Are you sure you want delete this coupon?',
@@ -128,10 +129,24 @@ export class UserTableComponent implements OnInit, OnDestroy {
   pageEvent(e: any): void {
     // console.log('page event: ', e);
 
-    if (!this.employees)
-      this.userService.getUsers(e.pageIndex + 1, e.pageSize).subscribe();
-    if (this.employees)
-      this.userService.getUsers(e.pageIndex + 1, e.pageSize, true).subscribe();
+    if (!this.employees) {
+      this.userService.getUsers(e.pageIndex + 1, e.pageSize).subscribe({
+        next: () =>
+          (this.userService.userTableDataState = {
+            page: e.pageIndex + 1,
+            size: e.pageSize,
+          }),
+      });
+    }
+    if (this.employees) {
+      this.userService.getUsers(e.pageIndex + 1, e.pageSize, true).subscribe({
+        next: () =>
+          (this.userService.employeesTableDataState = {
+            page: e.pageIndex + 1,
+            size: e.pageSize,
+          }),
+      });
+    }
   }
 
   ngOnDestroy(): void {
