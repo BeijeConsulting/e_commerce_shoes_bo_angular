@@ -6,6 +6,7 @@ import { forkJoin } from 'rxjs';
 import { UserService } from '../services/user/user.service';
 // Orders Services
 import { OrderService } from '../services/order/order.service';
+import { CouponService } from '../services/coupon/coupon.service';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -47,4 +48,10 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const productService = inject(ProductService);
   return productService.getSingleProduct(route.params['id']);
+};
+
+export const getCouponsResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const couponService = inject(CouponService);
+  return couponService.getCoupons(1, 10);
 };

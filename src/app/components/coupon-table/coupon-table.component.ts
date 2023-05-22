@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 // Angular Material
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,13 +9,21 @@ import { MatMenuTrigger } from '@angular/material/menu';
 
 // Router
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CouponService } from 'src/app/services/coupon/coupon.service';
+import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
 
 @Component({
   selector: 'app-table',
   templateUrl: './coupon-table.component.html',
   styleUrls: ['./coupon-table.component.css'],
 })
-export class TableComponent {
+export class TableComponent implements OnInit, OnDestroy {
+  totalSize: number = 0;
+  couponsList: CouponDataApi[] = [];
+
+  subscriptions = new Subscription();
+
   displayedColumns: string[] = [
     'id',
     'code',
@@ -27,15 +35,31 @@ export class TableComponent {
     'minOrder',
     'actions',
   ];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  // dataSource = new MatTableDataSource<CouponDataApi>();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
 
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private couponService: CouponService
+  ) {}
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  ngOnInit(): void {
+    // this.dataSource.paginator = this.paginator;
+
+    this.subscriptions.add(
+      this.couponService.couponResponse$.subscribe({
+        next: (response) => {
+          console.log('Subscribed: ', response);
+          if (response) {
+            this.totalSize = response.total_element;
+            this.couponsList = response.coupons;
+          }
+        },
+      })
+    );
   }
 
   // trigger dialog
@@ -60,6 +84,21 @@ export class TableComponent {
   detailCoupon(id: number | string) {
     // console.log('detail', id);
     this.router.navigate([`/dashboard/coupons/detail-coupon/${id}`]);
+  }
+
+  pageEvent(e: any): void {
+    this.couponService.getCoupons(e.pageIndex + 1, e.pageSize).subscribe({
+      next: () => {
+        this.couponService.couponTableDataState = {
+          page: e.pageIndex + 1,
+          size: e.pageSize,
+        };
+      },
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
 
