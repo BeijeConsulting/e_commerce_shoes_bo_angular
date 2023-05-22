@@ -35,6 +35,14 @@ export class ProductService {
     );
   }
 
+  addProduct(product: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseURL}/products/add`,
+      product,
+      this.authService.getHeaderOptions(true)
+    );
+  }
+
   deleteSingleProduct(id: number): Observable<any> {
     return this.http.delete<any>(
       `${this.baseURL}/products/delete/${id}`,

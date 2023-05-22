@@ -38,7 +38,7 @@ export class InterceptorProvider implements HttpInterceptor {
 
       return next.handle(request).pipe(
         catchError((err) => {
-          if (err.error.text === 'deleted') {
+          if (err.error && err.error.text && err.error.text === 'deleted') {
             // console.log('trovato deleted');
             return this.orderService.getOrdersPerPage(1, 5);
           }

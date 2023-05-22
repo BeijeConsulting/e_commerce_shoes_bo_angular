@@ -31,6 +31,8 @@ export class DynamicFormInputComponent {
   previews: string[] = [];
   productImages: Object[] = [];
 
+  productSizes: any = [];
+
   productSize: any = {
     is_listed: true,
     quantity: null,
@@ -38,27 +40,51 @@ export class DynamicFormInputComponent {
     size: null,
   };
 
+  sizeError: string = '';
+
   hide: boolean = true;
 
   get isValid() {
     return this.form.controls[this.input.key].valid;
   }
 
-  addSize(e: any, inputKey: string) {
-    this.productSize.size = e.value;
+  addSizes(inputKey: string): void | string {
+    if (
+      !this.productSize.quantity ||
+      !this.productSize.selling_price ||
+      !this.productSize.size
+    ) {
+      return (this.sizeError = 'Riempieri tutti i campi');
+    }
+
+    const index = this.productSizes.findIndex(
+      (item: any) => item.size === this.productSize.size
+    );
+
+    if (index > -1) {
+      return (this.sizeError = 'Taglia già selezionata');
+    }
+
+    this.sizeError = '';
+
+    this.productSizes.push(this.productSize);
+
+    this.form.get(inputKey)?.setValue(this.productSizes);
+
+    this.productSize = {
+      is_listed: true,
+      quantity: null,
+      selling_price: null,
+      size: null,
+    };
+
+    // console.log(this.form);
   }
 
-  addQuantity(e: any, inputKey: string) {
-    this.productSize.quantity = e.target.value;
-  }
-
-  addSellingPrice(e: any, inputKey: string) {
-    this.productSize.selling_price = e.target.value;
-  }
-
-  saveSize(inputKey: string) {
-    this.form.get(inputKey)?.setValue(this.productSize);
-    console.log(this.form);
+  removeFromSizes(index: number) {
+    console.log(this.productSizes);
+    this.productSizes.splice(index, 1);
+    console.log(this.productSizes);
   }
 
   toggleVisibility(): void {
@@ -74,12 +100,9 @@ export class DynamicFormInputComponent {
 
     if (!file) return;
 
-    console.log('filename:', file.name);
-
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      console.log(reader.result);
       if (typeof reader.result === 'string') {
         this.base64Files.push(reader.result);
         this.selectedFileNames.push(file.name);

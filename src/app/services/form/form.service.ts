@@ -13,6 +13,7 @@ import { PersonalAddressData } from 'src/app/interfaces/PersonalAddressData';
 import { PersonalUserData } from 'src/app/interfaces/PersonalUserData';
 import { ProductData } from 'src/app/interfaces/ProductData';
 import { UserData } from 'src/app/interfaces/UserData';
+import { AddProductSizeInput } from 'src/app/classes/forms/AddProductSizeInput';
 
 @Injectable({
   providedIn: 'root',
@@ -161,15 +162,17 @@ export class FormService {
     return of(questions.sort((a, b) => a.order - b.order));
   }
 
-  addProductForm(
-    inputs?: InputBase<string>[]
-  ): Observable<InputBase<string>[]> {
+  addProductForm(sizes: any): Observable<InputBase<string>[]> {
+    const formattedSizes = sizes.map((item: string) => {
+      return { key: item, value: item };
+    });
+
     const questions: InputBase<string>[] = [
       new TextInput({
-        key: 'productName',
+        key: 'name',
         label: 'Product Name',
         required: true,
-        value: '',
+        value: 'Test',
         order: 1,
       }),
 
@@ -177,7 +180,7 @@ export class FormService {
         key: 'brand',
         label: 'Brand',
         required: true,
-        value: '',
+        value: 'Nike',
         order: 2,
       }),
 
@@ -185,7 +188,7 @@ export class FormService {
         key: 'color',
         label: 'Color',
         required: true,
-        value: '',
+        value: 'Blu',
         order: 3,
       }),
 
@@ -193,7 +196,7 @@ export class FormService {
         key: 'startingPrice',
         label: 'Starting Price',
         required: true,
-        value: '',
+        value: '50',
         order: 4,
       }),
 
@@ -201,7 +204,7 @@ export class FormService {
         key: 'listedPrice',
         label: 'Listed Price',
         required: true,
-        value: '',
+        value: '80',
         order: 5,
       }),
 
@@ -209,23 +212,23 @@ export class FormService {
         key: 'type',
         label: 'Type',
         required: true,
-        value: '',
+        value: 'running',
         order: 6,
       }),
 
       new MultiLine({
-        key: 'italianDescription',
+        key: 'descriptionIt',
         label: 'Italian Description',
         required: true,
-        value: '',
+        value: 'rvfewrvfewrvw',
         order: 7,
       }),
 
       new MultiLine({
-        key: 'englishDescription',
+        key: 'descriptionEng',
         label: 'English Description',
         required: true,
-        value: '',
+        value: 'rehthretbrhe',
         order: 8,
       }),
 
@@ -233,49 +236,29 @@ export class FormService {
         key: 'category',
         label: 'Category',
         required: true,
-        value: '',
+        value: 'w',
         order: 9,
       }),
 
-      new TextInput({
-        key: 'size',
-        label: 'Size',
+      new AddProductSizeInput({
+        key: 'productDetails',
         required: true,
         value: '',
         order: 10,
-      }),
-
-      new TextInput({
-        key: 'quantity',
-        label: 'Quantity',
-        required: true,
-        value: '',
-        order: 11,
-      }),
-
-      new TextInput({
-        key: 'sellingPrice',
-        label: 'Selling Price',
-        required: true,
-        value: '',
-        order: 12,
+        options: formattedSizes,
       }),
 
       new ImagePicker(
         {
-          key: 'productImagePicker',
+          key: 'productImages',
           label: 'Product Images',
           required: true,
           value: '',
-          order: 12,
+          order: 11,
         },
         { minNumber: 3 }
       ),
     ];
-
-    if (inputs && inputs.length > 0) {
-      inputs.forEach((input) => questions.push(input));
-    }
 
     return of(questions.sort((a, b) => a.order - b.order));
   }

@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { FormsModule } from '@angular/forms';
 
 // Interceptors
 import { interceptorProvider } from './interceptor';
@@ -139,6 +140,7 @@ function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     ReactiveFormsModule,
     MatInputModule,
+    FormsModule,
     MatFormFieldModule,
     MatButtonModule,
     MatProgressSpinnerModule,

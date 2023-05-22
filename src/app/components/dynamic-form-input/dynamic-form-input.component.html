@@ -149,52 +149,84 @@
       <div class="product-size-inputs">
         <!-- size -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>{{ input.label }}</mat-label>
+          <mat-label>{{ "size" | translate }}*</mat-label>
           <mat-select
             [id]="input.key + 1"
-            [formControlName]="input.key"
-            (selectionChange)="addSize($event, input.key)"
+            [(ngModel)]="productSize.size"
+            [ngModelOptions]="{ standalone: true }"
           >
-            <!-- <mat-option
-            *ngFor="let opt of input.options"
-            [value]="opt.key"
-            selected="true"
+            <mat-option
+              *ngFor="let opt of input.options"
+              [value]="opt.key"
+              selected="true"
             >
-            {{ opt.value }}
-          </mat-option> -->
-            <mat-option value="36" selected="false"> 36 </mat-option>
-            <mat-option value="37" selected="false"> 37 </mat-option>
+              {{ opt.value }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <!-- quantity -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label [attr.for]="input.key + 2">{{ input.label }}</mat-label>
+          <mat-label [attr.for]="input.key + 2"
+            >{{ "quantity" | translate }}*</mat-label
+          >
           <input
-            (change)="addQuantity($event, input.key)"
             matInput
-            [formControlName]="input.key"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="productSize.quantity"
             [id]="input.key + 2"
             type="number"
           />
         </mat-form-field>
         <!-- price -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label [attr.for]="input.key + 3">{{ input.label }}</mat-label>
+          <mat-label [attr.for]="input.key + 3"
+            >{{ "sellingPrice" | translate }}*</mat-label
+          >
           <input
-            (change)="addSellingPrice($event, input.key)"
             matInput
-            [formControlName]="input.key"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="productSize.selling_price"
             [id]="input.key + 3"
             type="number"
           />
         </mat-form-field>
-        <button type="button" (click)="saveSize(input.key)">salva</button>
       </div>
 
-      <ul>
-        <li>Size: 37W | Quantity: 5 | Price: 50 €</li>
-        <li>Size: 38W | Quantity: 5 | Price: 50 €</li>
-        <li>Size: 39W | Quantity: 5 | Price: 50 €</li>
+      <p class="size-error" *ngIf="sizeError">{{ sizeError }}</p>
+
+      <button
+        type="button"
+        class="full-width"
+        mat-raised-button
+        color="primary"
+        (click)="addSizes(input.key)"
+      >
+        {{ "addSize" | translate }}
+      </button>
+
+      <input
+        hidden
+        [value]="productSizes"
+        type="text"
+        [formControlName]="input.key"
+      />
+
+      <ul *ngIf="productSizes && productSizes.length > 0" class="size-list">
+        <li
+          *ngFor="let size of productSizes; let i = index"
+          class="size-list-item"
+        >
+          <div>
+            {{ "size" | translate }}: {{ size.size }} |
+            {{ "quantity" | translate }}: {{ size.quantity }} |
+            {{ "sellingPrice" | translate }}: {{ size.selling_price }} €
+          </div>
+          <div (click)="removeFromSizes(i)" class="cancel-icon">
+            <mat-icon [ngStyle]="{ color: 'red', cursor: 'pointer' }"
+              >cancel</mat-icon
+            >
+          </div>
+        </li>
       </ul>
     </div>
 

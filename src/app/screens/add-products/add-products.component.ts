@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { FormService } from 'src/app/services/form/form.service';
-import { AddProductSizeInput } from 'src/app/classes/forms/AddProductSizeInput';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-add-products',
@@ -12,20 +13,35 @@ import { AddProductSizeInput } from 'src/app/classes/forms/AddProductSizeInput';
 export class AddProductsComponent {
   addProductForm$: Observable<InputBase<string>[]>;
 
-  constructor(private formService: FormService) {
-    this.addProductForm$ = this.formService.addProductForm([
-      new AddProductSizeInput({
-        key: 'addSize',
-        label: 'prodotto1',
-        required: true,
-        value: '',
-        order: 25,
-      }),
-    ]);
+  constructor(
+    private formService: FormService,
+    private route: ActivatedRoute,
+    private productService: ProductService
+  ) {
+    const sizes = this.route.snapshot.data['productResolver'];
+    console.log(sizes);
+    this.addProductForm$ = this.formService.addProductForm(sizes);
   }
 
   onSubmit(data: any) {
-    console.log('AddProductScreen Submit: ', data);
+    const newProduct: any = {
+      product: {
+        isListed: 1,
+      },
+      productDetails: [...data.productDetails],
+      productImages: [...data.productImages],
+    };
+
+    for (let key in data) {
+      console.log(key);
+      if (key !== 'productDetails' && key !== 'productImages') {
+        newProduct.product[key] = data[key];
+      }
+    }
+
+    this.productService
+      .addProduct(newProduct)
+      .subscribe((res) => console.log(res));
   }
 }
 
