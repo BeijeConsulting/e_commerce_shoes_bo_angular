@@ -81,9 +81,9 @@ export class TableComponent implements OnInit, OnDestroy {
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
-  detailCoupon(id: number | string) {
-    // console.log('detail', id);
-    this.router.navigate([`/dashboard/coupons/detail-coupon/${id}`]);
+  detailCoupon(coupon: CouponDataApi) {
+    console.log('coupon', coupon);
+    this.router.navigate([`/dashboard/coupons/detail-coupon/${coupon.id}`]);
   }
 
   pageEvent(e: any): void {

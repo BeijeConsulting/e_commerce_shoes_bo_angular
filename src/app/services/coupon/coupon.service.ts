@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { CouponDataResponseApi } from 'src/app/interfaces/CouponDataApi';
+import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +27,12 @@ export class CouponService {
           this.couponResponse$.next(response);
         })
       );
+  }
+
+  getCouponById(id: number): Observable<any> {
+    return this.http.get(
+      `${this.baseURL}/coupons/search_coupon/id=${id}`,
+      this.authService.getHeaderOptions(true)
+    );
   }
 }

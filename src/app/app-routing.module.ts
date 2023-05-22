@@ -30,6 +30,7 @@ import {
   getOrderByIdResolverFn,
   getOrdersResolverFn,
   getProductsResolverFn,
+  getSingleCouponResolverFn,
   getSingleProductResolverFn,
   getUsersResolverFn,
 } from './resolvers/resolvers';
@@ -103,6 +104,7 @@ const routes: Routes = [
       {
         path: 'coupons/detail-coupon/:id',
         component: DetailCouponComponent,
+        resolve: { couponsDetailResolver: getSingleCouponResolverFn },
       },
       {
         path: 'orders',
