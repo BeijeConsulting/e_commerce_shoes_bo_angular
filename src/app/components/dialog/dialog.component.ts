@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { finalize, forkJoin, switchMap } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from '../../services/product/product.service';
+import { CouponService } from 'src/app/services/coupon/coupon.service';
 
 @Component({
   selector: 'app-dialog',
@@ -16,7 +17,8 @@ export class DialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialogRef: MatDialogRef<DialogComponent>,
     private userService: UserService,
-    private productService: ProductService
+    private productService: ProductService,
+    private couponService: CouponService
   ) {}
 
   ngOnInit(): void {}
@@ -63,6 +65,27 @@ export class DialogComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => console.log('User Deleted'),
           error: (err) => console.log(err),
+        });
+    }
+
+    if (this.data.hasOwnProperty('couponId')) {
+      const couponTableState = this.couponService.couponTableDataState;
+
+      this.couponService
+        .deleteCoupon(this.data.couponId)
+        .pipe(
+          finalize(() => {
+            this.closeDialog();
+            this.couponService
+              .getCoupons(couponTableState.page, couponTableState.size)
+              .subscribe({
+                next: () => console.log('Table Updated'),
+              });
+          })
+        )
+        .subscribe({
+          next: () => console.log('Coupon deleted'),
+          error: () => {},
         });
     }
 

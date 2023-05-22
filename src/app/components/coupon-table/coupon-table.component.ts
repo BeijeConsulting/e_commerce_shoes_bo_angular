@@ -63,11 +63,12 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   // trigger dialog
-  openDialog(value?: string) {
+  openDialog(id?: string, item?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteProduct: `Are you sure you want delete ${value}?`,
+        msg: `Are you sure you want delete this ${item}?`,
+        couponId: id,
         // deleteUser: 'Are you sure you want delete this user?',
         // deleteOrder: 'Are you sure you want delete this order?',
         // deleteCoupon: 'Are you sure you want delete this coupon?',

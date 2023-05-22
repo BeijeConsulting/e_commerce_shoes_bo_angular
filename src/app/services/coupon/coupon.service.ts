@@ -43,4 +43,11 @@ export class CouponService {
       this.authService.getHeaderOptions(true)
     );
   }
+
+  deleteCoupon(id: number): Observable<any> {
+    return this.http.delete<any>(
+      `${this.authService.baseURL}/coupons/disable_coupon?idcoup=${id}`,
+      this.authService.getHeaderOptions(true)
+    );
+  }
 }

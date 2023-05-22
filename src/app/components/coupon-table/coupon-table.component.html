@@ -70,7 +70,11 @@
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item #menuTrigger (click)="openDialog(element.name)">
+          <button
+            mat-menu-item
+            #menuTrigger
+            (click)="openDialog(element.id, 'coupon')"
+          >
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
