@@ -9,7 +9,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 
 // Router
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { CouponService } from 'src/app/services/coupon/coupon.service';
 import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
 
@@ -21,6 +21,8 @@ import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
 export class TableComponent implements OnInit, OnDestroy {
   totalSize: number = 0;
   couponsList: CouponDataApi[] = [];
+
+  isLoading: boolean = false;
 
   subscriptions = new Subscription();
 
@@ -88,8 +90,10 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   pageEvent(e: any): void {
+    this.isLoading = true;
     this.couponService.getCoupons(e.pageIndex + 1, e.pageSize).subscribe({
       next: () => {
+        this.isLoading = false;
         this.couponService.couponTableDataState = {
           page: e.pageIndex + 1,
           size: e.pageSize,
