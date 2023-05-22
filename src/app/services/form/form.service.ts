@@ -27,6 +27,7 @@ export class FormService {
         required: true,
         value: userData.id,
         order: 1,
+        readonly: true,
       }),
 
       new TextInput({
@@ -77,10 +78,10 @@ export class FormService {
         label: 'role',
         value: userData.role,
         options: [
-          { key: 'customer', value: 'Customer' },
-          { key: 'admin', value: 'Admin' },
-          { key: 'dataEntry', value: 'Data Entry' },
-          { key: 'marketing', value: 'Marketing' },
+          { key: 'ADMIN', value: 'Admin' },
+          { key: 'USER', value: 'User' },
+          { key: 'DATA_ENTRY', value: 'Data Entry' },
+          { key: 'MARKETING', value: 'Marketing' },
         ],
         order: 7,
       }),
@@ -125,6 +126,16 @@ export class FormService {
         regexControl: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
       }),
 
+      new PasswordInput({
+        key: 'password',
+        label: 'Password',
+        required: true,
+        value: '',
+        order: 6,
+        regexControl:
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/,
+      }),
+
       new DateInput({
         key: 'date',
         label: 'date',
@@ -139,7 +150,6 @@ export class FormService {
         label: 'role',
         value: '',
         options: [
-          { key: 'customer', value: 'Customer' },
           { key: 'admin', value: 'Admin' },
           { key: 'dataEntry', value: 'Data Entry' },
           { key: 'marketing', value: 'Marketing' },
