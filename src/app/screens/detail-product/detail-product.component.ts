@@ -17,5 +17,6 @@ export class DetailProductComponent {
     this.product = { ...response.product };
     this.sizes = [...response.productDetails];
     this.images = [...response.productImages];
+    console.log(this.product);
   }
 }

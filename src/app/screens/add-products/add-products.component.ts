@@ -27,9 +27,11 @@ export class AddProductsComponent {
     const newProduct: any = {
       product: {
         isListed: 1,
+        imagePreview:
+          'https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dw6d8538e9/cisalfa/files/S5549719-ABIW/image/S5549719_ABIW.jpg?sw=960&sh=1200',
       },
-      productDetails: [...data.productDetails],
-      productImages: [...data.productImages],
+      productDetails: structuredClone(data.productDetails),
+      productImages: structuredClone(data.productImages),
     };
 
     for (let key in data) {
@@ -39,45 +41,10 @@ export class AddProductsComponent {
       }
     }
 
+    console.log(newProduct);
+
     this.productService
       .addProduct(newProduct)
       .subscribe((res) => console.log(res));
   }
 }
-
-/*
-
-{
-  "product": {
-      "name": "rtrevtrtvrdtv",
-      "brand": "nike",
-      "color": "rosso",
-      "startingPrice": "20",
-      "listedPrice": "25",
-      "type": "w",
-      "descriptionIt": "cdmisidmsidsm",
-      "descriptionEng": "diemfeifmefi",
-      "category": "running",
-      "isListed": 1,
-      "imagePreview": "/nopreview"
-  },
-  "productDetails": [
-      {
-          "is_listed": true,
-          "quantity": "5",
-          "selling_price": "29",
-          "size": "35"
-      },
-      {
-          "is_listed": true,
-          "quantity": "8",
-          "selling_price": "35",
-          "size": "36"
-      }
-  ],
-  "productImages": [
-      
-  ]
-}
-
-*/
