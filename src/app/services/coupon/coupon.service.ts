@@ -50,4 +50,12 @@ export class CouponService {
       this.authService.getHeaderOptions(true)
     );
   }
+
+  editCoupon(newCoupon: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.authService.baseURL}/coupons/modify_coupon`,
+      newCoupon,
+      this.authService.getHeaderOptions(true)
+    );
+  }
 }

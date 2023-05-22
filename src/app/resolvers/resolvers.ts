@@ -63,3 +63,13 @@ export const getSingleCouponResolverFn = (route: ActivatedRouteSnapshot) => {
 
   return couponService.getCouponById(id);
 };
+
+export const getEditCouponDetailsResolverFn = (
+  route: ActivatedRouteSnapshot
+) => {
+  console.log('Resolver Activated');
+  const id = route.params['id'];
+  const couponService = inject(CouponService);
+
+  return couponService.getCouponById(id);
+};

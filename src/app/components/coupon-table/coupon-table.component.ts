@@ -98,6 +98,10 @@ export class TableComponent implements OnInit, OnDestroy {
     });
   }
 
+  editCoupon(coupon: any): void {
+    this.router.navigate([`/dashboard/coupons/edit-coupon/${coupon.id}`]);
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }

@@ -27,6 +27,7 @@ import { EditPersonalAddressComponent } from './screens/edit-personal-address/ed
 import { CmsComponent } from './screens/cms/cms.component';
 import {
   getCouponsResolverFn,
+  getEditCouponDetailsResolverFn,
   getOrderByIdResolverFn,
   getOrdersResolverFn,
   getProductsResolverFn,
@@ -100,6 +101,7 @@ const routes: Routes = [
       {
         path: 'coupons/edit-coupon/:id',
         component: EditCouponComponent,
+        resolve: { couponEditDetailsResolver: getEditCouponDetailsResolverFn },
       },
       {
         path: 'coupons/detail-coupon/:id',

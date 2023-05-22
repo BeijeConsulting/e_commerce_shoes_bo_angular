@@ -497,7 +497,7 @@ export class FormService {
       new TextInput({
         key: 'userId',
         label: 'User Id',
-        required: true,
+        required: false,
         value: dataCoupon.userId ? dataCoupon.userId : '',
         order: 1,
       }),
