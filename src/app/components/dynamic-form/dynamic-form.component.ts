@@ -22,7 +22,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log('form: ', this.form);
+    console.log('form: ', this.form);
     this.submitEvent.emit(this.form.getRawValue());
   }
 }

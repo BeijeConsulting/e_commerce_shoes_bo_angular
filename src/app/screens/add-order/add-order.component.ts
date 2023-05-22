@@ -17,5 +17,20 @@ export class AddOrderComponent {
 
   onSubmit(data: any) {
     console.log('AddOrderScreen Submit: ', data);
+
+    const idProduct = data.searchProducById.trim().split(',');
+
+    const orderObj = {
+      address_id: data.addressId,
+      coupon_id: data.couponId,
+      id: '',
+      payment_status: data.paymentState,
+      products: [129, 133],
+      status: data.state,
+      transaction: data.transaction,
+      user_id: data.userId,
+    };
+
+    console.log('orderObj : ', orderObj);
   }
 }

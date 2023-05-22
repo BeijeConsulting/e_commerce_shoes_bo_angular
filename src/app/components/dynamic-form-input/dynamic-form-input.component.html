@@ -1,148 +1,87 @@
 <div [formGroup]="form">
   <div [ngSwitch]="input.controlType">
-    <mat-form-field
-      *ngSwitchCase="'text'"
-      appearance="outline"
-      class="full-width"
-    >
+    <mat-form-field *ngSwitchCase="'text'" appearance="outline" class="full-width">
       <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
-      <input
-        matInput
-        [formControlName]="input.key"
-        [id]="input.key"
-        [type]="input.type"
-        [readonly]="input.readonly"
-      />
+      <input matInput [formControlName]="input.key" [id]="input.key" [type]="input.type" [readonly]="input.readonly" />
     </mat-form-field>
 
-    <mat-checkbox
-      *ngSwitchCase="'checkbox'"
-      [formControlName]="input.key"
-      [id]="input.key"
-      >{{ input.label }}</mat-checkbox
-    >
-    <mat-form-field
-      *ngSwitchCase="'date'"
-      appearance="outline"
-      class="full-width"
-    >
+
+
+    <mat-checkbox *ngSwitchCase="'checkbox'" [formControlName]="input.key" [id]="input.key">{{ input.label
+      }}</mat-checkbox>
+    <mat-form-field *ngSwitchCase="'date'" appearance="outline" class="full-width">
       <mat-label>{{ input.label }}</mat-label>
-      <input
-        matInput
-        [matDatepicker]="picker"
-        [formControlName]="input.key"
-        [id]="input.key"
-        [type]="input.type"
-        [readonly]="input.readonly"
-      />
+      <input matInput [matDatepicker]="picker" [formControlName]="input.key" [id]="input.key" [type]="input.type"
+        [readonly]="input.readonly" />
       <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="picker"
-      ></mat-datepicker-toggle>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field
-      *ngSwitchCase="'select'"
-      appearance="outline"
-      class="full-width"
-    >
+    <mat-form-field *ngSwitchCase="'select'" appearance="outline" class="full-width">
       <mat-label>{{ input.label }}</mat-label>
       <mat-select [id]="input.key" [formControlName]="input.key">
-        <mat-option
-          *ngFor="let opt of input.options"
-          [value]="opt.key"
-          selected="true"
-        >
+        <mat-option *ngFor="let opt of input.options" [value]="opt.key" selected="true">
           {{ opt.value }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field
-      class="full-width"
-      appearance="outline"
-      *ngSwitchCase="'password'"
-    >
+    <mat-form-field class="full-width" appearance="outline" *ngSwitchCase="'password'">
       <mat-label>Password</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        [formControlName]="input.key"
-        [readonly]="input.readonly"
-      />
-      <button
-        type="button"
-        mat-icon-button
-        matSuffix
-        (click)="toggleVisibility()"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-      >
+      <input matInput [type]="hide ? 'password' : 'text'" [formControlName]="input.key" [readonly]="input.readonly" />
+      <button type="button" mat-icon-button matSuffix (click)="toggleVisibility()" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </mat-form-field>
 
-    <mat-form-field
-      *ngSwitchCase="'multiline'"
-      appearance="outline"
-      class="full-width"
-    >
+    <mat-form-field *ngSwitchCase="'multiline'" appearance="outline" class="full-width">
       <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
-      <textarea
-        matInput
-        [formControlName]="input.key"
-        [id]="input.key"
-        [type]="input.type"
-        [readonly]="input.readonly"
-      ></textarea>
+      <textarea matInput [formControlName]="input.key" [id]="input.key" [type]="input.type"
+        [readonly]="input.readonly"></textarea>
     </mat-form-field>
 
     <div *ngSwitchCase="'imagepicker'">
       <p *ngFor="let fileName of selectedFileNames">{{ fileName }}</p>
-      <div
-        [ngStyle]="{
+      <div [ngStyle]="{
           margin: '20px',
           display: 'flex',
           flexDirection: 'column',
           gap: '10px'
-        }"
-      >
-        <button
-          type="button"
-          mat-raised-button
-          color="primary"
-          (click)="fileInput.click()"
-        >
+        }">
+        <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
           Choose Image
         </button>
-        <button
-          *ngIf="selectedFileNames.length > 0"
-          type="button"
-          mat-raised-button
-          color="warn"
-          (click)="clearImages(input.key)"
-        >
+        <button *ngIf="selectedFileNames.length > 0" type="button" mat-raised-button color="warn"
+          (click)="clearImages(input.key)">
           Clear Images
         </button>
       </div>
 
-      <input
-        hidden
-        (change)="selectFiles($event, input.key)"
-        type="text"
-        [formControlName]="input.key"
-      />
-      <input
-        hidden
-        accept="image/*"
-        (change)="selectFiles($event, input.key)"
-        #fileInput
-        type="file"
-        id="file"
-      />
+      <input hidden (change)="selectFiles($event, input.key)" type="text" [formControlName]="input.key" />
+      <input hidden accept="image/*" (change)="selectFiles($event, input.key)" #fileInput type="file" id="file" />
+
     </div>
+
+
+    <!-- Order Id  -->
+    <div *ngSwitchCase="'orderinput'">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+        <input matInput [formControlName]="input.key" [id]="input.key" [type]="input.type"
+          [readonly]="input.readonly" />
+      </mat-form-field>
+
+      <div>
+        <button type="button" mat-raised-button color="primary">Click</button>
+      </div>
+
+    </div>
+    <!-- --------------------------------- -->
+
+
 
     <!-- <div>
         <img *ngFor="let preview of previews" [src]="preview" class="preview" />
