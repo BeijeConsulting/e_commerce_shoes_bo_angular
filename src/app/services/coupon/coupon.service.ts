@@ -35,4 +35,12 @@ export class CouponService {
       this.authService.getHeaderOptions(true)
     );
   }
+
+  addCoupon(coupon: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.authService.baseURL}/coupons/create_coupon`,
+      coupon,
+      this.authService.getHeaderOptions(true)
+    );
+  }
 }

@@ -419,12 +419,12 @@ export class FormService {
       new TextInput({
         key: 'userId',
         label: 'User Id',
-        required: true,
+        required: false,
         value: '',
         order: 1,
       }),
 
-      new TextInput({
+      new DateInput({
         key: 'expirationDate',
         label: 'Expiration Date',
         required: true,
@@ -451,7 +451,7 @@ export class FormService {
       new MultiLine({
         key: 'italianDescription',
         label: 'Italian Description',
-        required: true,
+        required: false,
         value: '',
         order: 1,
       }),
@@ -459,7 +459,7 @@ export class FormService {
       new MultiLine({
         key: 'englishDescription',
         label: 'English Description',
-        required: true,
+        required: false,
         value: '',
         order: 1,
       }),

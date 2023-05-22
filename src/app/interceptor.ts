@@ -7,7 +7,7 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { switchMap, catchError, throwError, Observable } from 'rxjs';
+import { switchMap, catchError, throwError, Observable, of } from 'rxjs';
 import { StorageService } from './services/storage/storage.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
@@ -36,6 +36,9 @@ export class InterceptorProvider implements HttpInterceptor {
 
       return next.handle(request).pipe(
         catchError((err) => {
+          if (err.text === 'coupon added.') {
+            return of('Success');
+          }
           if (err instanceof HttpErrorResponse && err.status === 401) {
             console.log('401 entrato');
 
