@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { finalize, forkJoin, switchMap } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from '../../services/product/product.service';
+import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
   selector: 'app-dialog',
@@ -15,19 +16,35 @@ export class DialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialogRef: MatDialogRef<DialogComponent>,
-    private userService: UserService,
-    private productService: ProductService
+    private orderService: OrderService,
+    private productService: ProductService,
+    private userService: UserService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('data dialog', this.data);
+  }
 
   closeDialog() {
     this.matDialogRef.close(this.data);
   }
 
   onDelete() {
-    // alert('delete successfully'); // only for test
+    // Orders
+    if (this.data.hasOwnProperty('orderId')) {
+      this.orderService.deleteSingleOrder(this.data.orderId).subscribe({
+        next: (res) => console.log('res', res),
+        error: (err) => {
+          if (err.error.text === 'deleted') {
+            console.log('deleted err.error.text');
+          }
+        },
+      });
+      this.closeDialog();
+      console.log('delete order');
+    }
 
+    // User
     if (this.data.hasOwnProperty('userId')) {
       console.log(this.data);
       console.log('users table state:', this.userService.userTableDataState);
@@ -66,14 +83,13 @@ export class DialogComponent implements OnInit, OnDestroy {
         });
     }
 
-    if (this.data.type && this.data.type === 'product delete') {
+    // Product
+    if (this.data.hasOwnProperty('productId')) {
       this.productService
         .deleteSingleProduct(this.data.id)
         .subscribe(() => this.productService.getProducts(1, 5, 'it'));
       this.closeDialog();
     }
-
-    // this.closeDialog();
   }
 
   ngOnDestroy(): void {
