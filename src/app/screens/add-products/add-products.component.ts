@@ -15,15 +15,8 @@ export class AddProductsComponent {
   constructor(private formService: FormService) {
     this.addProductForm$ = this.formService.addProductForm([
       new AddProductSizeInput({
-        key: 'prodotto1',
+        key: 'addSize',
         label: 'prodotto1',
-        required: true,
-        value: '',
-        order: 25,
-      }),
-      new AddProductSizeInput({
-        key: 'prodotto2',
-        label: 'prodotto2',
         required: true,
         value: '',
         order: 25,

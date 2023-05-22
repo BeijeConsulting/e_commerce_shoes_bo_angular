@@ -46,21 +46,19 @@ export class DynamicFormInputComponent {
 
   addSize(e: any, inputKey: string) {
     this.productSize.size = e.value;
-    console.log(inputKey);
-    this.form.get(inputKey)?.setValue(this.productSize);
   }
 
   addQuantity(e: any, inputKey: string) {
     this.productSize.quantity = e.target.value;
-    console.log(inputKey);
-    this.form.get(inputKey)?.setValue(this.productSize);
   }
 
   addSellingPrice(e: any, inputKey: string) {
     this.productSize.selling_price = e.target.value;
-    console.log(inputKey);
-    console.log(this.form);
+  }
+
+  saveSize(inputKey: string) {
     this.form.get(inputKey)?.setValue(this.productSize);
+    console.log(this.form);
   }
 
   toggleVisibility(): void {
