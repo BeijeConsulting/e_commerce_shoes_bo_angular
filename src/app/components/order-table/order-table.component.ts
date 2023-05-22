@@ -42,21 +42,18 @@ export class OrderTableComponent implements OnInit, OnChanges {
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
 
   @Input() data: any = {};
+  @Input() length: number = 0;
   @Output() handleEventPageEmitter = new EventEmitter();
 
-  dataSource: any = {};
+  dataSource: any = [];
   totalElement: number = 0;
 
   constructor(public dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<any>(this.data.orders);
-
-    this.totalElement = this.data.total_element;
-
+    this.dataSource = new MatTableDataSource<any>(this.data);
     this.dataSource.paginator = this.paginator;
-
-    console.log('data in child table', this.data);
+    // console.log('data in child table', this.data);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -70,15 +67,17 @@ export class OrderTableComponent implements OnInit, OnChanges {
   // handle event for pagination
   handlePageEvent(event: any) {
     this.handleEventPageEmitter.emit(event);
-    console.log('event', event);
+    // console.log('event', event);
   }
 
   // trigger dialog
-  openDialog(value?: string) {
+  openDialog(name: string = 'this Order', id: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteProduct: `Are you sure you want delete ${value}?`,
+        deleteTitle: `Are you sure you want delete ${name}?`,
+        id: id,
+        handleFn: 'orderDelete',
       },
     });
 
@@ -89,7 +88,6 @@ export class OrderTableComponent implements OnInit, OnChanges {
   }
 
   detailOrder(id: number | string) {
-    // console.log('detail', id);
     this.router.navigate([`/dashboard/orders/detail-order/${id}`]);
   }
 }

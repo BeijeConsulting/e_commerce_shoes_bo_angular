@@ -7,10 +7,11 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { switchMap, catchError, throwError, Observable } from 'rxjs';
+import { switchMap, catchError, throwError, Observable, of } from 'rxjs';
 import { StorageService } from './services/storage/storage.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
+import { OrderService } from './services/order/order.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,8 @@ export class InterceptorProvider implements HttpInterceptor {
 
   constructor(
     private storageService: StorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private orderService: OrderService
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
@@ -36,11 +38,15 @@ export class InterceptorProvider implements HttpInterceptor {
 
       return next.handle(request).pipe(
         catchError((err) => {
+          if (err.error.text === 'deleted') {
+            // console.log('trovato deleted');
+            return this.orderService.getOrdersPerPage(1, 5);
+          }
           if (err instanceof HttpErrorResponse && err.status === 401) {
             console.log('401 entrato');
-
             return this.handle401Error(request, next);
           } else {
+            // console.log('error', err.error.text);
             return throwError(() => new Error(err));
           }
         })
