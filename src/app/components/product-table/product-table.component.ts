@@ -65,7 +65,7 @@ export class ProductTableComponent implements OnInit, OnChanges {
       restoreFocus: false,
       data: {
         msg: `Are you sure you want delete ${name}?`,
-        productIid: id,
+        productId: id,
       },
     });
 

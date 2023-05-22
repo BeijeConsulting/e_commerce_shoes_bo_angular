@@ -86,7 +86,7 @@ export class DialogComponent implements OnInit, OnDestroy {
     // Product
     if (this.data.hasOwnProperty('productId')) {
       this.productService
-        .deleteSingleProduct(this.data.id)
+        .deleteSingleProduct(this.data.productId)
         .subscribe(() => this.productService.getProducts(1, 5, 'it'));
       this.closeDialog();
     }
