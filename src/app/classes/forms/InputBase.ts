@@ -8,6 +8,7 @@ export class InputBase<T> {
   type: string;
   regexControl?: RegExp;
   options: { key: string; value: string }[];
+  readonly: boolean;
 
   constructor(
     options: {
@@ -20,6 +21,7 @@ export class InputBase<T> {
       type?: string;
       regexControl?: RegExp;
       options?: { key: string; value: string }[];
+      readonly?: boolean;
     } = {}
   ) {
     this.value = options.value;
@@ -31,5 +33,6 @@ export class InputBase<T> {
     this.type = options.type || '';
     this.regexControl = options.regexControl;
     this.options = options.options || [];
+    this.readonly = options.readonly ? options.readonly : false;
   }
 }

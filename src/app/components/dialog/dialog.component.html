@@ -1,21 +1,15 @@
 <div class="dialog__container">
   <mat-dialog-content>
+
     <h2 class="dialog__h2">
-      {{ data.deleteProduct }}
+      {{ data.msg }}
     </h2>
+
   </mat-dialog-content>
   <mat-dialog-actions>
     <div class="container__buttons">
-      <app-button
-        label="No"
-        color="primary"
-        (onClickEvent)="closeDialog()"
-      ></app-button>
-      <app-button
-        label="Delete"
-        color="warn"
-        (onClickEvent)="onDelete()"
-      ></app-button>
+      <app-button label="No" color="primary" (onClickEvent)="closeDialog()"></app-button>
+      <app-button label="Delete" color="warn" (onClickEvent)="onDelete()"></app-button>
     </div>
   </mat-dialog-actions>
 </div>

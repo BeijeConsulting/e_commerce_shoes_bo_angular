@@ -78,6 +78,7 @@ import { ProductTableComponent } from './components/product-table/product-table.
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { OrderTableComponent } from './components/order-table/order-table.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
+import { DatePipe } from '@angular/common';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -164,7 +165,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatCardModule,
     MatTabsModule,
   ],
-  providers: [interceptorProvider],
+  providers: [interceptorProvider, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

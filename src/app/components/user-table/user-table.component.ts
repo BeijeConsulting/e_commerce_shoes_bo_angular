@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 // Angular Material
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,13 +9,26 @@ import { MatMenuTrigger } from '@angular/material/menu';
 
 // Router
 import { Router } from '@angular/router';
+import {
+  UserDataApi,
+  UserDataResponseApi,
+} from 'src/app/interfaces/UserDataApi';
+import { UserService } from 'src/app/services/user/user.service';
+import { UserData } from 'src/app/interfaces/UserData';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.css'],
 })
-export class UserTableComponent {
+export class UserTableComponent implements OnInit, OnDestroy {
+  @Input() employees: boolean = false;
+  subscriptions = new Subscription();
+
+  userObs: UserDataApi[] = [];
+  totalSizeObs: number = 0;
+
   displayedColumns: string[] = [
     'id',
     'name',
@@ -25,23 +38,53 @@ export class UserTableComponent {
     'birthDate',
     'actions',
   ];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  // dataSource = new MatTableDataSource<UserDataApi>(this.users);
+  dataSource = new MatTableDataSource<UserDataApi>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
 
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.dataSource.paginator = this.paginator;
+
+    if (!this.employees) {
+      this.subscriptions.add(
+        this.userService.usersResponse$.subscribe((response) => {
+          if (response) {
+            this.totalSizeObs = response.total_element;
+            this.userObs = response.usersDTO;
+          }
+          console.log('userResponse$ Changed', response);
+        })
+      );
+    }
+
+    if (this.employees) {
+      this.subscriptions.add(
+        this.userService.employeeResponse$.subscribe((response) => {
+          if (response) {
+            this.totalSizeObs = response.total_element;
+            this.userObs = response.usersDTO;
+          }
+          console.log('employeeResponse$ Changed', response);
+        })
+      );
+    }
   }
 
   // trigger dialog
-  openDialog(value?: string) {
+  openDialog(id?: string, item?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteProduct: `Are you sure you want delete ${value}?`,
+        msg: `Are you sure you want delete this ${item}?`,
+        userId: id,
         // deleteUser: 'Are you sure you want delete this user?',
         // deleteOrder: 'Are you sure you want delete this order?',
         // deleteCoupon: 'Are you sure you want delete this coupon?',
@@ -55,9 +98,59 @@ export class UserTableComponent {
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
-  detailUser(id: number | string) {
+  detailUser(user: UserDataApi) {
+    console.log('Usr: ', user);
     // console.log('detail', id);
-    this.router.navigate([`/dashboard/users/detail-user/${id}`]);
+    this.router.navigate([
+      `/dashboard/users/detail-user/${user.id}`,
+      { user: JSON.stringify(user) },
+    ]);
+  }
+
+  editUser(user: UserDataApi): void {
+    console.log(user);
+
+    const userAdapt: UserData = {
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      id: String(user.id),
+      role: user.authories.length === 1 ? user.authories[0] : user.authories[1],
+      phoneNumber: user.telephone,
+      birthDate: user.birth_date,
+    };
+
+    this.router.navigate([
+      `/dashboard/users/edit-user/${user.id}`,
+      { user: JSON.stringify(userAdapt) },
+    ]);
+  }
+
+  pageEvent(e: any): void {
+    // console.log('page event: ', e);
+
+    if (!this.employees) {
+      this.userService.getUsers(e.pageIndex + 1, e.pageSize).subscribe({
+        next: () =>
+          (this.userService.userTableDataState = {
+            page: e.pageIndex + 1,
+            size: e.pageSize,
+          }),
+      });
+    }
+    if (this.employees) {
+      this.userService.getUsers(e.pageIndex + 1, e.pageSize, true).subscribe({
+        next: () =>
+          (this.userService.employeesTableDataState = {
+            page: e.pageIndex + 1,
+            size: e.pageSize,
+          }),
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
 

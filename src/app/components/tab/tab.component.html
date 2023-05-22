@@ -1,12 +1,12 @@
 <mat-tab-group dynamicHeight>
   <mat-tab label="USERS">
     <div class="mat-elevation-z4 table">
-      <app-user-table></app-user-table>
+      <app-user-table [employees]="false"></app-user-table>
     </div>
   </mat-tab>
   <mat-tab label="EMPLOYEES">
     <div class="mat-elevation-z4 table">
-      <app-user-table></app-user-table>
+      <app-user-table [employees]="true"></app-user-table>
     </div>
   </mat-tab>
 </mat-tab-group>

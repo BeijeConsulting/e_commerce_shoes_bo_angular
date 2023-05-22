@@ -8,5 +8,6 @@
 
 <!-- Table coupon -->
 <div>
-  <app-order-table (handleEventPageEmitter)="getPaginatedOrders($event)" [data]="ordersItem"></app-order-table>
+  <app-order-table (handleEventPageEmitter)="getPaginatedOrders($event)" [data]="ordersItem" [length]="ordersLength">
+  </app-order-table>
 </div>

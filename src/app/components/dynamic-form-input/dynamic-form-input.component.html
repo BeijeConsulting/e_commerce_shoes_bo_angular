@@ -11,6 +11,7 @@
         [formControlName]="input.key"
         [id]="input.key"
         [type]="input.type"
+        [readonly]="input.readonly"
       />
     </mat-form-field>
 
@@ -32,6 +33,7 @@
         [formControlName]="input.key"
         [id]="input.key"
         [type]="input.type"
+        [readonly]="input.readonly"
       />
       <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
       <mat-datepicker-toggle
@@ -68,6 +70,7 @@
         matInput
         [type]="hide ? 'password' : 'text'"
         [formControlName]="input.key"
+        [readonly]="input.readonly"
       />
       <button
         type="button"
@@ -92,6 +95,7 @@
         [formControlName]="input.key"
         [id]="input.key"
         [type]="input.type"
+        [readonly]="input.readonly"
       ></textarea>
     </mat-form-field>
 
