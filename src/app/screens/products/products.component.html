@@ -1,9 +1,18 @@
-<div class='products__h1'>
+<div class="products__h1">
   <h1>Gestisci Prodotti</h1>
 </div>
 
-<div class='button__container'>
-  <app-button color="primary" label='AGGIUNGI PRODOTTO' icon="add" (onClickEvent)="addProduct()"></app-button>
+<div class="button__container">
+  <app-button
+    color="primary"
+    label="addProduct"
+    icon="add"
+    (onClickEvent)="addProduct()"
+  ></app-button>
 </div>
 
-<app-product-table></app-product-table>
+<app-product-table
+  (handlePageEventEmitter)="getPaginatedProducts($event)"
+  [products]="products"
+  [length]="productsLenght"
+></app-product-table>
