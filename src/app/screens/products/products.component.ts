@@ -28,7 +28,6 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.products.subscribe((res) => {
-      console.log('utente eliminato', res);
       this.products = [...res.products];
       this.productsLenght = res.results;
     });

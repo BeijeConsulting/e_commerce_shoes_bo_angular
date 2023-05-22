@@ -16,6 +16,14 @@ export class OrderService {
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
+  // GET all orders
+  getOrders(): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseURL}/orders/all`,
+      this.authService.getHeaderOptions(true)
+    );
+  }
+
   // GET all orders per page
   getOrdersPerPage(page: number, per_page: number): Observable<any> {
     const result = new Subject();

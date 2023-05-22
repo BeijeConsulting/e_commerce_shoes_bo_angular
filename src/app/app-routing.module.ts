@@ -26,6 +26,7 @@ import { AddPersonalAddressComponent } from './screens/add-personal-address/add-
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 import { CmsComponent } from './screens/cms/cms.component';
 import {
+  getAllOrdersResolverFn,
   getOrderByIdResolverFn,
   getOrdersResolverFn,
   getProductsResolverFn,
@@ -50,6 +51,7 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+        resolve: { dashboardResolver: getAllOrdersResolverFn },
       },
       {
         path: 'products',

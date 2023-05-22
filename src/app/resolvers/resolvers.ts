@@ -48,3 +48,10 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
   const productService = inject(ProductService);
   return productService.getSingleProduct(route.params['id']);
 };
+
+// Dashboard
+export const getAllOrdersResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const ordersService = inject(OrderService);
+  return ordersService.getOrders();
+};
