@@ -71,6 +71,7 @@
             <span>Edit</span>
           </button>
           <button
+            *ngIf="element.status !== 'Coupon non valido.'"
             mat-menu-item
             #menuTrigger
             (click)="openDialog(element.id, 'coupon')"
