@@ -29,8 +29,21 @@ export class DialogComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-    // alert('delete successfully'); // only for test
+    // Orders
+    if (this.data.hasOwnProperty('orderId')) {
+      this.orderService.deleteSingleOrder(this.data.orderId).subscribe({
+        next: (res) => console.log('res', res),
+        error: (err) => {
+          if (err.error.text === 'deleted') {
+            console.log('deleted err.error.text');
+          }
+        },
+      });
+      this.closeDialog();
+      console.log('delete order');
+    }
 
+    // User
     if (this.data.hasOwnProperty('userId')) {
       console.log(this.data);
       console.log('users table state:', this.userService.userTableDataState);
@@ -68,27 +81,7 @@ export class DialogComponent implements OnInit, OnDestroy {
           error: (err) => console.log(err),
         });
     }
-
-    // this.productService
-    //   .deleteSingleProduct(this.data.id)
-    //   .subscribe(() => this.productService.getProducts(1, 5, 'it'));
-
-    // this.closeDialog();
   }
-
-  // onDelete() {
-  //   if (this.data.handleFn === 'orderDelete') {
-  //     this.orderService.deleteSingleOrder(this.data.id).subscribe({
-  //       next: (res) => console.log('res', res),
-  //       error: (err) => {
-  //         if (err.error.text === 'deleted') {
-  //           console.log('deleted');
-  //         }
-  //       },
-  //       complete: () => this.orderService.getOrdersPerPage(1, 5),
-  //     });
-  //     console.log('DELETE');
-  //   }
 
   //   // this.productService
   //   //   .deleteSingleProduct(this.data.id)

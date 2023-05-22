@@ -75,8 +75,8 @@ export class OrderTableComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteTitle: `Are you sure you want delete ${name}?`,
-        id: id,
+        msg: `Are you sure you want delete ${name}?`,
+        orderId: id,
         handleFn: 'orderDelete',
       },
     });
