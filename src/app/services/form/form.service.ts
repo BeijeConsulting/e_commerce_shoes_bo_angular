@@ -151,7 +151,9 @@ export class FormService {
     return of(questions.sort((a, b) => a.order - b.order));
   }
 
-  addProductForm(): Observable<InputBase<string>[]> {
+  addProductForm(
+    inputs?: InputBase<string>[]
+  ): Observable<InputBase<string>[]> {
     const questions: InputBase<string>[] = [
       new TextInput({
         key: 'productName',
@@ -260,6 +262,10 @@ export class FormService {
         { minNumber: 3 }
       ),
     ];
+
+    if (inputs && inputs.length > 0) {
+      inputs.forEach((input) => questions.push(input));
+    }
 
     return of(questions.sort((a, b) => a.order - b.order));
   }

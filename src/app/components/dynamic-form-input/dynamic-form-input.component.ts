@@ -31,10 +31,36 @@ export class DynamicFormInputComponent {
   previews: string[] = [];
   productImages: Object[] = [];
 
+  productSize: any = {
+    is_listed: true,
+    quantity: null,
+    selling_price: null,
+    size: null,
+  };
+
   hide: boolean = true;
 
   get isValid() {
     return this.form.controls[this.input.key].valid;
+  }
+
+  addSize(e: any, inputKey: string) {
+    this.productSize.size = e.value;
+    console.log(inputKey);
+    this.form.get(inputKey)?.setValue(this.productSize);
+  }
+
+  addQuantity(e: any, inputKey: string) {
+    this.productSize.quantity = e.target.value;
+    console.log(inputKey);
+    this.form.get(inputKey)?.setValue(this.productSize);
+  }
+
+  addSellingPrice(e: any, inputKey: string) {
+    this.productSize.selling_price = e.target.value;
+    console.log(inputKey);
+    console.log(this.form);
+    this.form.get(inputKey)?.setValue(this.productSize);
   }
 
   toggleVisibility(): void {
