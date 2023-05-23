@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
 
 @Component({
   selector: 'app-card-coupon',
@@ -6,14 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card-coupon.component.css'],
 })
 export class CardCouponComponent {
-  @Input() id: string | number = '';
-  @Input() code: string = '';
-  @Input() state: string = '';
-  @Input() maxUses: string = '';
-  @Input() expirationDate: string = '';
-  @Input() type: string = '';
-  @Input() value: string = '';
-  @Input() minOrder: string = '';
-  @Input() italianDescription: string = '';
-  @Input() englishDescription: string = '';
+  @Input() coupon!: CouponDataApi;
 }

@@ -8,6 +8,7 @@ import { UserService } from '../services/user/user.service';
 import { OrderService } from '../services/order/order.service';
 // Sizes Service
 import { SizeService } from '../services/size/size.service';
+import { CouponService } from '../services/coupon/coupon.service';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -56,6 +57,31 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const productService = inject(ProductService);
   return productService.getSingleProduct(route.params['id']);
+};
+
+// Coupons
+export const getCouponsResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const couponService = inject(CouponService);
+  return couponService.getCoupons(1, 10);
+};
+
+export const getSingleCouponResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const id = route.params['id'];
+  const couponService = inject(CouponService);
+
+  return couponService.getCouponById(id);
+};
+
+export const getEditCouponDetailsResolverFn = (
+  route: ActivatedRouteSnapshot
+) => {
+  console.log('Resolver Activated');
+  const id = route.params['id'];
+  const couponService = inject(CouponService);
+
+  return couponService.getCouponById(id);
 };
 
 // Sizes

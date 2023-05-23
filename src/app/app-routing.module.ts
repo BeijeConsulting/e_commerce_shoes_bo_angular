@@ -26,10 +26,13 @@ import { AddPersonalAddressComponent } from './screens/add-personal-address/add-
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 import { CmsComponent } from './screens/cms/cms.component';
 import {
+  getCouponsResolverFn,
+  getEditCouponDetailsResolverFn,
   getAllOrdersResolverFn,
   getOrderByIdResolverFn,
   getOrdersResolverFn,
   getProductsResolverFn,
+  getSingleCouponResolverFn,
   getSingleProductResolverFn,
   getSizesResolverFn,
   getUsersResolverFn,
@@ -94,6 +97,7 @@ const routes: Routes = [
       {
         path: 'coupons',
         component: CouponsComponent,
+        resolve: { couponsResolver: getCouponsResolverFn },
       },
       {
         path: 'coupons/add-coupon',
@@ -102,10 +106,12 @@ const routes: Routes = [
       {
         path: 'coupons/edit-coupon/:id',
         component: EditCouponComponent,
+        resolve: { couponEditDetailsResolver: getEditCouponDetailsResolverFn },
       },
       {
         path: 'coupons/detail-coupon/:id',
         component: DetailCouponComponent,
+        resolve: { couponsDetailResolver: getSingleCouponResolverFn },
       },
       {
         path: 'orders',
