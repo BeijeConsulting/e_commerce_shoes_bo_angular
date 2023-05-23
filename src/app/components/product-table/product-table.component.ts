@@ -60,12 +60,12 @@ export class ProductTableComponent implements OnInit, OnChanges {
   }
 
   // trigger dialog
-  openDialog(name: string, id: number) {
+  openDialog(name: string, id: number, handleFn: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteProduct: `Are you sure you want delete ${name}?`,
-        id: id,
+        msg: `Are you sure you want delete ${name}?`,
+        productId: id,
       },
     });
 

@@ -73,3 +73,9 @@ export const getEditCouponDetailsResolverFn = (
 
   return couponService.getCouponById(id);
 };
+// Dashboard
+export const getAllOrdersResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const ordersService = inject(OrderService);
+  return ordersService.getOrders();
+};

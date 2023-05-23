@@ -61,7 +61,7 @@
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item #menuTrigger (click)="openDialog(element.name)">
+          <button mat-menu-item #menuTrigger (click)="openDialog(element?.name, element.id)">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
@@ -74,7 +74,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator (page)="handlePageEvent($event)" [length]="totalElement" [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons aria-label="Select page of periodic elements">
+  <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
   </mat-paginator>
 </div>
