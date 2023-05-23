@@ -34,8 +34,7 @@ export class EditProductComponent {
     const productDetails: any = [];
     const product: any = {
       isListed: 1,
-      imagePreview:
-        'https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dw6d8538e9/cisalfa/files/S5549719-ABIW/image/S5549719_ABIW.jpg?sw=960&sh=1200',
+      imagePreview: '/nopreview',
     };
 
     productDetailsRaw.forEach((item: any) => {
