@@ -26,7 +26,7 @@ export class DynamicFormInputComponent {
   @Input() form!: FormGroup;
 
   selectedFiles?: FileList;
-  base64Files: string[] = [];
+  base64Files: object[] = [];
   selectedFileNames: string[] = [];
   previews: string[] = [];
   productImages: Object[] = [];
@@ -104,7 +104,7 @@ export class DynamicFormInputComponent {
     reader.readAsDataURL(file);
     reader.onload = () => {
       if (typeof reader.result === 'string') {
-        this.base64Files.push(reader.result);
+        this.base64Files.push(this.getImageObj(reader.result));
         this.selectedFileNames.push(file.name);
       }
       this.form.get(inputKey)?.setValue(this.base64Files);
@@ -114,19 +114,20 @@ export class DynamicFormInputComponent {
     };
   }
 
-  uploadFiles(): void {
-    if (this.base64Files.length < 3) return alert('Insert at least 3 images');
+  getImageObj(imagePath: string): object {
+    let imageNumber = 0;
 
-    const imageObj = this.base64Files.map((base64Image, index) => {
-      return {
-        altEng: 'Product Image',
-        altIt: 'Immagine Prodotto',
-        imageNumber: index,
-        type: 'desktop',
-        imagePath: base64Image,
-      };
-    });
-    console.log('uploadFiles');
+    if (this.base64Files && this.base64Files.length > 0) {
+      imageNumber = this.base64Files.length;
+    }
+
+    return {
+      altEng: 'Product Image',
+      altIt: 'Immagine Prodotto',
+      imageNumber: imageNumber,
+      type: 'desktop',
+      imagePath,
+    };
   }
 
   clearImages(inputKey: string): void {

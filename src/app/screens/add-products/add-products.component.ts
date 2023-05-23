@@ -48,3 +48,54 @@ export class AddProductsComponent {
       .subscribe((res) => console.log(res));
   }
 }
+
+/* {
+  "product": {
+      "name": "air max 27fudnfu",
+      "brand": "Hoka",
+      "color": "Multicolor",
+      "startingPrice": "80",
+      "listedPrice": "148",
+      "type": "W",
+      "descriptionIt": "La pluripremiata Clifton è giunta alla sua nona versione. Più leggera e ammortizzata che mai. Eliminando peso e aggiungendo 3 mm di altezza della suola, la nuova Clifton 9 offre sensazioni rivitalizzanti alla pianta del piede con una nuova schiuma reattiva e un design della suola migliorato. Privata dei rinforzi e degli elementi termofusi, la tomaia semplificata è stata realizzata con metodi attenti all’ambiente e presenta un tallone più morbido, un pannello catarifrangente sul tallone e una linguetta snellita con pannello sul lato mediale.Te ne innamorerai perché è una scarpa da running rivoluzionaria, perfetta per gli allenamenti di tutti i giorni.",
+      "descriptionEng": "The award-winning Clifton is now in its ninth version. Lighter and more cushioned than ever before. Eliminating weight and adding 3 mm of sole height, the new Clifton 9 delivers revitalizing sensations to the sole of the foot with new responsive foam and an improved outsole design. Deprived of reinforcements and heat-molded elements, the simplified upper is made with environmentally conscious methods and features a softer heel, a reflective heel panel, and a streamlined tongue with a panel on the medial side.You'll fall in love with it because it's a revolutionary running shoe perfect for everyday workouts.",
+      "category": "Fitness",
+      "isListed": 1,
+      "imagePreview": "/nopreview"
+  },
+  "productDetails": [
+      {
+          "is_listed": true,
+          "quantity": "5",
+          "selling_price": "90",
+          "size": "W42"
+      }
+  ],
+  "productImages": [
+      {
+        "imagePath": "ciao",
+          "altEng": "image",
+          "altIt": "immagine",
+          "imageNumber": 0,
+          "type": "desktop"
+      },
+      {
+          "altEng": "image",
+          "altIt": "immagine",
+          "imageNumber": 0,
+          "type": "desktop"
+      },
+      {
+          "altEng": "image",
+          "altIt": "immagine",
+          "imageNumber": 0,
+          "type": "desktop"
+      },
+      {
+          "altEng": "image",
+          "altIt": "immagine",
+          "imageNumber": 0,
+          "type": "desktop"
+      }
+  ]
+} */

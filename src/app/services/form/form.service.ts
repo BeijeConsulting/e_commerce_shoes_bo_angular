@@ -164,7 +164,7 @@ export class FormService {
 
   addProductForm(sizes: any): Observable<InputBase<string>[]> {
     const formattedSizes = sizes.map((item: string) => {
-      return { key: item.slice(1), value: item.slice(1) };
+      return { key: item, value: item };
     });
 
     const questions: InputBase<string>[] = [
