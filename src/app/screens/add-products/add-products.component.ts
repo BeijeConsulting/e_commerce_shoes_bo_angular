@@ -19,7 +19,6 @@ export class AddProductsComponent {
     private productService: ProductService
   ) {
     const sizes = this.route.snapshot.data['productResolver'];
-    console.log(sizes);
     this.addProductForm$ = this.formService.addProductForm(sizes);
   }
 
@@ -41,7 +40,7 @@ export class AddProductsComponent {
       }
     }
 
-    console.log(newProduct);
+    console.log('NUOVO PRODOTTO', newProduct);
 
     this.productService
       .addProduct(newProduct)

@@ -43,6 +43,15 @@ export class ProductService {
     );
   }
 
+  editProduct(product: any, id: number): Observable<any> {
+    console.log(product, id);
+    return this.http.put<any>(
+      `${this.baseURL}/products/update/${id}`,
+      product,
+      this.authService.getHeaderOptions(true)
+    );
+  }
+
   deleteSingleProduct(id: number): Observable<any> {
     return this.http.delete<any>(
       `${this.baseURL}/products/delete/${id}`,

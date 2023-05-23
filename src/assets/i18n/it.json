@@ -122,9 +122,15 @@
   "addMarketingEmployee": "Aggiungi impiegato Marketing",
   "addDataEntryEmployee": "Aggiungi impiegato Data Entry",
   "addImage": "Aggiungi immagine",
+  "clearImages": "Rimuovi immagini",
   "addDescriptionIt": "Aggiungi una descrizione in Italiano",
   "addDescriptionEn": "Aggiungi una descrizione in Inglese",
   "addAddress": "Aggiungi indirizzo",
+
+  "emptyInputs": "Riempieri tutti i campi",
+  "alreadySelectedSize": "Taglia già selezionata",
+
+  "view": "Vedi",
 
   "modify": "Modifica",
   "modifyProduct": "Modifica prodotto",
@@ -139,6 +145,7 @@
   "deleteCoupon": "Elimina coupon",
   "deleteDiscount": "Elimina ribasso",
   "deleteUser": "Elimina utente",
+  "delete": "Elimina",
 
   "manageUsers": "Gestisci utenti",
   "addUser": "Aggiungi utente",

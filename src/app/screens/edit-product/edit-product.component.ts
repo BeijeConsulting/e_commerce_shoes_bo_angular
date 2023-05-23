@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -10,44 +10,91 @@ import { ProductService } from 'src/app/services/product/product.service';
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css'],
 })
-export class EditProductComponent implements OnInit {
+export class EditProductComponent {
   product: any;
+  id: number;
   editProductForm$: Observable<InputBase<string>[]>;
 
   constructor(
     private formService: FormService,
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
-    this.editProductForm$ = formService.editProductForm({
-      brand: 'Nike',
-      id: '13',
-      images: 'images',
-      listedPrice: '300',
-      productName: 'Air',
-      category: 'shoes',
-      colour: 'white',
-      englishDescription: 'english description',
-      italianDescription: 'italian description',
-      quantity: '3',
-      size: '43',
-      type: 'man',
-    });
-
-    const response = this.route.snapshot.data['productsResolver'];
-    console.log(response);
-    this.product = { ...response.product };
-  }
-
-  ngOnInit(): void {
-    this.productService.products.subscribe((res) => {
-      console.log('utente eliminato', res);
-      /* this.products = [...res.products];
-      this.productsLenght = res.results; */
-    });
+    const product = this.route.snapshot.data['productsResolver'];
+    console.log('PRODOTTO DA EDITARE', product);
+    this.editProductForm$ = this.formService.editProductForm(product);
+    this.id = product.product.id;
   }
 
   onSubmit(data: any) {
-    console.log('EditProductScreen Submit: ', data);
+    const productDetailsRaw: any = [...data.productDetails];
+    const productImagesRaw: any = [...data.productImages];
+    const productImages: any = [];
+    const productDetails: any = [];
+    const product: any = {
+      isListed: 1,
+      imagePreview:
+        'https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dw6d8538e9/cisalfa/files/S5549719-ABIW/image/S5549719_ABIW.jpg?sw=960&sh=1200',
+    };
+
+    productDetailsRaw.forEach((item: any) => {
+      const detailObj: any = {};
+
+      console.log(item);
+
+      for (let key in item) {
+        if (
+          key === 'isListed' ||
+          key === 'quantity' ||
+          key === 'sellingPrice' ||
+          key === 'size'
+        ) {
+          detailObj[key] = item[key];
+        }
+      }
+
+      productDetails.push(detailObj);
+    });
+
+    productImagesRaw.forEach((item: any) => {
+      const imageObj: any = {};
+
+      for (let key in item) {
+        if (
+          key === 'altEng' ||
+          key === 'altIt' ||
+          key === 'imageNumber' ||
+          key === 'type' ||
+          key === 'imagePath'
+        ) {
+          imageObj[key] = item[key];
+        }
+      }
+
+      productImages.push(imageObj);
+    });
+
+    for (let key in data) {
+      if (key !== 'productDetails' && key !== 'productImages') {
+        product[key] = data[key];
+      }
+    }
+
+    const editedProduct: any = {
+      product,
+      productDetails,
+      productImages,
+    };
+
+    console.log(editedProduct);
+    this.productService
+      .editProduct(editedProduct, this.id)
+      .pipe(
+        finalize(() =>
+          this.router.navigate([`dashboard/products/detail-product/${this.id}`])
+        )
+      )
+      .subscribe();
   }
 }

@@ -5,7 +5,9 @@
       appearance="outline"
       class="full-width"
     >
-      <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+      <mat-label [attr.for]="input.key">{{
+        input.label | translate
+      }}</mat-label>
       <input
         matInput
         [formControlName]="input.key"
@@ -19,7 +21,7 @@
       *ngSwitchCase="'checkbox'"
       [formControlName]="input.key"
       [id]="input.key"
-      >{{ input.label }}</mat-checkbox
+      >{{ input.label | translate }}</mat-checkbox
     >
 
     <mat-form-field
@@ -27,7 +29,7 @@
       appearance="outline"
       class="full-width"
     >
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <input
         matInput
         [matDatepicker]="picker"
@@ -49,7 +51,7 @@
       appearance="outline"
       class="full-width"
     >
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <mat-select [id]="input.key" [formControlName]="input.key">
         <mat-option
           *ngFor="let opt of input.options"
@@ -90,7 +92,9 @@
       appearance="outline"
       class="full-width"
     >
-      <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+      <mat-label [attr.for]="input.key">{{
+        input.label | translate
+      }}</mat-label>
       <textarea
         matInput
         [formControlName]="input.key"
@@ -101,7 +105,6 @@
     </mat-form-field>
 
     <div *ngSwitchCase="'imagepicker'">
-      <p *ngFor="let fileName of selectedFileNames">{{ fileName }}</p>
       <div
         [ngStyle]="{
           margin: '20px',
@@ -116,17 +119,23 @@
           color="primary"
           (click)="fileInput.click()"
         >
-          Choose Image
+          {{ "addImage" | translate }}
         </button>
         <button
-          *ngIf="selectedFileNames.length > 0"
+          *ngIf="productImages.length > 0"
           type="button"
           mat-raised-button
           color="warn"
           (click)="clearImages(input.key)"
         >
-          Clear Images
+          {{ "clearImages" | translate }}
         </button>
+      </div>
+
+      <div class="row">
+        <div class="col" *ngFor="let file of productImages">
+          <img [src]="file.imagePath" />
+        </div>
       </div>
 
       <input
@@ -192,7 +201,7 @@
         </mat-form-field>
       </div>
 
-      <p class="size-error" *ngIf="sizeError">{{ sizeError }}</p>
+      <p class="size-error" *ngIf="sizeError">{{ sizeError | translate }}</p>
 
       <button
         type="button"
@@ -219,7 +228,8 @@
           <div>
             {{ "size" | translate }}: {{ size.size }} |
             {{ "quantity" | translate }}: {{ size.quantity }} |
-            {{ "sellingPrice" | translate }}: {{ size.selling_price }} €
+            {{ "sellingPrice" | translate }}:
+            {{ size.selling_price || size.sellingPrice }} €
           </div>
           <div (click)="removeFromSizes(i)" class="cancel-icon">
             <mat-icon [ngStyle]="{ color: 'red', cursor: 'pointer' }"

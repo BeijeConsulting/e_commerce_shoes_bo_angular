@@ -1,61 +1,62 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
-
     <!-- Id Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id. </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      <th mat-header-cell *matHeaderCellDef>Id.</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
     <!-- Image Column -->
     <ng-container matColumnDef="code">
-      <th mat-header-cell *matHeaderCellDef> Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
     <!-- Brand Column -->
     <ng-container matColumnDef="maxUses">
-      <th mat-header-cell *matHeaderCellDef> Usi massimi </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      <th mat-header-cell *matHeaderCellDef>Usi massimi</th>
+      <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="expirationDate">
-      <th mat-header-cell *matHeaderCellDef> Data di scadenza </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef>Data di scadenza</th>
+      <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
     </ng-container>
 
     <!-- Category Column -->
     <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef> Stato </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef>Stato</th>
+      <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
     </ng-container>
 
     <!-- Price Column -->
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> Prezzo </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef>Prezzo</th>
+      <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
     </ng-container>
 
     <!-- min Value -->
     <ng-container matColumnDef="value">
-      <th mat-header-cell *matHeaderCellDef> Valore </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef>Valore</th>
+      <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
     </ng-container>
     <!-- min order Column -->
     <ng-container matColumnDef="minOrder">
-      <th mat-header-cell *matHeaderCellDef> Ordine minimo </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef>Ordine minimo</th>
+      <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
     </ng-container>
 
     <!-- Action Column -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Azioni </th>
+      <th mat-header-cell *matHeaderCellDef>Azioni</th>
 
       <td mat-cell *matCellDef="let element">
-
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" yPosition="below">
@@ -65,21 +66,24 @@
           </button>
           <button mat-menu-item>
             <mat-icon>edit</mat-icon>
-            <span>Edit</span>
+            <span>{{ "modify" | translate }}</span>
           </button>
           <button mat-menu-item #menuTrigger (click)="openDialog(element.name)">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
         </mat-menu>
-
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
   </mat-paginator>
 </div>

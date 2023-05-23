@@ -31,3 +31,20 @@
   margin-bottom: 10px;
   color: red;
 }
+
+.row {
+  display: flex;
+  margin: 0 -5px;
+  flex-wrap: wrap;
+}
+
+.row > .col {
+  width: calc(100% / 3);
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+
+.row > .col > img {
+  display: block;
+  width: 100%;
+}

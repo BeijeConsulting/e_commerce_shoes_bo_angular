@@ -170,75 +170,73 @@ export class FormService {
     const questions: InputBase<string>[] = [
       new TextInput({
         key: 'name',
-        label: 'Product Name',
+        label: 'name',
         required: true,
-        value: 'CLIFTON 9 WWWWWWWWWWW',
+        value: '',
         order: 1,
       }),
 
       new TextInput({
         key: 'brand',
-        label: 'Brand',
+        label: 'brand',
         required: true,
-        value: 'Hoka',
+        value: '',
         order: 2,
       }),
 
       new TextInput({
         key: 'color',
-        label: 'Color',
+        label: 'color',
         required: true,
-        value: 'Multicolor',
+        value: '',
         order: 3,
       }),
 
       new TextInput({
         key: 'startingPrice',
-        label: 'Starting Price',
+        label: 'startingPrice',
         required: true,
-        value: '50',
+        value: '',
         order: 4,
       }),
 
       new TextInput({
         key: 'listedPrice',
-        label: 'Listed Price',
+        label: 'listedPrice',
         required: true,
-        value: '80',
+        value: '',
         order: 5,
       }),
 
       new TextInput({
         key: 'type',
-        label: 'Type',
+        label: 'type',
         required: true,
-        value: 'W',
+        value: '',
         order: 6,
       }),
 
       new MultiLine({
         key: 'descriptionIt',
-        label: 'Italian Description',
+        label: 'descriptionIt',
         required: true,
-        value:
-          'La pluripremiata Clifton è giunta alla sua nona versione. Più leggera e ammortizzata che mai. Eliminando peso e aggiungendo 3 mm di altezza della suola, la nuova Clifton 9 offre sensazioni rivitalizzanti alla pianta del piede con una nuova schiuma reattiva e un design della suola migliorato. Privata dei rinforzi e degli elementi termofusi, la tomaia semplificata è stata realizzata con metodi attenti all’ambiente e presenta un tallone più morbido, un pannello catarifrangente sul tallone e una linguetta snellita con pannello sul lato mediale.Te ne innamorerai perché è una scarpa da running rivoluzionaria, perfetta per gli allenamenti di tutti i giorni.',
+        value: '',
         order: 7,
       }),
 
       new MultiLine({
         key: 'descriptionEng',
-        label: 'English Description',
+        label: 'descriptionEn',
         required: true,
-        value:
-          "The award-winning Clifton is now in its ninth version. Lighter and more cushioned than ever before. Eliminating weight and adding 3 mm of sole height, the new Clifton 9 delivers revitalizing sensations to the sole of the foot with new responsive foam and an improved outsole design. Deprived of reinforcements and heat-molded elements, the simplified upper is made with environmentally conscious methods and features a softer heel, a reflective heel panel, and a streamlined tongue with a panel on the medial side.You'll fall in love with it because it's a revolutionary running shoe perfect for everyday workouts.",
+        value: '',
         order: 8,
       }),
 
       new TextInput({
         key: 'category',
-        label: 'Category',
+        label: 'category',
         required: true,
-        value: 'Fitness',
+        value: '',
         order: 9,
       }),
 
@@ -265,117 +263,97 @@ export class FormService {
     return of(questions.sort((a, b) => a.order - b.order));
   }
 
-  editProductForm(productData: ProductData): Observable<InputBase<string>[]> {
+  editProductForm(array: any): Observable<InputBase<string>[]> {
     const questions: InputBase<string>[] = [
       new TextInput({
-        key: 'productName',
-        label: 'Product Name',
+        key: 'name',
+        label: 'name',
         required: true,
-        value: productData.productName,
+        value: array.product.name,
         order: 1,
       }),
 
       new TextInput({
         key: 'brand',
-        label: 'Brand',
+        label: 'brand',
         required: true,
-        value: productData.brand,
+        value: array.product.brand,
         order: 2,
       }),
 
       new TextInput({
         key: 'color',
-        label: 'Color',
+        label: 'color',
         required: true,
-        value: productData.colour ? productData.colour : '',
+        value: array.product.color,
         order: 3,
       }),
 
       new TextInput({
-        key: 'listedPrice',
-        label: 'Listed Price',
+        key: 'startingPrice',
+        label: 'startingPrice',
         required: true,
-        value: productData.listedPrice,
+        value: array.product.startingPrice,
+        order: 4,
+      }),
+
+      new TextInput({
+        key: 'listedPrice',
+        label: 'listedPrice',
+        required: true,
+        value: array.product.listedPrice,
         order: 5,
       }),
 
       new TextInput({
         key: 'type',
-        label: 'Type',
+        label: 'type',
         required: true,
-        value: productData.type ? productData.type : '',
+        value: array.product.type,
         order: 6,
       }),
 
       new MultiLine({
-        key: 'italianDescription',
-        label: 'Italian Description',
+        key: 'descriptionIt',
+        label: 'descriptionIt',
         required: true,
-        value: productData.italianDescription
-          ? productData.italianDescription
-          : '',
+        value: array.product.descriptionIt,
         order: 7,
       }),
 
       new MultiLine({
-        key: 'englishDescription',
-        label: 'English Description',
+        key: 'descriptionEng',
+        label: 'descriptionEn',
         required: true,
-        value: productData.englishDescription
-          ? productData.englishDescription
-          : '',
+        value: array.product.descriptionEng,
         order: 8,
       }),
 
       new TextInput({
         key: 'category',
-        label: 'Category',
+        label: 'category',
         required: true,
-        value: productData.category ? productData.category : '',
+        value: array.product.category,
         order: 9,
       }),
 
-      new TextInput({
-        key: 'size',
-        label: 'Size',
+      new AddProductSizeInput({
+        key: 'productDetails',
         required: true,
-        value: productData.size ? productData.size : '',
+        value: array.productDetails,
         order: 10,
       }),
 
-      new TextInput({
-        key: 'quantity',
-        label: 'Quantity',
-        required: true,
-        value: productData.quantity ? productData.quantity : '',
-        order: 11,
-      }),
-
-      new TextInput({
-        key: 'images',
-        label: 'Images',
-        required: false,
-        value: productData.images,
-        order: 13,
-      }),
-
-      new TextInput({
-        key: 'productId',
-        label: 'ID',
-        required: true,
-        value: productData.id,
-        order: 14,
-      }),
-
-      new CheckboxInput({
-        key: 'isPresent',
-        label: 'Is Present',
-        required: false,
-        value: '',
-        order: 15,
-      }),
-
-      //AGGIUNGERE IMAGE PICKER
+      new ImagePicker(
+        {
+          key: 'productImages',
+          label: 'Product Images',
+          required: true,
+          value: array.productImages,
+          order: 11,
+        },
+        { minNumber: 3 }
+      ),
     ];
 
     return of(questions.sort((a, b) => a.order - b.order));
