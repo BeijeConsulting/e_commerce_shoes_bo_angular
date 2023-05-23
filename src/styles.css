@@ -18,7 +18,7 @@ body {
 }
 
 .full-width {
-  width: 100%;
+  width: 100% !important;
 }
 
 p {
@@ -66,4 +66,8 @@ ul {
 
 .table-container {
   position: relative;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

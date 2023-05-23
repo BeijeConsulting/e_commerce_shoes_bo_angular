@@ -3,12 +3,13 @@
   [color]="color"
   (click)="onClick()"
   [disabled]="isDisabled"
+  [class]="class"
 >
   <div class="button">
     <mat-icon *ngIf="icon">
       {{ icon }}
     </mat-icon>
-    <div>
+    <div class="uppercase">
       {{ label | translate }}
     </div>
   </div>
