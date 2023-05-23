@@ -5,11 +5,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { finalize, forkJoin, switchMap } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from '../../services/product/product.service';
-<<<<<<< HEAD
 import { CouponService } from 'src/app/services/coupon/coupon.service';
-=======
 import { OrderService } from 'src/app/services/order/order.service';
->>>>>>> develop
 
 @Component({
   selector: 'app-dialog',
@@ -20,15 +17,10 @@ export class DialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialogRef: MatDialogRef<DialogComponent>,
-<<<<<<< HEAD
     private userService: UserService,
     private productService: ProductService,
-    private couponService: CouponService
-=======
-    private orderService: OrderService,
-    private productService: ProductService,
-    private userService: UserService
->>>>>>> develop
+    private couponService: CouponService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
@@ -93,7 +85,6 @@ export class DialogComponent implements OnInit, OnDestroy {
         });
     }
 
-<<<<<<< HEAD
     if (this.data.hasOwnProperty('couponId')) {
       const couponTableState = this.couponService.couponTableDataState;
 
@@ -120,7 +111,6 @@ export class DialogComponent implements OnInit, OnDestroy {
     //   .subscribe(() => this.productService.getProducts(1, 5, 'it'));
 
     // this.closeDialog();
-=======
     // Product
     if (this.data.hasOwnProperty('productId')) {
       this.productService
@@ -128,7 +118,6 @@ export class DialogComponent implements OnInit, OnDestroy {
         .subscribe(() => this.productService.getProducts(1, 5, 'it'));
       this.closeDialog();
     }
->>>>>>> develop
   }
 
   ngOnDestroy(): void {

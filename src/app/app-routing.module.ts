@@ -26,12 +26,9 @@ import { AddPersonalAddressComponent } from './screens/add-personal-address/add-
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 import { CmsComponent } from './screens/cms/cms.component';
 import {
-<<<<<<< HEAD
   getCouponsResolverFn,
   getEditCouponDetailsResolverFn,
-=======
   getAllOrdersResolverFn,
->>>>>>> develop
   getOrderByIdResolverFn,
   getOrdersResolverFn,
   getProductsResolverFn,
