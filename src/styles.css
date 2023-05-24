@@ -18,7 +18,7 @@ body {
 }
 
 .full-width {
-  width: 100%;
+  width: 100% !important;
 }
 
 p {
@@ -58,4 +58,26 @@ td .mat-mdc-text-field-wrapper {
   align-items: center;
   text-align: center !important;
   justify-content: center !important;
+}
+
+.load-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.table-container {
+  position: relative;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

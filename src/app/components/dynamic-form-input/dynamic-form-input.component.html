@@ -1,16 +1,17 @@
 <div [formGroup]="form">
   <div [ngSwitch]="input.controlType">
     <mat-form-field *ngSwitchCase="'text'" appearance="outline" class="full-width">
-      <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+      <mat-label [attr.for]="input.key">{{
+        input.label | translate
+        }}</mat-label>
       <input matInput [formControlName]="input.key" [id]="input.key" [type]="input.type" [readonly]="input.readonly" />
     </mat-form-field>
 
-
-
-    <mat-checkbox *ngSwitchCase="'checkbox'" [formControlName]="input.key" [id]="input.key">{{ input.label
+    <mat-checkbox *ngSwitchCase="'checkbox'" [formControlName]="input.key" [id]="input.key">{{ input.label | translate
       }}</mat-checkbox>
+
     <mat-form-field *ngSwitchCase="'date'" appearance="outline" class="full-width">
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <input matInput [matDatepicker]="picker" [formControlName]="input.key" [id]="input.key" [type]="input.type"
         [readonly]="input.readonly" />
       <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
@@ -19,7 +20,7 @@
     </mat-form-field>
 
     <mat-form-field *ngSwitchCase="'select'" appearance="outline" class="full-width">
-      <mat-label>{{ input.label }}</mat-label>
+      <mat-label>{{ input.label | translate }}</mat-label>
       <mat-select [id]="input.key" [formControlName]="input.key">
         <mat-option *ngFor="let opt of input.options" [value]="opt.key" selected="true">
           {{ opt.value }}
@@ -37,13 +38,14 @@
     </mat-form-field>
 
     <mat-form-field *ngSwitchCase="'multiline'" appearance="outline" class="full-width">
-      <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+      <mat-label [attr.for]="input.key">{{
+        input.label | translate
+        }}</mat-label>
       <textarea matInput [formControlName]="input.key" [id]="input.key" [type]="input.type"
         [readonly]="input.readonly"></textarea>
     </mat-form-field>
 
     <div *ngSwitchCase="'imagepicker'">
-      <p *ngFor="let fileName of selectedFileNames">{{ fileName }}</p>
       <div [ngStyle]="{
           margin: '20px',
           display: 'flex',
@@ -51,48 +53,70 @@
           gap: '10px'
         }">
         <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
-          Choose Image
+          {{ "addImage" | translate }}
         </button>
-        <button *ngIf="selectedFileNames.length > 0" type="button" mat-raised-button color="warn"
+        <button *ngIf="productImages.length > 0" type="button" mat-raised-button color="warn"
           (click)="clearImages(input.key)">
-          Clear Images
+          {{ "clearImages" | translate }}
         </button>
+      </div>
+
+      <div class="row">
+        <div class="col" *ngFor="let file of productImages">
+          <img [src]="file.imagePath" />
+        </div>
       </div>
 
       <input hidden (change)="selectFiles($event, input.key)" type="text" [formControlName]="input.key" />
       <input hidden accept="image/*" (change)="selectFiles($event, input.key)" #fileInput type="file" id="file" />
-
     </div>
 
-
-    <!-- Order Id  -->
-    <div *ngSwitchCase="'orderinput'">
-
-      <input hidden matInput [formControlName]="input.key" [id]="input.key" [type]="input.type"
-        [readonly]="input.readonly" />
-
-
-      <div class='order__hidden'>
-        <p>Choose products and quantity*</p>
-        <button type="button" mat-raised-button color="primary" (click)="openDialog()">Choose products and
-          quantity</button>
+    <div *ngSwitchCase="'productSize'">
+      <div class="product-size-inputs">
+        <!-- size -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ "size" | translate }}*</mat-label>
+          <mat-select [id]="input.key + 1" [(ngModel)]="productSize.size" [ngModelOptions]="{ standalone: true }">
+            <mat-option *ngFor="let opt of input.options" [value]="opt.key" selected="true">
+              {{ opt.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- quantity -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label [attr.for]="input.key + 2">{{ "quantity" | translate }}*</mat-label>
+          <input matInput [ngModelOptions]="{ standalone: true }" [(ngModel)]="productSize.quantity"
+            [id]="input.key + 2" type="number" />
+        </mat-form-field>
+        <!-- price -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label [attr.for]="input.key + 3">{{ "sellingPrice" | translate }}*</mat-label>
+          <input matInput [ngModelOptions]="{ standalone: true }" [(ngModel)]="productSize.selling_price"
+            [id]="input.key + 3" type="number" />
+        </mat-form-field>
       </div>
 
+      <p class="size-error" *ngIf="sizeError">{{ sizeError | translate }}</p>
+
+      <button type="button" class="full-width" mat-raised-button color="primary" (click)="addSizes(input.key)">
+        {{ "addSize" | translate }}
+      </button>
+
+      <input hidden [value]="productSizes" type="text" [formControlName]="input.key" />
+
+      <ul *ngIf="productSizes && productSizes.length > 0" class="size-list">
+        <li *ngFor="let size of productSizes; let i = index" class="size-list-item">
+          <div>
+            {{ "size" | translate }}: {{ size.size }} |
+            {{ "quantity" | translate }}: {{ size.quantity }} |
+            {{ "sellingPrice" | translate }}:
+            {{ size.selling_price || size.sellingPrice }} €
+          </div>
+          <div (click)="removeFromSizes(i)" class="cancel-icon">
+            <mat-icon [ngStyle]="{ color: 'red', cursor: 'pointer' }">cancel</mat-icon>
+          </div>
+        </li>
+      </ul>
     </div>
-
-
-    <!-- --------------------------------- -->
-
-
-
-    <!-- <div>
-        <img *ngFor="let preview of previews" [src]="preview" class="preview" />
-      </div> -->
-
-    <!-- <div *ngIf="message.length" class="message">
-        <ul *ngFor="let msg of message; let i = index">
-          <li>{{ msg }}</li>
-        </ul>
-      </div> -->
   </div>
 </div>

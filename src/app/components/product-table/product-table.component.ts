@@ -64,9 +64,8 @@ export class ProductTableComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        deleteTitle: `Are you sure you want delete ${name}?`,
-        id: id,
-        handleFn: 'productDelete',
+        msg: `Are you sure you want delete ${name}?`,
+        productId: id,
       },
     });
 
@@ -76,8 +75,11 @@ export class ProductTableComponent implements OnInit, OnChanges {
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
-  detailProduct(id: number | string) {
-    // console.log('detail', id);
+  goToProductDetail(id: number | string) {
     this.router.navigate([`/dashboard/products/detail-product/${id}`]);
+  }
+
+  goToProductDelete(id: number | string) {
+    this.router.navigate([`/dashboard/products/edit-product/${id}`]);
   }
 }

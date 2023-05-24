@@ -10,6 +10,7 @@ export class ButtonComponent {
   @Input() color: string = '';
   @Input() icon: string = '';
   @Input() type: string = 'button';
+  @Input() class: string = '';
   @Input() isDisabled: boolean = false;
   @Output() onClickEvent = new EventEmitter();
 

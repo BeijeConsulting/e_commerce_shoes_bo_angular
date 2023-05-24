@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
   emailReg: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
 
-  userForm$: Observable<InputBase<string>[]>;
-
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
@@ -72,7 +70,6 @@ export class LoginComponent implements OnInit {
        phoneNumber: '3333333333',
      });
 */
-
     // this.userForm$ = this.formService.personalAddressForm({
     //   label: 'label',
     //   fullName: 'Mario Rossi',
@@ -82,8 +79,6 @@ export class LoginComponent implements OnInit {
     //   zipCode: '39239',
     //   instructions: 'adsfashfk',
     // });
-
-    this.userForm$ = this.formService.addProductForm();
   }
 
   ngOnInit(): void {

@@ -30,7 +30,7 @@ export class FormControlService {
 
     if (input.value) {
       initialValue = input.value;
-      console.log('initialValue: ', initialValue);
+      // console.log('initialValue: ', initialValue);
     }
 
     if (input.controlType === 'imagepicker' && input instanceof ImagePicker) {

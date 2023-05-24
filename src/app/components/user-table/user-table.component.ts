@@ -26,6 +26,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
   @Input() employees: boolean = false;
   subscriptions = new Subscription();
 
+  isLoading: boolean = false;
+
   userObs: UserDataApi[] = [];
   totalSizeObs: number = 0;
 
@@ -130,21 +132,27 @@ export class UserTableComponent implements OnInit, OnDestroy {
     // console.log('page event: ', e);
 
     if (!this.employees) {
+      this.isLoading = true;
       this.userService.getUsers(e.pageIndex + 1, e.pageSize).subscribe({
-        next: () =>
-          (this.userService.userTableDataState = {
+        next: () => {
+          this.isLoading = false;
+          this.userService.userTableDataState = {
             page: e.pageIndex + 1,
             size: e.pageSize,
-          }),
+          };
+        },
       });
     }
     if (this.employees) {
+      this.isLoading = true;
       this.userService.getUsers(e.pageIndex + 1, e.pageSize, true).subscribe({
-        next: () =>
-          (this.userService.employeesTableDataState = {
+        next: () => {
+          this.isLoading = false;
+          this.userService.employeesTableDataState = {
             page: e.pageIndex + 1,
             size: e.pageSize,
-          }),
+          };
+        },
       });
     }
   }

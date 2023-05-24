@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { finalize, forkJoin, switchMap } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from '../../services/product/product.service';
+import { CouponService } from 'src/app/services/coupon/coupon.service';
 import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
@@ -16,8 +17,10 @@ export class DialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialogRef: MatDialogRef<DialogComponent>,
-    private orderService: OrderService,
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService,
+    private couponService: CouponService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
@@ -81,14 +84,41 @@ export class DialogComponent implements OnInit, OnDestroy {
           error: (err) => console.log(err),
         });
     }
+
+    if (this.data.hasOwnProperty('couponId')) {
+      const couponTableState = this.couponService.couponTableDataState;
+
+      this.couponService
+        .deleteCoupon(this.data.couponId)
+        .pipe(
+          finalize(() => {
+            this.closeDialog();
+            this.couponService
+              .getCoupons(couponTableState.page, couponTableState.size)
+              .subscribe({
+                next: () => console.log('Table Updated'),
+              });
+          })
+        )
+        .subscribe({
+          next: () => console.log('Coupon deleted'),
+          error: () => {},
+        });
+    }
+
+    // this.productService
+    //   .deleteSingleProduct(this.data.id)
+    //   .subscribe(() => this.productService.getProducts(1, 5, 'it'));
+
+    // this.closeDialog();
+    // Product
+    if (this.data.hasOwnProperty('productId')) {
+      this.productService
+        .deleteSingleProduct(this.data.productId)
+        .subscribe(() => this.productService.getProducts(1, 5, 'it'));
+      this.closeDialog();
+    }
   }
-
-  //   // this.productService
-  //   //   .deleteSingleProduct(this.data.id)
-  //   //   .subscribe(() => this.productService.getProducts(1, 5, 'it'));
-
-  //   this.closeDialog();
-  // }
 
   ngOnDestroy(): void {
     this.closeDialog();
