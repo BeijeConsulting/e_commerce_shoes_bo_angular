@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Order } from 'src/app/interfaces/Order';
+import { orderItem } from 'src/app/interfaces/Order';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { Order } from 'src/app/interfaces/Order';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  orders: Order[];
+  orders: orderItem[];
 
   monthLabels: string[] = [
     'January',
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
     let result: any = [];
     const data: any = {};
 
-    this.orders.forEach((item) => {
+    this.orders.forEach((item: orderItem) => {
       const nation: string = item.address.split(',')[0];
       if (isNaN(data[nation])) data[nation] = 0;
       data[nation] += item.total_price;
@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
   getIncomePerMonth() {
     let incomes: any = [];
 
-    this.orders.forEach((item) => {
+    this.orders.forEach((item: orderItem) => {
       const monthIndex: number = new Date(item.created_at).getMonth();
       if (isNaN(incomes[monthIndex])) incomes[monthIndex] = 0;
       incomes[monthIndex] += item.total_price;
@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
   getOrdersPerMonth() {
     let orders: any = [];
 
-    this.orders.forEach((item) => {
+    this.orders.forEach((item: orderItem) => {
       const monthIndex: number = new Date(item.created_at).getMonth();
       if (isNaN(orders[monthIndex])) orders[monthIndex] = 0;
       orders[monthIndex] += 1;
