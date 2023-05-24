@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-detail-product',
@@ -12,10 +13,14 @@ export class DetailProductComponent {
   sizes: any;
   images: any;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private translateService: TranslateService
+  ) {
     const response = this.route.snapshot.data['productsResolver'];
     this.product = { ...response.product };
     this.sizes = [...response.productDetails];
     this.images = [...response.productImages];
+    console.log(this);
   }
 }

@@ -10,6 +10,10 @@ import { OrderService } from '../services/order/order.service';
 import { SizeService } from '../services/size/size.service';
 import { CouponService } from '../services/coupon/coupon.service';
 import { PersonalService } from '../services/personal/personal.service';
+import { ColorService } from '../services/color/color.service';
+import { CategoryService } from '../services/category/category.service';
+import { BrandService } from '../services/brand/brand.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -27,13 +31,13 @@ export const getUsersResolverFn = () => {
 };
 
 // Orders
-export const getOrdersResolverFn = (route: ActivatedRouteSnapshot) => {
+export const getOrdersResolverFn = () => {
   console.log('Resolver All Orders Activated');
   const ordersService = inject(OrderService);
   return ordersService.getOrdersPerPage(1, 5);
 };
 
-export const getAllOrdersResolverFn = (route: ActivatedRouteSnapshot) => {
+export const getAllOrdersResolverFn = () => {
   console.log('Resolver Activated');
   const ordersService = inject(OrderService);
   return ordersService.getOrders();
@@ -51,13 +55,51 @@ export const getOrderByIdResolverFn = (route: ActivatedRouteSnapshot) => {
 export const getProductsResolverFn = () => {
   console.log('Resolver Activated');
   const productService = inject(ProductService);
-  return productService.getProducts(1, 5, 'it');
+  const translate = inject(TranslateService);
+  const language: string = translate.currentLang;
+  return productService.getProducts(1, 5, language);
 };
 
 export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const productService = inject(ProductService);
   return productService.getSingleProduct(route.params['id']);
+};
+
+export const addProductsResolverFn = () => {
+  console.log('Resolver Activated');
+  const sizeService = inject(SizeService);
+  const brandService = inject(BrandService);
+  const colorService = inject(ColorService);
+  const categoryService = inject(CategoryService);
+  const translate = inject(TranslateService);
+  const language: string = translate.currentLang;
+
+  return forkJoin({
+    sizes: sizeService.getSizes(),
+    colors: colorService.getColors(language),
+    brands: brandService.getBrands(),
+    categories: categoryService.getCategories(language),
+  });
+};
+
+export const updateProductsResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const productService = inject(ProductService);
+  const sizeService = inject(SizeService);
+  const brandService = inject(BrandService);
+  const colorService = inject(ColorService);
+  const categoryService = inject(CategoryService);
+  const translate = inject(TranslateService);
+  const language: string = translate.currentLang;
+
+  return forkJoin({
+    product: productService.getSingleProduct(route.params['id']),
+    sizes: sizeService.getSizes(),
+    colors: colorService.getColors(language),
+    brands: brandService.getBrands(),
+    categories: categoryService.getCategories(language),
+  });
 };
 
 // Coupons

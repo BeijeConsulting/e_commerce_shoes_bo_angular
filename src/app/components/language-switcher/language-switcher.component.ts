@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-language-switcher',
@@ -8,9 +9,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageSwitcherComponent {
   showMenu: boolean = false;
-  selectedLanguage: string = 'en';
+  selectedLanguage: string;
 
-  constructor(private translateService: TranslateService) {}
+  constructor(
+    private translateService: TranslateService,
+    private storage: StorageService
+  ) {
+    this.selectedLanguage = this.translateService.currentLang;
+  }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
@@ -20,6 +26,7 @@ export class LanguageSwitcherComponent {
     const language: any = (e.target as HTMLImageElement).dataset['language'];
     this.translateService.use(language);
     this.selectedLanguage = language;
+    this.storage.setStorage('language', language);
     this.toggleMenu();
   }
 }

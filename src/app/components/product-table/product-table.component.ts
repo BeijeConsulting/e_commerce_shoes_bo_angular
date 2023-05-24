@@ -79,7 +79,7 @@ export class ProductTableComponent implements OnInit, OnChanges {
     this.router.navigate([`/dashboard/products/detail-product/${id}`]);
   }
 
-  goToProductDelete(id: number | string) {
+  goToProductUpdate(id: number | string) {
     this.router.navigate([`/dashboard/products/edit-product/${id}`]);
   }
 }

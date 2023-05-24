@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ProductService } from '../../services/product/product.service';
 import { CouponService } from 'src/app/services/coupon/coupon.service';
 import { OrderService } from 'src/app/services/order/order.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dialog',
@@ -20,7 +21,8 @@ export class DialogComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private productService: ProductService,
     private couponService: CouponService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -110,16 +112,12 @@ export class DialogComponent implements OnInit, OnDestroy {
         });
     }
 
-    // this.productService
-    //   .deleteSingleProduct(this.data.id)
-    //   .subscribe(() => this.productService.getProducts(1, 5, 'it'));
-
-    // this.closeDialog();
     // Product
     if (this.data.hasOwnProperty('productId')) {
+      const language: string = this.translate.currentLang;
       this.productService
         .deleteSingleProduct(this.data.productId)
-        .subscribe(() => this.productService.getProducts(1, 5, 'it'));
+        .subscribe(() => this.productService.getProducts(1, 5, language));
       this.closeDialog();
     }
   }
