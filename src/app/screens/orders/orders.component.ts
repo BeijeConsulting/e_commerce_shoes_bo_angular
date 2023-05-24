@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // Services
 import { OrderService } from '../../services/order/order.service';
+import { orderItem } from 'src/app/interfaces/Order';
 
 @Component({
   selector: 'app-orders',
@@ -11,18 +12,7 @@ import { OrderService } from '../../services/order/order.service';
   styleUrls: ['./orders.component.css'],
 })
 export class OrdersComponent implements OnInit {
-  // ordersItem!: {
-  //   address: string;
-  //   created_at: string;
-  //   id: number;
-  //   payment_status: string;
-  //   status: string;
-  //   total_price: number;
-  //   transaction: string;
-  //   transaction_date: string;
-  //   user_id: number;
-  // };
-  ordersItem: object[][];
+  ordersItem!: orderItem;
   ordersLength: number = 0;
 
   constructor(

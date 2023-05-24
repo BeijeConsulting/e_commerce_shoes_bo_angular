@@ -2,6 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogOrderComponent } from '../dialog-order/dialog-order.component';
+import { flatMap, repeat } from 'lodash';
+import { MatCardXlImage } from '@angular/material/card';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -40,6 +45,8 @@ export class DynamicFormInputComponent implements OnInit {
   sizeError: string = '';
 
   hide: boolean = true;
+
+  constructor(public dialog: MatDialog) {}
 
   get isValid() {
     return this.form.controls[this.input.key].valid;
@@ -98,6 +105,33 @@ export class DynamicFormInputComponent implements OnInit {
 
   toggleVisibility(): void {
     this.hide = !this.hide;
+  }
+
+  // trigger dialog
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogOrderComponent, {
+      restoreFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result parent', result);
+      if (result === undefined) return;
+
+      const newArray: any[] = [];
+
+      result.data.forEach((el: any) => {
+        for (let i = 0; i < el.quantity; i++) {
+          newArray.push(el.id);
+        }
+      });
+      console.log('newArray', newArray);
+
+      this.form.get('orderId')?.setValue(newArray);
+    });
+
+    // Manually restore focus to the menu trigger since the element that
+    // opens the dialog won't be in the DOM any more when the dialog closes.
+    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
   selectFiles(event: any, inputKey: string): void {

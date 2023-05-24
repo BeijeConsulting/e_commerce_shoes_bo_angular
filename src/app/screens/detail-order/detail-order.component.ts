@@ -25,5 +25,6 @@ export class DetailOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderDetail = this.route.snapshot.data['ordersResolver'];
+    console.log('this.orderDetail', this.orderDetail);
   }
 }
