@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 // Services
 import { ProductService } from 'src/app/services/product/product.service';
 import { OrderProduct } from 'src/app/interfaces/Order';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dialog-order',
@@ -38,9 +39,11 @@ export class DialogOrderComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialogRef: MatDialogRef<DialogOrderComponent>,
-    private productsService: ProductService
+    private productsService: ProductService,
+    private translate: TranslateService
   ) {
-    productsService.getProducts(1, 5, 'it').subscribe({
+    const language = this.translate.currentLang;
+    productsService.getProducts(1, 5, language).subscribe({
       next: (res) => {
         this.productsList = res.products;
         this.length = res.results;
@@ -113,8 +116,9 @@ export class DialogOrderComponent implements OnInit {
 
   // handle event for pagination
   handlePageEvent(e: any) {
+    const language = this.translate.currentLang;
     this.productsService
-      .getProducts(e.pageIndex + 1, e.pageSize, 'it')
+      .getProducts(e.pageIndex + 1, e.pageSize, language)
       .subscribe({
         next: (res) => {
           this.productListProva = res.products.map((el: any) => {

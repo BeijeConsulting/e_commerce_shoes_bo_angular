@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, finalize } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable, finalize, forkJoin } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
+import { BrandService } from 'src/app/services/brand/brand.service';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { ColorService } from 'src/app/services/color/color.service';
 import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import { SizeService } from 'src/app/services/size/size.service';
@@ -22,7 +26,11 @@ export class EditProductComponent implements OnInit {
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private sizeService: SizeService
+    private sizeService: SizeService,
+    private translate: TranslateService,
+    private colorService: ColorService,
+    private brandService: BrandService,
+    private categoryService: CategoryService
   ) {
     const { sizes, colors, categories, brands, product } =
       this.route.snapshot.data['updateProductsResolver'];
@@ -41,7 +49,25 @@ export class EditProductComponent implements OnInit {
     this.id = product.product.id;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const { product, sizes, brands } =
+      this.route.snapshot.data['updateProductsResolver'];
+
+    this.translate.onLangChange.subscribe((langObj) => {
+      const colors$ = this.colorService.getColors(langObj.lang);
+      const categories$ = this.categoryService.getCategories(langObj.lang);
+
+      forkJoin([colors$, categories$]).subscribe(([colors, categories]) => {
+        this.editProductForm$ = this.formService.editProductForm(
+          product,
+          sizes,
+          brands,
+          colors,
+          categories
+        );
+      });
+    });
+  }
 
   onSubmit(data: any) {
     const updatedDetails = [...data.productDetails];
