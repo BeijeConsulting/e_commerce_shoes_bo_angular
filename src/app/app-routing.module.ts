@@ -36,6 +36,7 @@ import {
   getSingleProductResolverFn,
   getSizesResolverFn,
   getUsersResolverFn,
+  getPersonalDataResolverFn,
 } from './resolvers/resolvers';
 
 const routes: Routes = [
@@ -134,6 +135,7 @@ const routes: Routes = [
       {
         path: 'personal-area',
         component: PersonalAreaComponent,
+        resolve: { personalDataResolver: getPersonalDataResolverFn },
       },
       {
         path: 'personal-area/addresses',

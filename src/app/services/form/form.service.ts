@@ -629,7 +629,7 @@ export class FormService {
       new PasswordInput({
         key: 'password',
         label: 'Password',
-        required: true,
+        required: false,
         value: personalUserData.password,
         order: 1,
         regexControl:

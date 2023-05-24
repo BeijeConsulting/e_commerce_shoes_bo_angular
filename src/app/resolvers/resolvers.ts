@@ -9,6 +9,7 @@ import { OrderService } from '../services/order/order.service';
 // Sizes Service
 import { SizeService } from '../services/size/size.service';
 import { CouponService } from '../services/coupon/coupon.service';
+import { PersonalService } from '../services/personal/personal.service';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -89,4 +90,10 @@ export const getSizesResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const sizesService = inject(SizeService);
   return sizesService.getSizes();
+};
+
+export const getPersonalDataResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const personalService = inject(PersonalService);
+  return personalService.getPersonalData();
 };
