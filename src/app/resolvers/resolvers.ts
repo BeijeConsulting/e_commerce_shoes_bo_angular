@@ -97,3 +97,17 @@ export const getPersonalDataResolverFn = (route: ActivatedRouteSnapshot) => {
   const personalService = inject(PersonalService);
   return personalService.getPersonalData();
 };
+
+export const getPersonalAddressesResolverFn = (
+  route: ActivatedRouteSnapshot
+) => {
+  console.log('Resolver Activated');
+  const personalService = inject(PersonalService);
+  return personalService.getPersonalAddresses();
+};
+
+export const getPersonalAddressResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const personalService = inject(PersonalService);
+  return personalService.getPersonalAddress(route.params['id']);
+};

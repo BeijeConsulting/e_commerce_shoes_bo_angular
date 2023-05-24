@@ -707,7 +707,7 @@ export class FormService {
       }),
 
       new MultiLine({
-        key: 'instuctions',
+        key: 'instructions',
         label: 'Instructions',
         required: false,
         value: personalAddreddData?.instructions,

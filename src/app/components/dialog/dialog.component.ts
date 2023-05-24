@@ -31,6 +31,10 @@ export class DialogComponent implements OnInit, OnDestroy {
     this.matDialogRef.close(this.data);
   }
 
+  confirmAction(): void {
+    this.matDialogRef.close(true);
+  }
+
   onDelete() {
     // Orders
     if (this.data.hasOwnProperty('orderId')) {
