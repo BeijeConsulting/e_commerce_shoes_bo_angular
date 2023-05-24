@@ -110,6 +110,7 @@ const routes: Routes = [
       {
         path: 'orders/add-order',
         component: AddOrderComponent,
+        resolve: { productsResolver: getProductsResolverFn },
       },
       {
         path: 'orders/edit-order/:id',

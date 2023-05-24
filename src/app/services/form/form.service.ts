@@ -5,6 +5,7 @@ import { DateInput } from 'src/app/classes/forms/DateInput';
 import { ImagePicker } from 'src/app/classes/forms/ImagePicker';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { MultiLine } from 'src/app/classes/forms/MultiLineInput';
+import { OrderInput } from 'src/app/classes/forms/OrderInput';
 import { PasswordInput } from 'src/app/classes/forms/PasswordInput';
 import { SelectInput } from 'src/app/classes/forms/SelectInput';
 import { TextInput } from 'src/app/classes/forms/TextInput';
@@ -599,20 +600,20 @@ export class FormService {
       new TextInput({
         key: 'couponId',
         label: 'Coupon ID',
-        required: true,
+        required: false,
         value: '',
         order: 1,
       }),
 
-      new TextInput({
-        key: 'searchProducById',
-        label: 'Search Product By ID',
-        required: true,
-        value: '',
-        order: 1,
-      }),
+      // new TextInput({
+      //   key: 'searchProducById',
+      //   label: 'Search Product By ID',
+      //   required: true,
+      //   value: '',
+      //   order: 1,
+      // }),
 
-      new TextInput({
+      new OrderInput({
         key: 'orderId',
         label: 'Order Id',
         required: true,

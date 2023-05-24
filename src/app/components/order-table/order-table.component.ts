@@ -36,12 +36,10 @@ export class OrderTableComponent implements OnInit, OnChanges {
     'actions',
   ];
 
-  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
 
-  @Input() data: any = {};
+  @Input() data!: any;
   @Input() length: number = 0;
   @Output() handleEventPageEmitter = new EventEmitter();
 
@@ -53,21 +51,16 @@ export class OrderTableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any>(this.data);
     this.dataSource.paginator = this.paginator;
-    // console.log('data in child table', this.data);
+    console.log('data in child table', this.data);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.dataSource = new MatTableDataSource<any>(changes['data'].currentValue);
   }
 
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-  }
-
   // handle event for pagination
   handlePageEvent(event: any) {
     this.handleEventPageEmitter.emit(event);
-    // console.log('event', event);
   }
 
   // trigger dialog
@@ -77,7 +70,6 @@ export class OrderTableComponent implements OnInit, OnChanges {
       data: {
         msg: `Are you sure you want delete ${name}?`,
         orderId: id,
-        handleFn: 'orderDelete',
       },
     });
 

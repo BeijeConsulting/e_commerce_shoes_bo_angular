@@ -50,7 +50,7 @@ export class OrderService {
   // POST new order
   postNewOrder(body: any): Observable<any> {
     return this.http.post<any>(
-      `${this.baseURL}/order/add_order`,
+      `${this.baseURL}/orders/add_order`,
       body,
       this.authService.getHeaderOptions(true)
     );

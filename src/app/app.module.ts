@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -79,6 +80,7 @@ import { UserTableComponent } from './components/user-table/user-table.component
 import { OrderTableComponent } from './components/order-table/order-table.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 import { DatePipe } from '@angular/common';
+import { DialogOrderComponent } from './components/dialog-order/dialog-order.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -131,8 +133,10 @@ function HttpLoaderFactory(http: HttpClient) {
     UserTableComponent,
     OrderTableComponent,
     LanguageSwitcherComponent,
+    DialogOrderComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -49,3 +49,13 @@ ul {
   padding: 0;
   margin: 0;
 }
+
+td .mat-mdc-text-field-wrapper {
+  /* border: 2px solid blue; */
+  display: flex;
+  margin-top: 20px;
+  height: 100% !important;
+  align-items: center;
+  text-align: center !important;
+  justify-content: center !important;
+}

@@ -68,15 +68,18 @@
     <!-- Order Id  -->
     <div *ngSwitchCase="'orderinput'">
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
-        <input matInput [formControlName]="input.key" [id]="input.key" [type]="input.type"
-          [readonly]="input.readonly" />
-      </mat-form-field>
+      <input hidden matInput [formControlName]="input.key" [id]="input.key" [type]="input.type"
+        [readonly]="input.readonly" />
 
-      <button type="button" mat-raised-button color="primary">Click</button>
+
+      <div class='order__hidden'>
+        <p>Choose products and quantity*</p>
+        <button type="button" mat-raised-button color="primary" (click)="openDialog()">Choose products and
+          quantity</button>
+      </div>
 
     </div>
+
 
     <!-- --------------------------------- -->
 
