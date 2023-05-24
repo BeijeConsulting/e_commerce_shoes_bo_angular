@@ -43,11 +43,33 @@ export class ProductService {
     );
   }
 
-  editProduct(product: any, id: number): Observable<any> {
-    console.log(product, id);
+  updateProduct(product: any, id: number): Observable<any> {
     return this.http.put<any>(
       `${this.baseURL}/products/update/${id}`,
       product,
+      this.authService.getHeaderOptions(true)
+    );
+  }
+
+  addProductDetails(productDetails: any) {
+    return this.http.post<any>(
+      `${this.baseURL}/product_details/add`,
+      productDetails,
+      this.authService.getHeaderOptions(true)
+    );
+  }
+
+  updateProductDetails(productDetails: any, id: number) {
+    return this.http.put<any>(
+      `${this.baseURL}/product_details/update/${id}`,
+      productDetails,
+      this.authService.getHeaderOptions(true)
+    );
+  }
+
+  deleteProductSize(id: number) {
+    return this.http.delete<any>(
+      `${this.baseURL}/product_details/delete/${id}`,
       this.authService.getHeaderOptions(true)
     );
   }

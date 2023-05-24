@@ -8,9 +8,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageSwitcherComponent {
   showMenu: boolean = false;
-  selectedLanguage: string = 'en';
+  selectedLanguage: string;
 
-  constructor(private translateService: TranslateService) {}
+  constructor(private translateService: TranslateService) {
+    this.selectedLanguage = this.translateService.currentLang;
+  }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;

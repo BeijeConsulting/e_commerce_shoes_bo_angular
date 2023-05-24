@@ -34,8 +34,9 @@ import {
   getProductsResolverFn,
   getSingleCouponResolverFn,
   getSingleProductResolverFn,
-  getSizesResolverFn,
   getUsersResolverFn,
+  addProductsResolverFn,
+  updateProductsResolverFn,
 } from './resolvers/resolvers';
 
 const routes: Routes = [
@@ -70,12 +71,12 @@ const routes: Routes = [
       {
         path: 'products/add-product',
         component: AddProductsComponent,
-        resolve: { productResolver: getSizesResolverFn },
+        resolve: { addProductsResolver: addProductsResolverFn },
       },
       {
         path: 'products/edit-product/:id',
         component: EditProductComponent,
-        resolve: { productsResolver: getSingleProductResolverFn },
+        resolve: { updateProductsResolver: updateProductsResolverFn },
       },
       {
         path: 'users',

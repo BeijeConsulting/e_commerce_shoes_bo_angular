@@ -9,6 +9,9 @@ import { OrderService } from '../services/order/order.service';
 // Sizes Service
 import { SizeService } from '../services/size/size.service';
 import { CouponService } from '../services/coupon/coupon.service';
+import { ColorService } from '../services/color/color.service';
+import { CategoryService } from '../services/category/category.service';
+import { BrandService } from '../services/brand/brand.service';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -57,6 +60,39 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const productService = inject(ProductService);
   return productService.getSingleProduct(route.params['id']);
+};
+
+export const addProductsResolverFn = () => {
+  console.log('Resolver Activated');
+
+  const sizeService = inject(SizeService);
+  const brandService = inject(BrandService);
+  const colorService = inject(ColorService);
+  const categoryService = inject(CategoryService);
+
+  return forkJoin({
+    sizes: sizeService.getSizes(),
+    colors: colorService.getColors('en'),
+    brands: brandService.getBrands(),
+    categories: categoryService.getCategories('en'),
+  });
+};
+
+export const updateProductsResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver Activated');
+  const productService = inject(ProductService);
+  const sizeService = inject(SizeService);
+  const brandService = inject(BrandService);
+  const colorService = inject(ColorService);
+  const categoryService = inject(CategoryService);
+
+  return forkJoin({
+    product: productService.getSingleProduct(route.params['id']),
+    sizes: sizeService.getSizes(),
+    colors: colorService.getColors('en'),
+    brands: brandService.getBrands(),
+    categories: categoryService.getCategories('en'),
+  });
 };
 
 // Coupons

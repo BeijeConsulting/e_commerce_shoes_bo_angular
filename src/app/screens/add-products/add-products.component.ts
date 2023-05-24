@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { FormService } from 'src/app/services/form/form.service';
@@ -17,10 +18,19 @@ export class AddProductsComponent {
     private formService: FormService,
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) {
-    const sizes = this.route.snapshot.data['productResolver'];
-    this.addProductForm$ = this.formService.addProductForm(sizes);
+    console.log(this);
+    const { sizes, colors, categories, brands } =
+      this.route.snapshot.data['addProductsResolver'];
+
+    this.addProductForm$ = this.formService.addProductForm(
+      sizes,
+      brands,
+      colors,
+      categories
+    );
   }
 
   onSubmit(data: any) {
@@ -34,13 +44,10 @@ export class AddProductsComponent {
     };
 
     for (let key in data) {
-      console.log(key);
       if (key !== 'productDetails' && key !== 'productImages') {
         newProduct.product[key] = data[key];
       }
     }
-
-    console.log('NUOVO PRODOTTO', newProduct);
 
     this.productService
       .addProduct(newProduct)
