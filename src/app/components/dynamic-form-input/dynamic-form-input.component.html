@@ -71,6 +71,14 @@
       <input hidden accept="image/*" (change)="selectFiles($event, input.key)" #fileInput type="file" id="file" />
     </div>
 
+    <!-- Order -->
+    <div *ngSwitchCase="'orderinput'">
+      <input hidden readonly='true' type="text" [formControlName]="input.key" />
+      <button type="button" mat-raised-button color="primary" (click)="openDialog()">Click</button>
+    </div>
+    <!-- end order -->
+
+
     <div *ngSwitchCase="'productSize'">
       <div class="product-size-inputs">
         <!-- size -->

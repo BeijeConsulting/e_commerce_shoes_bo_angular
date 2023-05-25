@@ -38,7 +38,7 @@
   <mat-card-content>
     <p> Total price:
       <span>
-        {{data.total_price}}
+        {{data.total_price | number : '1.0-2'}} €
       </span>
     </p>
   </mat-card-content>
@@ -63,6 +63,14 @@
       </span>
     </p>
   </mat-card-content>
+
+
+  <!-- <mat-card-content>
+    <p>Images:</p>
+    <div *ngFor="let image of imagesArray">
+      <img style='width: 100px;' [src]='data.products[0].image.image_path ' />
+    </div>
+  </mat-card-content> -->
   <!-- <mat-card-actions>
     <button mat-button>BACK</button>
   </mat-card-actions> -->

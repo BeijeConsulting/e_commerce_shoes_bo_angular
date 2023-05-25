@@ -27,7 +27,7 @@ export class EditCouponComponent {
   ) {
     this.coupon = route.snapshot.data['couponEditDetailsResolver'][0];
     this;
-    console.log(this.coupon);
+    console.log('this.coupon', this.coupon);
 
     this.editCouponForm$ = formService.editCouponForm({
       code: this.coupon.code,
@@ -93,7 +93,7 @@ export class EditCouponComponent {
 }
 /*
 {
-  "id": "38", 
+  "id": "38",
   "code": "TESTTOAST", V
   "max_usages": "2", V
   "user_id": "", V

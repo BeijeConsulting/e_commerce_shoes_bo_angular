@@ -20,4 +20,17 @@ export interface orderItem {
   user_id: number;
 }
 
+export interface orderDetail {
+  products: [
+    {
+      brand: string;
+      category: string;
+      color: string;
+      image_path?: string;
+      selling_price: number;
+      product_id: number;
+    }
+  ];
+}
+
 // export interface Order {}

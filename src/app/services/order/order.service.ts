@@ -62,4 +62,13 @@ export class OrderService {
       responseType: 'text' as 'json',
     });
   }
+
+  // PUT order
+  editOrder(body: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.authService.baseURL}/orders/modify_order`,
+      body,
+      this.authService.getHeaderOptions(true)
+    );
+  }
 }
