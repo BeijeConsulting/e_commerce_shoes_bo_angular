@@ -14,6 +14,8 @@ export class OrderService {
   orders: Subject<any> = new Subject();
   baseURL: string = this.authService.baseURL;
 
+  orderTableState = { page: 1, size: 5 };
+
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   // GET all orders

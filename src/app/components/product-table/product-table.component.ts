@@ -24,6 +24,9 @@ import { Router } from '@angular/router';
 
 // Interfaces
 import { ProductPreview } from 'src/app/interfaces/Product';
+import { TranslateService } from '@ngx-translate/core';
+import { ProductService } from 'src/app/services/product/product.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-table',
@@ -48,7 +51,13 @@ export class ProductTableComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
 
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private translate: TranslateService,
+    private productService: ProductService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any>(this.products);
@@ -61,24 +70,48 @@ export class ProductTableComponent implements OnInit, OnChanges {
     }
   }
 
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
+  }
+
   handlePageEvent(e: PageEvent) {
     this.handlePageEventEmitter.emit(e);
   }
 
   // trigger dialog
-  openDialog(name: string, id: number, handleFn: string) {
+  openDialog(id: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        msg: `Are you sure you want delete ${name}?`,
-        productId: id,
+        item: 'product',
       },
     });
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.
-    dialogRef.afterClosed();
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) this.deleteProduct(id);
+    });
+  }
+
+  deleteProduct(id: number): void {
+    const language: string = this.translate.currentLang;
+    this.productService.deleteSingleProduct(id).subscribe({
+      next: () => {
+        this.productService.getProducts(1, 5, language);
+        this.notify('Product deleted', true);
+      },
+      error: (err) => {
+        console.log(err);
+        this.notify('Something went wrong', false);
+      },
+    });
   }
 
   goToProductDetail(id: number | string) {

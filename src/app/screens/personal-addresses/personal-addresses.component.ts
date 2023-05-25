@@ -65,17 +65,18 @@ export class PersonalAddressesComponent {
     this.router.navigate(['dashboard/personal-area/add-address']);
   }
 
-  openDialog(id?: string, item?: string) {
+  openDialog(id: number, item?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        msg: `Are you sure you want delete this ${item}?`,
-        personalAddressId: id,
+        item: item,
       },
     });
     dialogRef.afterClosed().subscribe({
       next: (confirm) => {
-        if (confirm && id) this.deleteAddress(Number(id));
+        console.log('confirm: ', confirm, id);
+
+        if (confirm) this.deleteAddress(id);
       },
     });
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
