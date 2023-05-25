@@ -1,1 +1,64 @@
-<p>personal-addresses works!</p>
+<div class="addresses-container">
+  <mat-card class="add-card">
+    <mat-card-content class="add-card-content">
+      <h3>Add a new Address</h3>
+      <button mat-icon-button color="primary" (click)="addPersonalAddress()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngFor="let address of addresses" class="example-card">
+    <mat-card-content>
+      <p>
+        <strong>{{ "label" | translate }}</strong
+        >: {{ address.label }}
+      </p>
+    </mat-card-content>
+    <mat-card-content>
+      <p>
+        <strong>{{ "streetAddress" | translate }}</strong
+        >: {{ address.street_address }}
+      </p>
+    </mat-card-content>
+    <mat-card-content>
+      <p>
+        <strong>{{ "nameSurname" | translate }}</strong
+        >: {{ address.name_surname }}
+      </p>
+    </mat-card-content>
+    <mat-card-content>
+      <p>
+        <strong>{{ "instructions" | translate }}</strong
+        >: {{ address.instructions }}
+      </p>
+    </mat-card-content>
+    <mat-card-content>
+      <p>
+        <strong>{{ "telephone" | translate }}</strong
+        >: {{ address.telephone }}
+      </p>
+    </mat-card-content>
+
+    <mat-card-content>
+      <p>
+        <strong>{{ "country" | translate }}</strong
+        >: {{ address.country }}
+      </p>
+    </mat-card-content>
+    <mat-card-content>
+      <p>
+        <strong>{{ "zipcode" | translate }}</strong
+        >: {{ address.zipcode }}
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions class="actions">
+      <button color="warn" mat-button (click)="deleteAddress(address.id)">
+        DELETE
+      </button>
+      <button color="primary" mat-button (click)="editAddress(address.id)">
+        EDIT
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

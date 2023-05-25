@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Router
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -19,7 +20,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private translate: TranslateService
   ) {
     const response = this.route.snapshot.data['productsResolver'];
     this.products = [...response.products];
@@ -27,6 +29,10 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.translate.onLangChange.subscribe((res) =>
+      this.productService.getProducts(this.page, this.perPage, res.lang)
+    );
+
     this.productService.products.subscribe((res) => {
       this.products = [...res.products];
       this.productsLenght = res.results;
@@ -40,7 +46,7 @@ export class ProductsComponent implements OnInit {
   getPaginatedProducts(e: any) {
     this.page = e.pageIndex + 1;
     this.perPage = e.pageSize;
-
-    this.productService.getProducts(this.page, this.perPage, 'it');
+    const language = this.translate.currentLang;
+    this.productService.getProducts(this.page, this.perPage, language);
   }
 }

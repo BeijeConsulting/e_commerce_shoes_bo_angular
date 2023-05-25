@@ -1,17 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, finalize } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable, finalize, forkJoin } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
+import { BrandService } from 'src/app/services/brand/brand.service';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { ColorService } from 'src/app/services/color/color.service';
 import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { SizeService } from 'src/app/services/size/size.service';
 
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css'],
 })
-export class EditProductComponent {
+export class EditProductComponent implements OnInit {
   product: any;
+  dbProductDetails: any;
   id: number;
   editProductForm$: Observable<InputBase<string>[]>;
 
@@ -19,60 +25,90 @@ export class EditProductComponent {
     private formService: FormService,
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private sizeService: SizeService,
+    private translate: TranslateService,
+    private colorService: ColorService,
+    private brandService: BrandService,
+    private categoryService: CategoryService
   ) {
-    const product = this.route.snapshot.data['productsResolver'];
-    console.log('PRODOTTO DA EDITARE', product);
-    this.editProductForm$ = this.formService.editProductForm(product);
+    const { sizes, colors, categories, brands, product } =
+      this.route.snapshot.data['updateProductsResolver'];
+
+    this.dbProductDetails = [...product.productDetails];
+
+    delete product.productImages;
+    this.editProductForm$ = this.formService.editProductForm(
+      product,
+      sizes,
+      brands,
+      colors,
+      categories
+    );
+
     this.id = product.product.id;
   }
 
+  ngOnInit(): void {
+    const { product, sizes, brands } =
+      this.route.snapshot.data['updateProductsResolver'];
+
+    this.translate.onLangChange.subscribe((langObj) => {
+      const colors$ = this.colorService.getColors(langObj.lang);
+      const categories$ = this.categoryService.getCategories(langObj.lang);
+
+      forkJoin([colors$, categories$]).subscribe(([colors, categories]) => {
+        this.editProductForm$ = this.formService.editProductForm(
+          product,
+          sizes,
+          brands,
+          colors,
+          categories
+        );
+      });
+    });
+  }
+
   onSubmit(data: any) {
-    const productDetailsRaw: any = [...data.productDetails];
-    const productImagesRaw: any = [...data.productImages];
-    const productImages: any = [];
-    const productDetails: any = [];
+    const updatedDetails = [...data.productDetails];
+
+    const sizesIdToRemove: string[] = [];
+    const sizesToAdd: object[] = [];
+    const sizesToEdit: object[] = [];
+
+    // Check taglie da aggiungere e editare
+    updatedDetails.forEach((details: any) => {
+      // Se una taglia negli updatedDetails non è presente nel db, è da aggiungere nel db
+      details.product_id = this.id;
+      const index = this.dbProductDetails.findIndex((item: any) => {
+        // Se una taglia negli updatedDetails è presente nel db, è da verificare che non sia stata aggiornata
+        if (item.size === details.size) {
+          if (
+            details.quantity !== item.quantity ||
+            details.sellingPrice !== item.sellingPrice
+          ) {
+            sizesToEdit.push({ id: item.id, details });
+          }
+        }
+
+        return item.size === details.size;
+      });
+      if (index === -1) sizesToAdd.push(details);
+    });
+
+    // Check taglie da eliminare
+    this.dbProductDetails.forEach((details: any) => {
+      // Se una taglia del db non è presente in updatedDetails, è da eliminare dal db
+      const index = updatedDetails.findIndex((item: any) => {
+        return item.size === details.size;
+      });
+      if (index === -1) sizesIdToRemove.push(details.id);
+    });
+
     const product: any = {
       isListed: 1,
       imagePreview: '/nopreview',
     };
-
-    productDetailsRaw.forEach((item: any) => {
-      const detailObj: any = {};
-
-      console.log(item);
-
-      for (let key in item) {
-        if (
-          key === 'isListed' ||
-          key === 'quantity' ||
-          key === 'sellingPrice' ||
-          key === 'size'
-        ) {
-          detailObj[key] = item[key];
-        }
-      }
-
-      productDetails.push(detailObj);
-    });
-
-    productImagesRaw.forEach((item: any) => {
-      const imageObj: any = {};
-
-      for (let key in item) {
-        if (
-          key === 'altEng' ||
-          key === 'altIt' ||
-          key === 'imageNumber' ||
-          key === 'type' ||
-          key === 'imagePath'
-        ) {
-          imageObj[key] = item[key];
-        }
-      }
-
-      productImages.push(imageObj);
-    });
 
     for (let key in data) {
       if (key !== 'productDetails' && key !== 'productImages') {
@@ -82,13 +118,33 @@ export class EditProductComponent {
 
     const editedProduct: any = {
       product,
-      productDetails,
-      productImages,
+      productImages: data.productImages,
     };
 
-    console.log(editedProduct);
+    // API taglie
+    if (sizesIdToRemove && sizesIdToRemove.length > 0) {
+      sizesIdToRemove.forEach((item: any) => {
+        this.productService.deleteProductSize(item).subscribe();
+      });
+    }
+
+    if (sizesToAdd && sizesToAdd.length > 0) {
+      sizesToAdd.forEach((item: any) => {
+        this.productService.addProductDetails(item).subscribe();
+      });
+    }
+
+    if (sizesToEdit && sizesToEdit.length > 0) {
+      sizesToEdit.forEach((item: any) => {
+        this.productService
+          .updateProductDetails(item.details, item.id)
+          .subscribe();
+      });
+    }
+
+    // Edit informazioni prodotto e immagini
     this.productService
-      .editProduct(editedProduct, this.id)
+      .updateProduct(editedProduct, this.id)
       .pipe(
         finalize(() =>
           this.router.navigate([`dashboard/products/detail-product/${this.id}`])

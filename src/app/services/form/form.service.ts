@@ -164,9 +164,26 @@ export class FormService {
     return of(questions.sort((a, b) => a.order - b.order));
   }
 
-  addProductForm(sizes: any): Observable<InputBase<string>[]> {
+  addProductForm(
+    sizes: any,
+    brands: any,
+    colors: any,
+    categories: any
+  ): Observable<InputBase<string>[]> {
     const formattedSizes = sizes.map((item: string) => {
       return { key: item, value: item };
+    });
+
+    const formattedBrands = brands.map((item: any) => {
+      return { key: item.code, value: item.brand };
+    });
+
+    const formattedColors = colors.map((item: any) => {
+      return { key: item.code, value: item.color };
+    });
+
+    const formattedCategories = categories.map((item: any) => {
+      return { key: item.code, value: item.category };
     });
 
     const questions: InputBase<string>[] = [
@@ -178,19 +195,21 @@ export class FormService {
         order: 1,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'brand',
         label: 'brand',
-        required: true,
         value: '',
+        options: formattedBrands,
         order: 2,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'color',
         label: 'color',
-        required: true,
         value: '',
+        options: formattedColors,
         order: 3,
       }),
 
@@ -210,11 +229,15 @@ export class FormService {
         order: 5,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'type',
         label: 'type',
-        required: true,
         value: '',
+        options: [
+          { key: 'M', value: 'M' },
+          { key: 'W', value: 'W' },
+        ],
         order: 6,
       }),
 
@@ -234,11 +257,12 @@ export class FormService {
         order: 8,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'category',
         label: 'category',
-        required: true,
         value: '',
+        options: formattedCategories,
         order: 9,
       }),
 
@@ -265,29 +289,53 @@ export class FormService {
     return of(questions.sort((a, b) => a.order - b.order));
   }
 
-  editProductForm(array: any): Observable<InputBase<string>[]> {
+  editProductForm(
+    productObj: any,
+    sizes: any,
+    brands: any,
+    colors: any,
+    categories: any
+  ): Observable<InputBase<string>[]> {
+    const formattedSizes = sizes.map((item: string) => {
+      return { key: item, value: item };
+    });
+
+    const formattedBrands = brands.map((item: any) => {
+      return { key: item.code, value: item.brand };
+    });
+
+    const formattedColors = colors.map((item: any) => {
+      return { key: item.code, value: item.color };
+    });
+
+    const formattedCategories = categories.map((item: any) => {
+      return { key: item.code, value: item.category };
+    });
+
     const questions: InputBase<string>[] = [
       new TextInput({
         key: 'name',
         label: 'name',
         required: true,
-        value: array.product.name,
+        value: productObj.product.name,
         order: 1,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'brand',
         label: 'brand',
-        required: true,
-        value: array.product.brand,
+        value: productObj.product.brand,
+        options: formattedBrands,
         order: 2,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'color',
         label: 'color',
-        required: true,
-        value: array.product.color,
+        value: productObj.product.color,
+        options: formattedColors,
         order: 3,
       }),
 
@@ -295,7 +343,7 @@ export class FormService {
         key: 'startingPrice',
         label: 'startingPrice',
         required: true,
-        value: array.product.startingPrice,
+        value: productObj.product.startingPrice,
         order: 4,
       }),
 
@@ -303,15 +351,19 @@ export class FormService {
         key: 'listedPrice',
         label: 'listedPrice',
         required: true,
-        value: array.product.listedPrice,
+        value: productObj.product.listedPrice,
         order: 5,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'type',
         label: 'type',
-        required: true,
-        value: array.product.type,
+        value: productObj.product.type,
+        options: [
+          { key: 'M', value: 'M' },
+          { key: 'W', value: 'W' },
+        ],
         order: 6,
       }),
 
@@ -319,7 +371,7 @@ export class FormService {
         key: 'descriptionIt',
         label: 'descriptionIt',
         required: true,
-        value: array.product.descriptionIt,
+        value: productObj.product.descriptionIt,
         order: 7,
       }),
 
@@ -327,23 +379,25 @@ export class FormService {
         key: 'descriptionEng',
         label: 'descriptionEn',
         required: true,
-        value: array.product.descriptionEng,
+        value: productObj.product.descriptionEng,
         order: 8,
       }),
 
-      new TextInput({
+      new SelectInput({
+        required: true,
         key: 'category',
         label: 'category',
-        required: true,
-        value: array.product.category,
+        value: productObj.product.category,
+        options: formattedCategories,
         order: 9,
       }),
 
       new AddProductSizeInput({
         key: 'productDetails',
         required: true,
-        value: array.productDetails,
+        value: productObj.productDetails,
         order: 10,
+        options: formattedSizes,
       }),
 
       new ImagePicker(
@@ -351,7 +405,7 @@ export class FormService {
           key: 'productImages',
           label: 'Product Images',
           required: true,
-          value: array.productImages,
+          value: productObj.productImages,
           order: 11,
         },
         { minNumber: 3 }
@@ -685,7 +739,7 @@ export class FormService {
       new PasswordInput({
         key: 'password',
         label: 'Password',
-        required: true,
+        required: false,
         value: personalUserData.password,
         order: 1,
         regexControl:
@@ -763,7 +817,7 @@ export class FormService {
       }),
 
       new MultiLine({
-        key: 'instuctions',
+        key: 'instructions',
         label: 'Instructions',
         required: false,
         value: personalAddreddData?.instructions,

@@ -1,0 +1,42 @@
+.addresses-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.add-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.add-card-content {
+  width: 500px;
+  display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.example-card {
+  width: 500px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.example-card .actions {
+  margin-top: 20px;
+  align-self: center;
+  justify-content: center;
+}
+
+p {
+  margin: 14px auto;
+}

@@ -34,9 +34,13 @@ import {
   getProductsResolverFn,
   getSingleCouponResolverFn,
   getSingleProductResolverFn,
-  getSizesResolverFn,
   getUsersResolverFn,
   getEditOrderResolverFn,
+  getPersonalDataResolverFn,
+  getPersonalAddressesResolverFn,
+  getPersonalAddressResolverFn,
+  addProductsResolverFn,
+  updateProductsResolverFn,
 } from './resolvers/resolvers';
 
 const routes: Routes = [
@@ -71,12 +75,12 @@ const routes: Routes = [
       {
         path: 'products/add-product',
         component: AddProductsComponent,
-        resolve: { productResolver: getSizesResolverFn },
+        resolve: { addProductsResolver: addProductsResolverFn },
       },
       {
         path: 'products/edit-product/:id',
         component: EditProductComponent,
-        resolve: { productsResolver: getSingleProductResolverFn },
+        resolve: { updateProductsResolver: updateProductsResolverFn },
       },
       {
         path: 'users',
@@ -137,10 +141,12 @@ const routes: Routes = [
       {
         path: 'personal-area',
         component: PersonalAreaComponent,
+        resolve: { personalDataResolver: getPersonalDataResolverFn },
       },
       {
         path: 'personal-area/addresses',
         component: PersonalAddressesComponent,
+        resolve: { personalAddressesResolver: getPersonalAddressesResolverFn },
       },
       {
         path: 'personal-area/add-address',
@@ -149,6 +155,7 @@ const routes: Routes = [
       {
         path: 'personal-area/edit-address/:id',
         component: EditPersonalAddressComponent,
+        resolve: { personalAddressResolver: getPersonalAddressResolverFn },
       },
     ],
   },
