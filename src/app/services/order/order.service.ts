@@ -49,18 +49,17 @@ export class OrderService {
 
   // DELETE order by ID
   deleteSingleOrder(id: number): Observable<any> {
-    return this.http.delete<any>(
-      `${this.baseURL}/orders/delete_order/${id}`,
-      this.authService.getHeaderOptions(true)
-    );
+    return this.http.delete<any>(`${this.baseURL}/orders/delete_order/${id}`, {
+      headers: this.authService.getHeaderOptions(true).headers,
+      responseType: 'text' as 'json',
+    });
   }
 
   // POST new order
   postNewOrder(body: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseURL}/orders/add_order`,
-      body,
-      this.authService.getHeaderOptions(true)
-    );
+    return this.http.post<any>(`${this.baseURL}/orders/add_order`, body, {
+      headers: this.authService.getHeaderOptions(true).headers,
+      responseType: 'text' as 'json',
+    });
   }
 }

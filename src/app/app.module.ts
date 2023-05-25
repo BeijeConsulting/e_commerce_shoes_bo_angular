@@ -62,6 +62,7 @@ import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -169,6 +170,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatToolbarModule,
     MatCardModule,
     MatTabsModule,
+    MatSnackBarModule,
   ],
   providers: [interceptorProvider, DatePipe],
   bootstrap: [AppComponent],

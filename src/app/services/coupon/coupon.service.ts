@@ -40,14 +40,20 @@ export class CouponService {
     return this.http.post<any>(
       `${this.authService.baseURL}/coupons/create_coupon`,
       coupon,
-      this.authService.getHeaderOptions(true)
+      {
+        headers: this.authService.getHeaderOptions(true).headers,
+        responseType: 'text' as 'json',
+      }
     );
   }
 
   deleteCoupon(id: number): Observable<any> {
     return this.http.delete<any>(
       `${this.authService.baseURL}/coupons/disable_coupon?idcoup=${id}`,
-      this.authService.getHeaderOptions(true)
+      {
+        headers: this.authService.getHeaderOptions(true).headers,
+        responseType: 'text' as 'json',
+      }
     );
   }
 
@@ -55,7 +61,10 @@ export class CouponService {
     return this.http.put<any>(
       `${this.authService.baseURL}/coupons/modify_coupon`,
       newCoupon,
-      this.authService.getHeaderOptions(true)
+      {
+        headers: this.authService.getHeaderOptions(true).headers,
+        responseType: 'text' as 'json',
+      }
     );
   }
 }

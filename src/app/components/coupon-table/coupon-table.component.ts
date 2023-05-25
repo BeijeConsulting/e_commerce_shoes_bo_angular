@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { Subscription, finalize } from 'rxjs';
 import { CouponService } from 'src/app/services/coupon/coupon.service';
 import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-table',
@@ -45,7 +46,8 @@ export class TableComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private couponService: CouponService
+    private couponService: CouponService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +64,16 @@ export class TableComponent implements OnInit, OnDestroy {
         },
       })
     );
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   // trigger dialog

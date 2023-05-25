@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
@@ -17,9 +18,20 @@ export class AddPersonalAddressComponent {
   constructor(
     private formService: FormService,
     private personalService: PersonalService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.personalAddressForm$ = formService.personalAddressForm();
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: PersonalAddressData) {
@@ -36,13 +48,21 @@ export class AddPersonalAddressComponent {
         zipcode: data.zipCode,
       })
       .pipe(
-        finalize(() =>
-          this.router.navigate(['dashboard/personal-area/addresses'])
-        )
+        finalize(() => {
+          setTimeout(() => {
+            this.router.navigate(['dashboard/personal-area/addresses']);
+          }, 1600);
+        })
       )
       .subscribe({
-        next: (response) => console.log(response),
-        error: (err) => console.log(err),
+        next: (response) => {
+          console.log(response);
+          this.notify('Address added successfully', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went wrong', false);
+        },
       });
   }
 }

@@ -9,17 +9,22 @@ import { StorageService } from '../storage/storage.service';
 })
 export class AuthService {
   baseURL: string = 'https://shoes-api.beije.it';
-  token: BehaviorSubject<string> = new BehaviorSubject<string>(this.storageService.getStorage("token"));
+  token: BehaviorSubject<string> = new BehaviorSubject<string>(
+    this.storageService.getStorage('token')
+  );
 
-  constructor(private http: HttpClient, private storageService: StorageService) {}
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService
+  ) {}
 
-  getHeaderOptions(isAuth: boolean = false): {headers: HttpHeaders} {
-    if (isAuth){
+  getHeaderOptions(isAuth: boolean = false): { headers: HttpHeaders } {
+    if (isAuth) {
       return {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Acces-Control-Allow-Origin': '*',
-          'Authorization' : `Bearer ${this.token.value}`
+          Authorization: `Bearer ${this.token.value}`,
         }),
       };
     } else {
@@ -49,15 +54,14 @@ export class AuthService {
   } */
 
   refreshToken(): Observable<any> {
-    console.log("inizio refresh token");
+    console.log('inizio refresh token');
     const refreshToken = this.storageService.getStorage('refreshToken');
-    return this.http
-      .post<any>(
-        `${this.baseURL}/refresh_token`,
-        {
-          refreshToken: refreshToken,
-        },
-        this.getHeaderOptions()
-      );
+    return this.http.post<any>(
+      `${this.baseURL}/refresh_token`,
+      {
+        refreshToken: refreshToken,
+      },
+      this.getHeaderOptions()
+    );
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, forkJoin } from 'rxjs';
@@ -27,7 +28,8 @@ export class AddProductsComponent implements OnInit {
     private colorService: ColorService,
     private sizeService: SizeService,
     private brandService: BrandService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private snackBar: MatSnackBar
   ) {
     console.log(this);
     const { sizes, colors, categories, brands } =
@@ -57,6 +59,16 @@ export class AddProductsComponent implements OnInit {
         );
       });
     });
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {

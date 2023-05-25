@@ -108,7 +108,9 @@ export class DialogComponent implements OnInit, OnDestroy {
         )
         .subscribe({
           next: () => console.log('Coupon deleted'),
-          error: () => {},
+          error: (err) => {
+            console.log(err);
+          },
         });
     }
 

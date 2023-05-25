@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
@@ -21,7 +22,8 @@ export class EditCouponComponent {
     private route: ActivatedRoute,
     private router: Router,
     private datePipe: DatePipe,
-    private couponService: CouponService
+    private couponService: CouponService,
+    private snackBar: MatSnackBar
   ) {
     this.coupon = route.snapshot.data['couponEditDetailsResolver'][0];
     this;
@@ -39,6 +41,16 @@ export class EditCouponComponent {
       value: String(this.coupon.value),
       userId: this.coupon.user_id ? String(this.coupon.user_id) : '',
     });
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -62,12 +74,20 @@ export class EditCouponComponent {
       .editCoupon(dataAdapt)
       .pipe(
         finalize(() => {
-          this.router.navigate(['/dashboard/coupons']);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard/coupons']);
+          }, 1600);
         })
       )
       .subscribe({
-        next: (response) => console.log(response),
-        error: () => {},
+        next: (response) => {
+          console.log(response);
+          this.notify('Success', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Error', false);
+        },
       });
   }
 }
