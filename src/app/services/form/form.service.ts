@@ -642,14 +642,6 @@ export class FormService {
         order: 1,
       }),
 
-      // new TextInput({
-      //   key: 'searchProducById',
-      //   label: 'Search Product By ID',
-      //   required: true,
-      //   value: '',
-      //   order: 1,
-      // }),
-
       new OrderInput({
         key: 'orderId',
         label: 'Order Id',
@@ -662,17 +654,71 @@ export class FormService {
     return of(questions.sort((a, b) => a.order - b.order));
   }
 
-  editOrderForm(orderData: {
-    status: string;
-  }): Observable<InputBase<string>[]> {
+  editOrderForm(dataOrder: any): Observable<InputBase<string>[]> {
     const questions: InputBase<string>[] = [
+      // new TextInput({
+      //   key: 'paymentState',
+      //   label: 'Payment State',
+      //   required: true,
+      //   value: dataOrder.payment_status,
+      //   order: 1,
+      // }),
+
+      // new TextInput({
+      //   key: 'addressId',
+      //   label: 'Address ID',
+      //   required: true,
+      //   value: dataOrder.address,
+      //   order: 1,
+      // }),
+
+      // new TextInput({
+      //   key: 'name',
+      //   label: 'name',
+      //   required: true,
+      //   value: dataOrder.name,
+      //   order: 1,
+      // }),
+
       new TextInput({
-        key: 'status',
-        label: 'Status',
+        key: 'state',
+        label: 'State',
         required: true,
-        value: orderData.status,
+        value: dataOrder.status,
         order: 1,
       }),
+
+      // new TextInput({
+      //   key: 'transaction',
+      //   label: 'Transaction',
+      //   required: true,
+      //   value: dataOrder.transaction,
+      //   order: 1,
+      // }),
+
+      // new TextInput({
+      //   key: 'userId',
+      //   label: 'User ID',
+      //   required: true,
+      //   value: dataOrder.user_id,
+      //   order: 1,
+      // }),
+
+      // new TextInput({
+      //   key: 'couponId',
+      //   label: 'Coupon ID',
+      //   required: false,
+      //   value: '',
+      //   order: 1,
+      // }),
+
+      // new OrderInput({
+      //   key: 'orderId',
+      //   label: 'Order Id',
+      //   required: true,
+      //   value: dataOrder.products,
+      //   order: 1,
+      // }),
     ];
 
     return of(questions.sort((a, b) => a.order - b.order));

@@ -19,6 +19,8 @@ export class DetailOrderComponent implements OnInit {
     transaction: string;
     transaction_date: string;
     user_id: number;
+    image?: string;
+    products: any;
   };
 
   constructor(private route: ActivatedRoute) {}

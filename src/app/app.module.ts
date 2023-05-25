@@ -82,6 +82,7 @@ import { OrderTableComponent } from './components/order-table/order-table.compon
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 import { DatePipe } from '@angular/common';
 import { DialogOrderComponent } from './components/dialog-order/dialog-order.component';
+import { OrderDetailTableComponent } from './components/order-detail-table/order-detail-table.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -135,6 +136,7 @@ function HttpLoaderFactory(http: HttpClient) {
     OrderTableComponent,
     LanguageSwitcherComponent,
     DialogOrderComponent,
+    OrderDetailTableComponent,
   ],
   imports: [
     FormsModule,
