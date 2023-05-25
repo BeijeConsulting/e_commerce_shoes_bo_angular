@@ -12,10 +12,9 @@ import { TextInput } from 'src/app/classes/forms/TextInput';
 import { DataCoupon } from 'src/app/interfaces/CouponData';
 import { PersonalAddressData } from 'src/app/interfaces/PersonalAddressData';
 import { PersonalUserData } from 'src/app/interfaces/PersonalUserData';
-import { ProductData } from 'src/app/interfaces/ProductData';
 import { UserData } from 'src/app/interfaces/UserData';
 import { AddProductSizeInput } from 'src/app/classes/forms/AddProductSizeInput';
-import { orderItem } from 'src/app/interfaces/Order';
+import { ProductDetailsFull, ProductFull } from 'src/app/interfaces/Product';
 
 @Injectable({
   providedIn: 'root',
@@ -165,26 +164,33 @@ export class FormService {
   }
 
   addProductForm(
-    sizes: any,
-    brands: any,
-    colors: any,
-    categories: any
+    sizes: string[],
+    brands: { code: string; brand: string }[],
+    colors: { code: string; color: string }[],
+    categories: { code: string; category: string }[]
   ): Observable<InputBase<string>[]> {
-    const formattedSizes = sizes.map((item: string) => {
-      return { key: item, value: item };
-    });
+    const formattedSizes: { key: string; value: string }[] = sizes.map(
+      (item: string) => {
+        return { key: item, value: item };
+      }
+    );
 
-    const formattedBrands = brands.map((item: any) => {
-      return { key: item.code, value: item.brand };
-    });
+    const formattedBrands: { key: string; value: string }[] = brands.map(
+      (item: { code: string; brand: string }) => {
+        return { key: item.code, value: item.brand };
+      }
+    );
 
-    const formattedColors = colors.map((item: any) => {
-      return { key: item.code, value: item.color };
-    });
+    const formattedColors: { key: string; value: string }[] = colors.map(
+      (item: { code: string; color: string }) => {
+        return { key: item.code, value: item.color };
+      }
+    );
 
-    const formattedCategories = categories.map((item: any) => {
-      return { key: item.code, value: item.category };
-    });
+    const formattedCategories: { key: string; value: string }[] =
+      categories.map((item: { code: string; category: string }) => {
+        return { key: item.code, value: item.category };
+      });
 
     const questions: InputBase<string>[] = [
       new TextInput({
@@ -290,27 +296,34 @@ export class FormService {
   }
 
   editProductForm(
-    productObj: any,
-    sizes: any,
-    brands: any,
-    colors: any,
-    categories: any
+    productObj: { product: ProductFull; productDetails: ProductDetailsFull },
+    sizes: string[],
+    brands: { code: string; brand: string }[],
+    colors: { code: string; color: string }[],
+    categories: { code: string; category: string }[]
   ): Observable<InputBase<string>[]> {
-    const formattedSizes = sizes.map((item: string) => {
-      return { key: item, value: item };
-    });
+    const formattedSizes: { key: string; value: string }[] = sizes.map(
+      (item: string) => {
+        return { key: item, value: item };
+      }
+    );
 
-    const formattedBrands = brands.map((item: any) => {
-      return { key: item.code, value: item.brand };
-    });
+    const formattedBrands: { key: string; value: string }[] = brands.map(
+      (item: { code: string; brand: string }) => {
+        return { key: item.code, value: item.brand };
+      }
+    );
 
-    const formattedColors = colors.map((item: any) => {
-      return { key: item.code, value: item.color };
-    });
+    const formattedColors: { key: string; value: string }[] = colors.map(
+      (item: { code: string; color: string }) => {
+        return { key: item.code, value: item.color };
+      }
+    );
 
-    const formattedCategories = categories.map((item: any) => {
-      return { key: item.code, value: item.category };
-    });
+    const formattedCategories: { key: string; value: string }[] =
+      categories.map((item: { code: string; category: string }) => {
+        return { key: item.code, value: item.category };
+      });
 
     const questions: InputBase<string>[] = [
       new TextInput({
@@ -405,7 +418,7 @@ export class FormService {
           key: 'productImages',
           label: 'Product Images',
           required: true,
-          value: productObj.productImages,
+          value: '',
           order: 11,
         },
         { minNumber: 3 }

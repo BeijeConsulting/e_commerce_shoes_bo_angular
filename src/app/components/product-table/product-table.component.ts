@@ -10,8 +10,11 @@ import {
 } from '@angular/core';
 
 // Angular Material
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {
+  MatTableDataSource,
+  MatTableDataSourcePaginator,
+} from '@angular/material/table';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -19,13 +22,16 @@ import { MatMenuTrigger } from '@angular/material/menu';
 // Router
 import { Router } from '@angular/router';
 
+// Interfaces
+import { ProductPreview } from 'src/app/interfaces/Product';
+
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.css'],
 })
 export class ProductTableComponent implements OnInit, OnChanges {
-  @Input() products: any = [];
+  @Input() products: ProductPreview[] = [];
   @Input() length: number = 0;
   @Output() handlePageEventEmitter = new EventEmitter();
   displayedColumns: string[] = [
@@ -37,7 +43,7 @@ export class ProductTableComponent implements OnInit, OnChanges {
     'price',
     'actions',
   ];
-  dataSource: any = {};
+  dataSource: MatTableDataSource<ProductPreview[]>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
@@ -55,7 +61,7 @@ export class ProductTableComponent implements OnInit, OnChanges {
     }
   }
 
-  handlePageEvent(e: any) {
+  handlePageEvent(e: PageEvent) {
     this.handlePageEventEmitter.emit(e);
   }
 

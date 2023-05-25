@@ -23,7 +23,10 @@ export class LanguageSwitcherComponent {
   }
 
   changeLanguage(e: Event) {
-    const language: any = (e.target as HTMLImageElement).dataset['language'];
+    const language: string | undefined = (e.target as HTMLImageElement).dataset[
+      'language'
+    ];
+    if (!language) return;
     this.translateService.use(language);
     this.selectedLanguage = language;
     this.storage.setStorage('language', language);

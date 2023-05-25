@@ -31,7 +31,6 @@ export class AddProductsComponent implements OnInit {
     private categoryService: CategoryService,
     private snackBar: MatSnackBar
   ) {
-    console.log(this);
     const { sizes, colors, categories, brands } =
       this.route.snapshot.data['addProductsResolver'];
 
@@ -72,6 +71,7 @@ export class AddProductsComponent implements OnInit {
   }
 
   onSubmit(data: any) {
+    console.log('DATA', data);
     const newProduct: any = {
       product: {
         isListed: 1,

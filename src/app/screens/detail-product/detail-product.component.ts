@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+
+// Interfaces
+import {
+  ProductFull,
+  ProductDetailsFull,
+  ProductImageFull,
+} from 'src/app/interfaces/Product';
 
 @Component({
   selector: 'app-detail-product',
@@ -9,18 +14,19 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./detail-product.component.css'],
 })
 export class DetailProductComponent {
-  product: any;
-  sizes: any;
-  images: any;
+  product: ProductFull;
+  sizes: ProductDetailsFull[];
+  images: ProductImageFull[];
 
-  constructor(
-    private route: ActivatedRoute,
-    private translateService: TranslateService
-  ) {
-    const response = this.route.snapshot.data['productsResolver'];
+  constructor(private route: ActivatedRoute) {
+    const response: {
+      product: ProductFull;
+      productDetails: ProductDetailsFull[];
+      productImages: ProductImageFull[];
+    } = this.route.snapshot.data['productsResolver'];
+
     this.product = { ...response.product };
     this.sizes = [...response.productDetails];
     this.images = [...response.productImages];
-    console.log(this);
   }
 }

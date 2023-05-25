@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 // Angular Material
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -128,9 +128,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
     ]);
   }
 
-  pageEvent(e: any): void {
-    // console.log('page event: ', e);
-
+  pageEvent(e: PageEvent): void {
     if (!this.employees) {
       this.isLoading = true;
       this.userService.getUsers(e.pageIndex + 1, e.pageSize).subscribe({

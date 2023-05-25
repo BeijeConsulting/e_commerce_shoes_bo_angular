@@ -4,12 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, finalize, forkJoin } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
-import { BrandService } from 'src/app/services/brand/brand.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ColorService } from 'src/app/services/color/color.service';
 import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
-import { SizeService } from 'src/app/services/size/size.service';
+// Interfaces
+import {
+  ProductDetailsFull,
+  ProductSizeWithId,
+} from 'src/app/interfaces/Product';
+import { BrandService } from 'src/app/services/brand/brand.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -17,8 +21,7 @@ import { SizeService } from 'src/app/services/size/size.service';
   styleUrls: ['./edit-product.component.css'],
 })
 export class EditProductComponent implements OnInit {
-  product: any;
-  dbProductDetails: any;
+  dbProductDetails: ProductDetailsFull[];
   id: number;
   editProductForm$: Observable<InputBase<string>[]>;
 
@@ -27,10 +30,8 @@ export class EditProductComponent implements OnInit {
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private sizeService: SizeService,
     private translate: TranslateService,
     private colorService: ColorService,
-    private brandService: BrandService,
     private categoryService: CategoryService,
     private snackBar: MatSnackBar
   ) {

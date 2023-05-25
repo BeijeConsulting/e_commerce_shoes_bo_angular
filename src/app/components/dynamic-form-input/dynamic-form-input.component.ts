@@ -2,11 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOrderComponent } from '../dialog-order/dialog-order.component';
-import { flatMap, repeat } from 'lodash';
-import { MatCardXlImage } from '@angular/material/card';
+import {
+  ProductSize,
+  ProductDetailsFull,
+  ProductImage,
+} from 'src/app/interfaces/Product';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -31,11 +33,11 @@ export class DynamicFormInputComponent implements OnInit {
   @Input() form!: FormGroup;
 
   previews: string[] = [];
-  productImages: any = [];
+  productImages: ProductImage[] = [];
 
   productSizes: any = [];
 
-  productSize: any = {
+  productSize: ProductSize = {
     is_listed: true,
     quantity: null,
     selling_price: null,
@@ -55,7 +57,9 @@ export class DynamicFormInputComponent implements OnInit {
   ngOnInit(): void {
     if (this.input.controlType === 'imagepicker') {
       if (this.input.value) {
-        this.productImages = this.input.value;
+        if (this.input.value && typeof this.input.value !== 'string') {
+          this.productImages = this.input.value;
+        }
       }
     }
 
@@ -75,12 +79,16 @@ export class DynamicFormInputComponent implements OnInit {
       return (this.sizeError = 'emptyInputs');
     }
 
-    const index = this.productSizes.findIndex(
-      (item: any) => item.size === this.productSize.size
-    );
+    if (this.productSizes && this.productSizes.length > 0) {
+      const index = this.productSizes.findIndex((item: ProductDetailsFull) => {
+        if (this.productSize.size) {
+          item.size === this.productSize.size;
+        }
+      });
 
-    if (index > -1) {
-      return (this.sizeError = 'alreadySelectedSize');
+      if (index > -1) {
+        return (this.sizeError = 'alreadySelectedSize');
+      }
     }
 
     this.sizeError = '';
@@ -95,8 +103,6 @@ export class DynamicFormInputComponent implements OnInit {
       selling_price: null,
       size: null,
     };
-
-    // console.log(this.form);
   }
 
   removeFromSizes(index: number) {
@@ -128,18 +134,17 @@ export class DynamicFormInputComponent implements OnInit {
 
       this.form.get('orderId')?.setValue(newArray);
     });
-
-    // Manually restore focus to the menu trigger since the element that
-    // opens the dialog won't be in the DOM any more when the dialog closes.
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
   }
 
-  selectFiles(event: any, inputKey: string): void {
-    /* console.log('selected file: ', event);
-    console.log('inputKey:', inputKey);
-    console.log(event.target.files[0]); */
+  selectFiles(event: Event, inputKey: string): void {
+    const element = event.target as HTMLInputElement;
 
-    const file = event.target.files[0];
+    let file: File | null = null;
+    let fileList: FileList | null = element.files;
+
+    if (fileList) {
+      file = fileList[0];
+    }
 
     if (!file) return;
 
@@ -158,7 +163,7 @@ export class DynamicFormInputComponent implements OnInit {
     };
   }
 
-  getImageObj(imagePath: string): object {
+  getImageObj(imagePath: string): ProductImage {
     let imageNumber = 0;
 
     if (this.productImages && this.productImages.length > 0) {
