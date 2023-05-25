@@ -87,12 +87,22 @@ export class AddProductsComponent implements OnInit {
       }
     }
 
-    this.productService
-      .addProduct(newProduct)
-      .subscribe((res) =>
-        this.router.navigate([
-          'dashboard/products/detail-product/' + res.product.id,
-        ])
-      );
+    this.productService.addProduct(newProduct).subscribe({
+      next: (res) => {
+        this.notify('Product added', true);
+        setTimeout(() => {
+          this.router.navigate([
+            'dashboard/products/detail-product/' + res.product.id,
+          ]);
+        }, 1600);
+      },
+      error: (err) => {
+        console.log(err);
+        this.notify('Something went wrong', false);
+        setTimeout(() => {
+          this.router.navigate(['dashboard/products']);
+        }, 1600);
+      },
+    });
   }
 }

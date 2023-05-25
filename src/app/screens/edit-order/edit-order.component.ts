@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
@@ -31,7 +32,8 @@ export class EditOrderComponent {
     private formService: FormService,
     private orderService: OrderService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.orderDetail = this.route.snapshot.data['ordersResolver'];
     console.log('this.orderDetail', this.orderDetail);
@@ -47,6 +49,16 @@ export class EditOrderComponent {
       transaction_date: this.orderDetail.transaction_date,
       user_id: this.orderDetail.user_id,
     });
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -73,10 +85,22 @@ export class EditOrderComponent {
 
     this.orderService
       .editOrder(newOrder)
-      .pipe(finalize(() => this.router.navigate(['dashboard/orders'])))
+      .pipe(
+        finalize(() => {
+          setTimeout(() => {
+            this.router.navigate(['dashboard/orders']);
+          }, 1600);
+        })
+      )
       .subscribe({
-        next: () => console.log('order PUT successfully'),
-        error: () => {},
+        next: (response) => {
+          console.log(response);
+          this.notify('Order Edited', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went wrong', false);
+        },
       });
   }
 }

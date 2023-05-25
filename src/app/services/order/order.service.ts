@@ -68,7 +68,10 @@ export class OrderService {
     return this.http.put<any>(
       `${this.authService.baseURL}/orders/modify_order`,
       body,
-      this.authService.getHeaderOptions(true)
+      {
+        headers: this.authService.getHeaderOptions(true).headers,
+        responseType: 'text' as 'json',
+      }
     );
   }
 }

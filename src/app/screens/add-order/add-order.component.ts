@@ -74,6 +74,7 @@ export class AddOrderComponent implements OnInit {
           this.notify('Success', true);
         },
         error: (err) => {
+          console.log(err);
           this.notify('Something went wrong', false);
         },
       });
