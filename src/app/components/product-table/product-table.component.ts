@@ -34,9 +34,11 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
   styleUrls: ['./product-table.component.css'],
 })
 export class ProductTableComponent implements OnInit, OnChanges {
-  @Input() products: ProductPreview[] = [];
-  @Input() length: number = 0;
-  @Input() isLoading: boolean = false;
+  @Input() products: ProductPreview[];
+  @Input() length: number;
+  @Input() isLoading: boolean;
+  @Input() page: number;
+  @Input() perPage: number;
   @Output() handlePageEventEmitter = new EventEmitter();
   displayedColumns: string[] = [
     'id',
@@ -105,7 +107,7 @@ export class ProductTableComponent implements OnInit, OnChanges {
     const language: string = this.translate.currentLang;
     this.productService.deleteSingleProduct(id).subscribe({
       next: () => {
-        this.productService.getProducts(1, 5, language);
+        this.productService.getProducts(this.page, this.perPage, language);
         this.notify('Product deleted', true);
       },
       error: (err) => {
