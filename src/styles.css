@@ -81,3 +81,13 @@ td .mat-mdc-text-field-wrapper {
 .uppercase {
   text-transform: uppercase;
 }
+
+.mat-mdc-snack-bar-container.snackbar-success {
+  --mdc-snackbar-container-color: green;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error {
+  --mdc-snackbar-container-color: red;
+  --mdc-snackbar-supporting-text-color: white;
+}

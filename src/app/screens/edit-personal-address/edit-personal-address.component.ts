@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
@@ -21,7 +22,8 @@ export class EditPersonalAddressComponent {
     private formService: FormService,
     private route: ActivatedRoute,
     private personalService: PersonalService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.personalAddress = this.route.snapshot.data['personalAddressResolver'];
 
@@ -34,6 +36,16 @@ export class EditPersonalAddressComponent {
       zipCode: this.personalAddress.zipcode,
       instructions: this.personalAddress.instructions,
     });
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: PersonalAddressData) {
@@ -54,12 +66,21 @@ export class EditPersonalAddressComponent {
       .editPersonalAddress(this.personalAddress.id, newPersonalAddress)
       .pipe(
         finalize(() =>
-          this.router.navigate(['dashboard/personal-area/addresses'])
+          setTimeout(() => {
+            console.log('Set interval');
+            this.router.navigate(['dashboard/personal-area/addresses']);
+          }, 1600)
         )
       )
       .subscribe({
-        next: (response) => console.log(response),
-        error: (err) => console.log(err),
+        next: (response) => {
+          console.log(response);
+          this.notify('Successfully edited', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went wrong', false);
+        },
       });
   }
 }

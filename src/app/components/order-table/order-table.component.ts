@@ -18,6 +18,9 @@ import { MatMenuTrigger } from '@angular/material/menu';
 
 // Router
 import { Router } from '@angular/router';
+import { OrderService } from 'src/app/services/order/order.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-order-table',
@@ -46,7 +49,12 @@ export class OrderTableComponent implements OnInit, OnChanges {
   dataSource: any = [];
   totalElement: number = 0;
 
-  constructor(public dialog: MatDialog, private router: Router) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private orderService: OrderService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any>(this.data);
@@ -58,25 +66,59 @@ export class OrderTableComponent implements OnInit, OnChanges {
     this.dataSource = new MatTableDataSource<any>(changes['data'].currentValue);
   }
 
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
+  }
+
   // handle event for pagination
   handlePageEvent(event: any) {
     this.handleEventPageEmitter.emit(event);
   }
 
   // trigger dialog
-  openDialog(name: string = 'this Order', id: number) {
+  openDialog(id: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        msg: `Are you sure you want delete ${name}?`,
-        orderId: id,
+        item: 'order',
       },
     });
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.
-    dialogRef.afterClosed();
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) this.deleteOrder(id);
+    });
+  }
+
+  deleteOrder(id: number): void {
+    this.orderService
+      .deleteSingleOrder(id)
+      .pipe(
+        switchMap(() => {
+          return this.orderService.getOrdersPerPage(
+            this.orderService.orderTableState.page,
+            this.orderService.orderTableState.size
+          );
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          this.notify('Order Deleted', true);
+          console.log('res', res);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went wrong', false);
+        },
+      });
+    console.log('delete order');
   }
 
   detailOrder(id: number | string) {

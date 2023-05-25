@@ -15,7 +15,8 @@ import {
 } from 'src/app/interfaces/UserDataApi';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/interfaces/UserData';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize, forkJoin, switchMap } from 'rxjs';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-table',
@@ -49,7 +50,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -80,13 +82,53 @@ export class UserTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
+  }
+
+  deleteUser(id: number): void {
+    this.userService
+      .deleteUser(id)
+      .pipe(
+        switchMap(() => {
+          return forkJoin({
+            users: this.userService.getUsers(
+              this.userService.userTableDataState.page,
+              this.userService.userTableDataState.size,
+              false
+            ),
+            employees: this.userService.getUsers(
+              this.userService.employeesTableDataState.page,
+              this.userService.employeesTableDataState.size,
+              true
+            ),
+          });
+        })
+      )
+      .subscribe({
+        next: () => {
+          console.log('User Deleted');
+          this.notify('User Deleted', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went wrong', false);
+        },
+      });
+  }
+
   // trigger dialog
-  openDialog(id?: string, item?: string) {
+  openDialog(id: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        msg: `Are you sure you want delete this ${item}?`,
-        userId: id,
+        item: 'user',
         // deleteUser: 'Are you sure you want delete this user?',
         // deleteOrder: 'Are you sure you want delete this order?',
         // deleteCoupon: 'Are you sure you want delete this coupon?',
@@ -96,8 +138,9 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.
-    dialogRef.afterClosed();
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) this.deleteUser(id);
+    });
   }
 
   detailUser(user: UserDataApi) {

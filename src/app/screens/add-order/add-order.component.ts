@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
@@ -19,7 +20,8 @@ export class AddOrderComponent implements OnInit {
     private formService: FormService,
     private router: Router,
     private route: ActivatedRoute,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private snackBar: MatSnackBar
   ) {
     this.addOrderForm$ = formService.addOrderForm();
 
@@ -29,6 +31,16 @@ export class AddOrderComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.products);
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -49,10 +61,22 @@ export class AddOrderComponent implements OnInit {
 
     this.orderService
       .postNewOrder(orderObj)
-      .pipe(finalize(() => this.router.navigate(['dashboard/orders'])))
+      .pipe(
+        finalize(() => {
+          setTimeout(() => {
+            this.router.navigate(['dashboard/orders']);
+          }, 1600);
+        })
+      )
       .subscribe({
-        next: () => console.log('order added successfully'),
-        error: () => {},
+        next: () => {
+          console.log('order added successfully');
+          this.notify('Success', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went wrong', false);
+        },
       });
   }
 }

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { Subscription, finalize } from 'rxjs';
 import { CouponService } from 'src/app/services/coupon/coupon.service';
 import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-table',
@@ -45,7 +46,8 @@ export class TableComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private couponService: CouponService
+    private couponService: CouponService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -64,24 +66,53 @@ export class TableComponent implements OnInit, OnDestroy {
     );
   }
 
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
+  }
+
+  deleteCoupon(id: number): void {
+    const couponTableState = this.couponService.couponTableDataState;
+
+    this.couponService
+      .deleteCoupon(id)
+      .pipe(
+        finalize(() => {
+          this.couponService
+            .getCoupons(couponTableState.page, couponTableState.size)
+            .subscribe({
+              next: () => console.log('Table Updated'),
+            });
+        })
+      )
+      .subscribe({
+        next: () => console.log('Coupon deleted'),
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
   // trigger dialog
-  openDialog(id?: string, item?: string) {
+  openDialog(id: number, item?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        msg: `Are you sure you want delete this ${item}?`,
-        couponId: id,
-        // deleteUser: 'Are you sure you want delete this user?',
-        // deleteOrder: 'Are you sure you want delete this order?',
-        // deleteCoupon: 'Are you sure you want delete this coupon?',
-        // logout: 'Are you sure you want log out?',
+        item: 'coupon',
       },
     });
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.
-    dialogRef.afterClosed();
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    // dialogRef.afterClosed();
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) this.deleteCoupon(id);
+    });
   }
 
   detailCoupon(coupon: CouponDataApi) {

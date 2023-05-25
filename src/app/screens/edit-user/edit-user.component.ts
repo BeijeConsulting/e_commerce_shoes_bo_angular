@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { UserData } from 'src/app/interfaces/UserData';
 import { UserDataApi } from 'src/app/interfaces/UserDataApi';
@@ -22,7 +23,8 @@ export class EditUserComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private datePipe: DatePipe,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {
     this.user = JSON.parse(this.route.snapshot.params['user']);
     console.log(this.user);
@@ -32,6 +34,16 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.route.snapshot.params['user']);
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -49,9 +61,24 @@ export class EditUserComponent implements OnInit {
 
     console.log('userAdapt: ', userAdapt);
 
-    this.userService.editUser(data.id, userAdapt).subscribe({
-      next: () => this.router.navigate(['dashboard/users']),
-      error: (err) => console.log(err),
-    });
+    this.userService
+      .editUser(data.id, userAdapt)
+      .pipe(
+        finalize(() => {
+          setTimeout(() => {
+            this.router.navigate(['dashboard/users']);
+          }, 1600);
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.notify('User edited', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went wrong', false);
+        },
+      });
   }
 }

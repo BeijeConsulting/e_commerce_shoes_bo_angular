@@ -37,6 +37,8 @@ export class OrdersComponent implements OnInit {
     const page = event.pageIndex + 1;
     const per_page = event.pageSize;
 
+    this.orderService.orderTableState = { page: page, size: per_page };
+
     this.orderService.getOrdersPerPage(page, per_page);
   }
 

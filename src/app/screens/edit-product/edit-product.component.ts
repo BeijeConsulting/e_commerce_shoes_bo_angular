@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, finalize, forkJoin } from 'rxjs';
@@ -12,6 +13,7 @@ import {
   ProductDetailsFull,
   ProductSizeWithId,
 } from 'src/app/interfaces/Product';
+import { BrandService } from 'src/app/services/brand/brand.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -30,7 +32,8 @@ export class EditProductComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private colorService: ColorService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private snackBar: MatSnackBar
   ) {
     const { sizes, colors, categories, brands, product } =
       this.route.snapshot.data['updateProductsResolver'];
@@ -67,6 +70,16 @@ export class EditProductComponent implements OnInit {
         );
       });
     });
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -146,9 +159,14 @@ export class EditProductComponent implements OnInit {
     this.productService
       .updateProduct(editedProduct, this.id)
       .pipe(
-        finalize(() =>
-          this.router.navigate([`dashboard/products/detail-product/${this.id}`])
-        )
+        finalize(() => {
+          this.notify('Success', true);
+          setTimeout(() => {
+            this.router.navigate([
+              `dashboard/products/detail-product/${this.id}`,
+            ]);
+          }, 1600);
+        })
       )
       .subscribe();
   }

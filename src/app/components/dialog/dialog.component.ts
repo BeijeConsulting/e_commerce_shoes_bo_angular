@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css'],
 })
-export class DialogComponent implements OnInit, OnDestroy {
+export class DialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialogRef: MatDialogRef<DialogComponent>,
@@ -33,85 +33,15 @@ export class DialogComponent implements OnInit, OnDestroy {
     this.matDialogRef.close(this.data);
   }
 
+  denyAction(): void {
+    this.matDialogRef.close(false);
+  }
+
   confirmAction(): void {
     this.matDialogRef.close(true);
   }
 
   onDelete() {
-    // Orders
-    if (this.data.hasOwnProperty('orderId')) {
-      this.orderService.deleteSingleOrder(this.data.orderId).subscribe({
-        next: (res) => console.log('res', res),
-        error: (err) => {
-          if (err.error.text === 'deleted') {
-            console.log('deleted err.error.text');
-          }
-        },
-      });
-      this.closeDialog();
-      console.log('delete order');
-    }
-
-    // User
-    if (this.data.hasOwnProperty('userId')) {
-      console.log(this.data);
-      console.log('users table state:', this.userService.userTableDataState);
-      console.log(
-        'employees table state:',
-        this.userService.employeesTableDataState
-      );
-
-      const userTableState = this.userService.userTableDataState;
-      const employeesTableState = this.userService.employeesTableDataState;
-
-      this.userService
-        .deleteUser(this.data.userId)
-        .pipe(
-          switchMap(() => {
-            return forkJoin({
-              users: this.userService.getUsers(
-                userTableState.page,
-                userTableState.size,
-                false
-              ),
-              employees: this.userService.getUsers(
-                employeesTableState.page,
-                employeesTableState.size,
-                true
-              ),
-            });
-          }),
-          finalize(() => {
-            this.closeDialog();
-          })
-        )
-        .subscribe({
-          next: () => console.log('User Deleted'),
-          error: (err) => console.log(err),
-        });
-    }
-
-    if (this.data.hasOwnProperty('couponId')) {
-      const couponTableState = this.couponService.couponTableDataState;
-
-      this.couponService
-        .deleteCoupon(this.data.couponId)
-        .pipe(
-          finalize(() => {
-            this.closeDialog();
-            this.couponService
-              .getCoupons(couponTableState.page, couponTableState.size)
-              .subscribe({
-                next: () => console.log('Table Updated'),
-              });
-          })
-        )
-        .subscribe({
-          next: () => console.log('Coupon deleted'),
-          error: () => {},
-        });
-    }
-
     // Product
     if (this.data.hasOwnProperty('productId')) {
       const language: string = this.translate.currentLang;
@@ -120,9 +50,5 @@ export class DialogComponent implements OnInit, OnDestroy {
         .subscribe(() => this.productService.getProducts(1, 5, language));
       this.closeDialog();
     }
-  }
-
-  ngOnDestroy(): void {
-    this.closeDialog();
   }
 }

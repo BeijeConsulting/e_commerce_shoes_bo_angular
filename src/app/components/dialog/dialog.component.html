@@ -1,7 +1,7 @@
 <div class="dialog__container">
   <mat-dialog-content>
     <h2 class="dialog__h2">
-      {{ data.msg }}
+      Are you sure you want delete this {{ data.item }} ?
     </h2>
   </mat-dialog-content>
   <mat-dialog-actions>
@@ -9,12 +9,12 @@
       <app-button
         label="No"
         color="primary"
-        (onClickEvent)="closeDialog()"
+        (onClickEvent)="denyAction()"
       ></app-button>
       <app-button
         [label]="'delete' | translate"
         color="warn"
-        (onClickEvent)="onDelete()"
+        (onClickEvent)="confirmAction()"
       ></app-button>
     </div>
   </mat-dialog-actions>

@@ -14,6 +14,8 @@ export class OrderService {
   orders: Subject<any> = new Subject();
   baseURL: string = this.authService.baseURL;
 
+  orderTableState = { page: 1, size: 5 };
+
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   // GET all orders
@@ -49,19 +51,18 @@ export class OrderService {
 
   // DELETE order by ID
   deleteSingleOrder(id: number): Observable<any> {
-    return this.http.delete<any>(
-      `${this.baseURL}/orders/delete_order/${id}`,
-      this.authService.getHeaderOptions(true)
-    );
+    return this.http.delete<any>(`${this.baseURL}/orders/delete_order/${id}`, {
+      headers: this.authService.getHeaderOptions(true).headers,
+      responseType: 'text' as 'json',
+    });
   }
 
   // POST new order
   postNewOrder(body: any): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseURL}/orders/add_order`,
-      body,
-      this.authService.getHeaderOptions(true)
-    );
+    return this.http.post<any>(`${this.baseURL}/orders/add_order`, body, {
+      headers: this.authService.getHeaderOptions(true).headers,
+      responseType: 'text' as 'json',
+    });
   }
 
   // PUT order
@@ -69,7 +70,10 @@ export class OrderService {
     return this.http.put<any>(
       `${this.authService.baseURL}/orders/modify_order`,
       body,
-      this.authService.getHeaderOptions(true)
+      {
+        headers: this.authService.getHeaderOptions(true).headers,
+        responseType: 'text' as 'json',
+      }
     );
   }
 }

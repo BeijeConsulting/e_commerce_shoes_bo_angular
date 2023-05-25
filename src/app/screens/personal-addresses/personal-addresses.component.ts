@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
@@ -18,11 +19,22 @@ export class PersonalAddressesComponent {
     private personalService: PersonalService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.addresses = this.route.snapshot.data['personalAddressesResolver'];
 
     console.log('this.addresses', this.addresses);
+  }
+
+  notify(message: string, success: boolean) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 1500,
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
+    };
+    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   editAddress(id: number): void {
@@ -38,9 +50,14 @@ export class PersonalAddressesComponent {
         })
       )
       .subscribe({
-        next: (response: PersonalAddressDataApi[]) =>
-          (this.addresses = response),
-        error: (err) => console.log(err),
+        next: (response: PersonalAddressDataApi[]) => {
+          this.addresses = response;
+          this.notify('Deleted', true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.notify('Something went worng', false);
+        },
       });
   }
 
@@ -48,17 +65,18 @@ export class PersonalAddressesComponent {
     this.router.navigate(['dashboard/personal-area/add-address']);
   }
 
-  openDialog(id?: string, item?: string) {
+  openDialog(id: number, item?: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        msg: `Are you sure you want delete this ${item}?`,
-        personalAddressId: id,
+        item: item,
       },
     });
     dialogRef.afterClosed().subscribe({
       next: (confirm) => {
-        if (confirm && id) this.deleteAddress(Number(id));
+        console.log('confirm: ', confirm, id);
+
+        if (confirm) this.deleteAddress(id);
       },
     });
     // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
