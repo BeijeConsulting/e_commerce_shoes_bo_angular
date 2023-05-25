@@ -6,14 +6,17 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ProductService } from 'src/app/services/product/product.service';
 
+import { ProductPreview } from 'src/app/interfaces/Product';
+import { PageEvent } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  products: object[][];
-  productsLenght: number;
+  products: ProductPreview[];
+  productsLength: number;
   page: number = 1;
   perPage: number = 5;
 
@@ -25,7 +28,7 @@ export class ProductsComponent implements OnInit {
   ) {
     const response = this.route.snapshot.data['productsResolver'];
     this.products = [...response.products];
-    this.productsLenght = response.results;
+    this.productsLength = response.results;
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class ProductsComponent implements OnInit {
 
     this.productService.products.subscribe((res) => {
       this.products = [...res.products];
-      this.productsLenght = res.results;
+      this.productsLength = res.results;
     });
   }
 
@@ -43,7 +46,7 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['dashboard/products/add-product']);
   }
 
-  getPaginatedProducts(e: any) {
+  getPaginatedProducts(e: PageEvent) {
     this.page = e.pageIndex + 1;
     this.perPage = e.pageSize;
     const language = this.translate.currentLang;
