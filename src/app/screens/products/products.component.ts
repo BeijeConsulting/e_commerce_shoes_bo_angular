@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
   productsLength: number;
   page: number = 1;
   perPage: number = 5;
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -47,9 +48,16 @@ export class ProductsComponent implements OnInit {
   }
 
   getPaginatedProducts(e: PageEvent) {
+    this.isLoading = true;
     this.page = e.pageIndex + 1;
     this.perPage = e.pageSize;
     const language = this.translate.currentLang;
-    this.productService.getProducts(this.page, this.perPage, language);
+    this.productService
+      .getProducts(this.page, this.perPage, language)
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+        },
+      });
   }
 }

@@ -33,6 +33,7 @@ import { ProductPreview } from 'src/app/interfaces/Product';
 export class ProductTableComponent implements OnInit, OnChanges {
   @Input() products: ProductPreview[] = [];
   @Input() length: number = 0;
+  @Input() isLoading: boolean = false;
   @Output() handlePageEventEmitter = new EventEmitter();
   displayedColumns: string[] = [
     'id',
