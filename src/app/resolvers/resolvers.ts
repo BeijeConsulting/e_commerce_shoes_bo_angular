@@ -46,6 +46,14 @@ export const getOrderByIdResolverFn = (route: ActivatedRouteSnapshot) => {
   return ordersService.getOrderById(id);
 };
 
+export const getEditOrderResolverFn = (route: ActivatedRouteSnapshot) => {
+  console.log('Resolver PUT Order Activated');
+  const ordersService = inject(OrderService);
+  const id = route.params['id'];
+
+  return ordersService.getOrderById(id);
+};
+
 // Products
 export const getProductsResolverFn = () => {
   console.log('Resolver Activated');

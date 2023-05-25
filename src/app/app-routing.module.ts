@@ -36,6 +36,7 @@ import {
   getSingleProductResolverFn,
   getSizesResolverFn,
   getUsersResolverFn,
+  getEditOrderResolverFn,
 } from './resolvers/resolvers';
 
 const routes: Routes = [
@@ -126,6 +127,7 @@ const routes: Routes = [
       {
         path: 'orders/edit-order/:id',
         component: EditOrderComponent,
+        resolve: { ordersResolver: getOrderByIdResolverFn },
       },
       {
         path: 'orders/detail-order/:id',

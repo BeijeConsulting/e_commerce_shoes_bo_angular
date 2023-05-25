@@ -63,4 +63,13 @@ export class OrderService {
       this.authService.getHeaderOptions(true)
     );
   }
+
+  // PUT order
+  editOrder(body: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.authService.baseURL}/orders/modify_order`,
+      body,
+      this.authService.getHeaderOptions(true)
+    );
+  }
 }
