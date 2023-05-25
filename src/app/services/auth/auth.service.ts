@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UserLogin } from 'src/app/interfaces/UserLogin';
 import { StorageService } from '../storage/storage.service';
 
@@ -12,6 +12,9 @@ export class AuthService {
   token: BehaviorSubject<string> = new BehaviorSubject<string>(
     this.storageService.getStorage('token')
   );
+
+  isLogged: boolean = false;
+  userRole?: string;
 
   constructor(
     private http: HttpClient,
@@ -38,11 +41,16 @@ export class AuthService {
   }
 
   login(body: UserLogin): Observable<any> {
-    return this.http.post<any>(
-      `${this.baseURL}/signin`,
-      body,
-      this.getHeaderOptions()
-    );
+    return this.http
+      .post<any>(`${this.baseURL}/signin`, body, this.getHeaderOptions())
+      .pipe(
+        tap((resp) => {
+          console.log('tap', resp);
+          this.isLogged = true;
+
+          if (resp.permission.includes('USER')) this.userRole = resp.permission;
+        })
+      );
   }
 
   /* getOrders(): Observable<any> {

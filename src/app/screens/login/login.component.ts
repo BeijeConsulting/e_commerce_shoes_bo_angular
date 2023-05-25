@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { LoginResponse } from 'src/app/interfaces/LoginResponse';
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
-    private formService: FormService
+    private formService: FormService,
+    private router: Router
   ) {
     /*
     this.userForm$ = this.formService.editUserForm({
@@ -102,6 +104,8 @@ export class LoginComponent implements OnInit {
     console.log('loggato con successo');
     this.storageService.setStorage<string>('token', resp.token);
     this.storageService.setStorage<string>('refreshToken', resp.refreshToken);
+
+    this.router.navigate(['dashboard']);
   }
 
   handleLoginError(err: any): void {
