@@ -72,36 +72,34 @@ export class EditProductComponent implements OnInit {
   onSubmit(data: any) {
     const updatedDetails = [...data.productDetails];
 
-    const sizesIdToRemove: number[] = [];
-    const sizesToAdd: ProductSizeWithId[] = [];
+    const sizesIdToRemove: string[] = [];
+    const sizesToAdd: object[] = [];
     const sizesToEdit: object[] = [];
 
     // Check taglie da aggiungere e editare
-    updatedDetails.forEach((details: ProductSizeWithId) => {
+    updatedDetails.forEach((details: any) => {
       // Se una taglia negli updatedDetails non è presente nel db, è da aggiungere nel db
-      details.productId = this.id;
-      const index = this.dbProductDetails.findIndex(
-        (item: ProductDetailsFull) => {
-          // Se una taglia negli updatedDetails è presente nel db, è da verificare che non sia stata aggiornata
-          if (item.size === details.size) {
-            if (
-              details.quantity !== item.quantity ||
-              details.selling_price !== item.sellingPrice
-            ) {
-              sizesToEdit.push({ id: item.id, details });
-            }
+      details.product_id = this.id;
+      const index = this.dbProductDetails.findIndex((item: any) => {
+        // Se una taglia negli updatedDetails è presente nel db, è da verificare che non sia stata aggiornata
+        if (item.size === details.size) {
+          if (
+            details.quantity !== item.quantity ||
+            details.sellingPrice !== item.sellingPrice
+          ) {
+            sizesToEdit.push({ id: item.id, details });
           }
-
-          return item.size === details.size;
         }
-      );
+
+        return item.size === details.size;
+      });
       if (index === -1) sizesToAdd.push(details);
     });
 
     // Check taglie da eliminare
-    this.dbProductDetails.forEach((details: ProductDetailsFull) => {
+    this.dbProductDetails.forEach((details: any) => {
       // Se una taglia del db non è presente in updatedDetails, è da eliminare dal db
-      const index = updatedDetails.findIndex((item: ProductDetailsFull) => {
+      const index = updatedDetails.findIndex((item: any) => {
         return item.size === details.size;
       });
       if (index === -1) sizesIdToRemove.push(details.id);
@@ -125,20 +123,19 @@ export class EditProductComponent implements OnInit {
 
     // API taglie
     if (sizesIdToRemove && sizesIdToRemove.length > 0) {
-      sizesIdToRemove.forEach((item: number) => {
+      sizesIdToRemove.forEach((item: any) => {
         this.productService.deleteProductSize(item).subscribe();
       });
     }
 
     if (sizesToAdd && sizesToAdd.length > 0) {
-      sizesToAdd.forEach((item: ProductSizeWithId) => {
+      sizesToAdd.forEach((item: any) => {
         this.productService.addProductDetails(item).subscribe();
       });
     }
 
     if (sizesToEdit && sizesToEdit.length > 0) {
       sizesToEdit.forEach((item: any) => {
-        console.log('sizesToEdit', item);
         this.productService
           .updateProductDetails(item.details, item.id)
           .subscribe();
