@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './dialog-logout.component.html',
   styleUrls: ['./dialog-logout.component.css'],
 })
-export class DialogLogoutComponent implements OnInit, OnDestroy {
+export class DialogLogoutComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private matDialogRef: MatDialogRef<DialogLogoutComponent>
@@ -16,16 +16,7 @@ export class DialogLogoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  closeDialog() {
-    this.matDialogRef.close(this.data);
-  }
-
-  onLogout() {
-    alert('logout successfully'); // only for test
-    this.closeDialog();
-  }
-
-  ngOnDestroy(): void {
-    this.closeDialog();
+  closeDialog(confirm: boolean) {
+    this.matDialogRef.close(confirm);
   }
 }

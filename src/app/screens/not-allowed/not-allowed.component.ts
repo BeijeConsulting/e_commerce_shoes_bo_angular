@@ -23,6 +23,6 @@ export class NotAllowedComponent {
   }
 
   goPersonalArea(): void {
-    this.router.navigate(['/dashboard/personal-area']);
+    this.router.navigate(['/cms']);
   }
 }

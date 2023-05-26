@@ -101,7 +101,7 @@ export class DetailProductComponent implements OnInit {
     this.productService.deleteSingleProduct(this.product.id).subscribe({
       next: () => {
         this.notifyService.notify.next('deleted product');
-        this.router.navigate(['dashboard/products']);
+        this.router.navigate(['cms/products']);
       },
       error: () => {
         this.notify('errorTryAgain', false);

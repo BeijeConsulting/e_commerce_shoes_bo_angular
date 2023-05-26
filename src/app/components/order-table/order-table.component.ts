@@ -128,10 +128,10 @@ export class OrderTableComponent implements OnInit, OnChanges {
   }
 
   detailOrder(id: number | string) {
-    this.router.navigate([`/dashboard/orders/detail-order/${id}`]);
+    this.router.navigate([`/cms/orders/detail-order/${id}`]);
   }
 
   editOrder(id: number | string) {
-    this.router.navigate([`/dashboard/orders/edit-order/${id}`]);
+    this.router.navigate([`/cms/orders/edit-order/${id}`]);
   }
 }

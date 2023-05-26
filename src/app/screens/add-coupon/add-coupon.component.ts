@@ -57,7 +57,7 @@ export class AddCouponComponent {
       .pipe(
         finalize(() => {
           setTimeout(() => {
-            this.router.navigate(['/dashboard/coupons']);
+            this.router.navigate(['/cms/coupons']);
           }, 1600);
         })
       )

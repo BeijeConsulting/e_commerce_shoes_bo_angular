@@ -116,10 +116,10 @@ export class ProductTableComponent implements OnInit, OnChanges {
   }
 
   goToProductDetail(id: number | string) {
-    this.router.navigate([`/dashboard/products/detail-product/${id}`]);
+    this.router.navigate([`/cms/products/detail-product/${id}`]);
   }
 
   goToProductUpdate(id: number | string) {
-    this.router.navigate([`/dashboard/products/edit-product/${id}`]);
+    this.router.navigate([`/cms/products/edit-product/${id}`]);
   }
 }

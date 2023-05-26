@@ -3,7 +3,11 @@ import { Component, ViewChild } from '@angular/core';
 // Angular Material
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { DialogLogoutComponent } from 'src/app/components/dialog-logout/dialog-logout.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-cms',
@@ -12,8 +16,16 @@ import { DialogLogoutComponent } from 'src/app/components/dialog-logout/dialog-l
 })
 export class CmsComponent {
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
+  userRole?: string[];
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private storageService: StorageService,
+    private authService: AuthService
+  ) {
+    this.userRole = this.authService.userRole;
+  }
 
   // trigger dialog
   openDialog() {
@@ -26,7 +38,16 @@ export class CmsComponent {
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.
-    dialogRef.afterClosed();
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) this.logout();
+    });
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: (response) => console.log(response),
+      error: (err) => console.log(err),
+    });
   }
 }

@@ -142,21 +142,12 @@ export class EditProductComponent implements OnInit {
     this.productService.updateProduct(editedProduct, this.id).subscribe({
       next: () => {
         this.notifyService.notify.next('updated product');
-        this.router.navigate(['dashboard/products/detail-product/' + this.id]);
+        this.router.navigate(['cms/products/detail-product/' + this.id]);
       },
       error: (err) => {
         this.notifyService.notify.next('updated product');
-        this.router.navigate(['dashboard/products/detail-product/' + this.id]);
+        this.router.navigate(['cms/products/detail-product/' + this.id]);
       },
     });
-
-    /* .pipe(
-        finalize(() => {
-          this.router.navigate([
-            `dashboard/products/detail-product/${this.id}`,
-          ]);
-        })
-      )
-      .subscribe(); */
   }
 }

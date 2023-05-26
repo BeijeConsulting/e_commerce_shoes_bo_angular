@@ -12,6 +12,6 @@ export class MenuProfileComponent {
   constructor(private router: Router) {}
 
   goToPersonalArea() {
-    this.router.navigate(['dashboard/personal-area']);
+    this.router.navigate(['cms']);
   }
 }

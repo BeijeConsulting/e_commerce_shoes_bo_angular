@@ -88,13 +88,11 @@ export class AddProductsComponent implements OnInit {
     this.productService.addProduct(newProduct).subscribe({
       next: (res) => {
         this.notifyService.notify.next('added product');
-        this.router.navigate([
-          'dashboard/products/detail-product/' + res.product.id,
-        ]);
+        this.router.navigate(['cms/products/detail-product/' + res.product.id]);
       },
       error: () => {
         this.notifyService.notify.next('something went wrong');
-        this.router.navigate(['dashboard/products']);
+        this.router.navigate(['cms/products']);
       },
     });
   }

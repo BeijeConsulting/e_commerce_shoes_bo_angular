@@ -83,7 +83,7 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
         return product;
       } else {
         notifyService.notify.next('product not found');
-        router.navigate(['dashboard/products']);
+        router.navigate(['cms/products']);
       }
     })
   );
@@ -125,7 +125,7 @@ export const updateProductsResolverFn = (route: ActivatedRouteSnapshot) => {
           return product;
         } else {
           notifyService.notify.next('product not found');
-          router.navigate(['dashboard/products']);
+          router.navigate(['cms/products']);
         }
       })
     ),
