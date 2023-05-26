@@ -3,6 +3,7 @@ import {
   CanActivateFn,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
+  Router,
 } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -19,6 +20,7 @@ export const permissionsGuard: CanActivateFn = (
   state: RouterStateSnapshot
 ) => {
   const authService = inject(AuthService);
+  const router = inject(Router);
   const permissions: string[] = route.data['permissions'];
 
   console.log('permissions passed by route: ', permissions);
@@ -26,5 +28,11 @@ export const permissionsGuard: CanActivateFn = (
 
   if (!authService.userRole) return false;
 
-  return permissions.some((value) => authService.userRole?.includes(value));
+  if (!permissions.some((value) => authService.userRole?.includes(value))) {
+    console.log('NOT ALLOWED');
+    router.navigate(['/not-allowed']);
+    return false;
+  }
+
+  return true;
 };

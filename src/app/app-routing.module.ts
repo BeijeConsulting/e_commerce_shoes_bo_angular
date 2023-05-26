@@ -64,7 +64,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        data: { permissions: ['ADMIN', 'MARKETING', 'DATA_ENTRY'] },
+        data: { permissions: ['ADMIN'] },
         canActivate: [permissionsGuard],
         resolve: { dashboardResolver: getAllOrdersResolverFn },
       },
