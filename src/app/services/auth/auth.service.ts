@@ -94,7 +94,10 @@ export class AuthService {
         )
         .pipe(
           finalize(() => {
+            const currentLang: string =
+              this.storageService.getStorage('language');
             this.storageService.clear();
+            this.storageService.setStorage<string>('language', currentLang);
             this.token.next('');
             this.router.navigate(['login']);
           })
