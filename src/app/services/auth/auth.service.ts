@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-<<<<<<< HEAD
 import { BehaviorSubject, Observable, finalize, of, tap } from 'rxjs';
-=======
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
->>>>>>> develop
 import { UserLogin } from 'src/app/interfaces/UserLogin';
 import { StorageService } from '../storage/storage.service';
 

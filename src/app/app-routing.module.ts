@@ -42,12 +42,9 @@ import {
   addProductsResolverFn,
   updateProductsResolverFn,
 } from './resolvers/resolvers';
-<<<<<<< HEAD
 import { isLoggedGuard, permissionsGuard } from './routeGuards/routeGuards';
-=======
 import { PageNotFoundComponent } from './screens/page-not-found/page-not-found.component';
 import { NotAllowedComponent } from './screens/not-allowed/not-allowed.component';
->>>>>>> develop
 
 const routes: Routes = [
   {
