@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
 import { OrderService } from '../../services/order/order.service';
-import { ErrorService } from 'src/app/services/notify/notify.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 
 // Angular material
 import { PageEvent } from '@angular/material/paginator';
@@ -29,7 +29,7 @@ export class OrdersComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private orderService: OrderService,
-    private errorService: ErrorService,
+    private errorService: NotifyService,
     private snackBar: MatSnackBar,
     private translatePipe: TranslatePipe
   ) {
@@ -46,7 +46,7 @@ export class OrdersComponent implements OnInit {
     });
 
     // handle id not exist
-    this.errorService.error.subscribe((err: string) => {
+    this.errorService.notify.subscribe((err: string) => {
       // if (err === 'order not found') {
       //   console.log('order not found', err);
       //   this.notifyProductNotFound();
@@ -55,7 +55,7 @@ export class OrdersComponent implements OnInit {
 
       if (err) {
         this.notifyProductNotFound(err);
-        this.errorService.error.next('');
+        this.errorService.notify.next('');
       }
     });
   }

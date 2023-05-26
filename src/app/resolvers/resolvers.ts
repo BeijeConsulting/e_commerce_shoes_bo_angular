@@ -56,7 +56,7 @@ export const getOrderByIdResolverFn = (route: ActivatedRouteSnapshot) => {
   return ordersService.getOrderById(id).pipe(
     catchError((err) => {
       // console.log('ERR', err);
-      return router.navigate(['/dashboard/orders']);
+      return router.navigate(['/cms/orders']);
 
       //  return throwError(() => new Error(err));
     })
