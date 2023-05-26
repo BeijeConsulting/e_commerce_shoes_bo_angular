@@ -24,6 +24,7 @@ import { ProductPreview } from 'src/app/interfaces/Product';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from 'src/app/services/product/product.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 
 @Component({
   selector: 'app-product-table',
@@ -56,7 +57,8 @@ export class ProductTableComponent implements OnInit, OnChanges {
     private router: Router,
     private translate: TranslateService,
     private productService: ProductService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private notifyService: NotifyService
   ) {}
 
   ngOnInit(): void {
@@ -104,12 +106,11 @@ export class ProductTableComponent implements OnInit, OnChanges {
     const language: string = this.translate.currentLang;
     this.productService.deleteSingleProduct(id).subscribe({
       next: () => {
+        this.notifyService.notify.next('deleted product');
         this.productService.getProducts(this.page, this.perPage, language);
-        this.notify('Product deleted', true);
       },
-      error: (err) => {
-        console.log(err);
-        this.notify('Something went wrong', false);
+      error: () => {
+        this.notifyService.notify.next('something went wrong');
       },
     });
   }

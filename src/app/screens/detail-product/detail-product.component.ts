@@ -48,8 +48,18 @@ export class DetailProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.notifyService.notify.subscribe((notify: string) => {
-      if (notify === 'added product') {
-        this.notify('addedProduct', true);
+      if (notify) {
+        switch (notify) {
+          case 'added product':
+            this.notify('addedProduct', true);
+            break;
+          case 'updated product':
+            this.notify('updatedProduct', true);
+            break;
+          case 'something went wrong':
+            this.notify('errorTryAgain', false);
+            break;
+        }
         this.notifyService.notify.next('');
       }
     });
@@ -93,7 +103,7 @@ export class DetailProductComponent implements OnInit {
         this.notifyService.notify.next('deleted product');
         this.router.navigate(['dashboard/products']);
       },
-      error: (err) => {
+      error: () => {
         this.notify('errorTryAgain', false);
       },
     });

@@ -144,9 +144,10 @@
   "modifyAddress": "Modify address",
 
   "addedProduct": "Product successfully added",
+  "updatedProduct": "Product successfully updated",
+  "deletedProduct": "Product successfully deleted",
 
   "deleteProduct": "Delete product",
-  "deletedProduct": "Product successfully deleted",
   "deleteOrder": "Delete order",
   "deleteCoupon": "Delete coupon",
   "deleteDiscount": "Delete discount",
