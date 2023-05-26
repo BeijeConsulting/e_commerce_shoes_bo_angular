@@ -7,13 +7,13 @@ import { Router } from '@angular/router';
 import { AnimationItem, AnimationOptions } from 'ngx-lottie/lib/symbols';
 
 @Component({
-  selector: 'app-page-not-found',
-  templateUrl: './page-not-found.component.html',
-  styleUrls: ['./page-not-found.component.css'],
+  selector: 'app-not-allowed',
+  templateUrl: './not-allowed.component.html',
+  styleUrls: ['./not-allowed.component.css'],
 })
-export class PageNotFoundComponent {
+export class NotAllowedComponent {
   options: AnimationOptions = {
-    path: 'https://assets10.lottiefiles.com/packages/lf20_suhe7qtm.json',
+    path: 'https://assets9.lottiefiles.com/packages/lf20_bc4ugzhr.json',
   };
 
   constructor(private router: Router) {}

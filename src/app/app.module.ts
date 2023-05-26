@@ -94,6 +94,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SizeTableComponent } from './components/size-table/size-table.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NotAllowedComponent } from './screens/not-allowed/not-allowed.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -153,6 +154,7 @@ export function playerFactory() {
     DialogOrderComponent,
     OrderDetailTableComponent,
     PageNotFoundComponent,
+    NotAllowedComponent,
   ],
   imports: [
     FormsModule,
