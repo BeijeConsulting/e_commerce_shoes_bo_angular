@@ -42,6 +42,8 @@ import {
   addProductsResolverFn,
   updateProductsResolverFn,
 } from './resolvers/resolvers';
+import { PageNotFoundComponent } from './screens/page-not-found/page-not-found.component';
+import { NotAllowedComponent } from './screens/not-allowed/not-allowed.component';
 
 const routes: Routes = [
   {
@@ -159,6 +161,8 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'not-allowed', component: NotAllowedComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

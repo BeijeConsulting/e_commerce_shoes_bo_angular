@@ -1,13 +1,11 @@
 <div class='orders__h1'>
-  <h1>Gestisci Ordini</h1>
+  <h1>{{"ordersList" | translate}}</h1>
 </div>
 
 <div class='button__container'>
-  <app-button color="primary" label='AGGIUNGI ORDINE' icon="add" (onClickEvent)="addOrder()"></app-button>
+  <app-button color="primary" label='addOrder' icon="add" (onClickEvent)="addOrder()"></app-button>
 </div>
 
-<!-- Table coupon -->
-<div>
-  <app-order-table (handleEventPageEmitter)="getPaginatedOrders($event)" [data]="ordersItem" [length]="ordersLength">
-  </app-order-table>
-</div>
+<!-- Table  -->
+<app-order-table (handleEventPageEmitter)="getPaginatedOrders($event)" [data]="ordersItem" [length]="ordersLength"
+  [isLoading]="isLoading"></app-order-table>

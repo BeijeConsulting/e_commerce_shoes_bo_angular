@@ -1,8 +1,5 @@
 <div class="main-container">
-  <h1>Edit Order</h1>
-  <app-dynamic-form
-    submitButtonLabel="Edit Order"
-    [inputs]="editOrderForm$ | async"
-    (submitEvent)="onSubmit($event)"
-  ></app-dynamic-form>
+  <h1>{{"modifyOrder" | translate}}</h1>
+  <app-dynamic-form submitButtonLabel="modifyOrder" [inputs]="editOrderForm$ | async"
+    (submitEvent)="onSubmit($event)"></app-dynamic-form>
 </div>

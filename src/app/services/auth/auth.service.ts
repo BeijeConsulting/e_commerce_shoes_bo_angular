@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserLogin } from 'src/app/interfaces/UserLogin';
 import { StorageService } from '../storage/storage.service';
 
@@ -44,14 +44,6 @@ export class AuthService {
       this.getHeaderOptions()
     );
   }
-
-  /* getOrders(): Observable<any> {
-    return this.http
-      .get<any>(
-        `${this.baseURL}/orders/all`,
-        this.getHeaderOptions(true)
-      );
-  } */
 
   refreshToken(): Observable<any> {
     console.log('inizio refresh token');
