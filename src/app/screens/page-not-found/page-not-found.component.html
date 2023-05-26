@@ -1,0 +1,9 @@
+<div class='container'>
+  <div class='container__title'>
+    <p>{{"pageNotFound" | translate}}</p>
+    <div class='button__container'>
+      <button mat-raised-button color="primary" (click)="goHome()">Personal Area</button>
+    </div>
+  </div>
+  <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+</div>

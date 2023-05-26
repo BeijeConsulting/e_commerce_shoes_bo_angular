@@ -42,6 +42,7 @@ import {
   addProductsResolverFn,
   updateProductsResolverFn,
 } from './resolvers/resolvers';
+import { PageNotFoundComponent } from './screens/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -159,6 +160,8 @@ const routes: Routes = [
       },
     ],
   },
+  // { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
