@@ -40,6 +40,7 @@
   "personalData": "Dati personali",
   "yourAddresses": "I tuoi indirizzi",
   "latestOrders": "Ultimi ordini",
+  "createdAt": "Creato il",
 
   "logout": "Logout",
   "birthDate": "Data di nascita",
@@ -160,5 +161,7 @@
   "employeesList": "Lista impiegati",
   "couponsList": "Lista coupon",
   "discountsList": "Lista ribassi",
-  "productsList": "Lista prodotti"
+  "productsList": "Lista prodotti",
+
+  "chooseProductsAndQuantity": "Scegli prodotti e quantità"
 }
