@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { ProductService } from '../services/product/product.service';
 import { inject } from '@angular/core';
-import { forkJoin, map } from 'rxjs';
+import { Subject, catchError, forkJoin, map, throwError } from 'rxjs';
 // Users Services
 import { UserService } from '../services/user/user.service';
 // Orders Services
@@ -15,7 +15,7 @@ import { CategoryService } from '../services/category/category.service';
 import { BrandService } from '../services/brand/brand.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { ErrorService } from '../services/error/error.service';
+import { ErrorService } from '../services/notify/notify.service';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -48,9 +48,31 @@ export const getAllOrdersResolverFn = () => {
 export const getOrderByIdResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Order By ID Activated');
   const ordersService = inject(OrderService);
+  const errorService = inject(ErrorService);
+  const router = inject(Router);
+
   const id = route.params['id'];
 
-  return ordersService.getOrderById(id);
+  return ordersService.getOrderById(id).pipe(
+    catchError((err) => {
+      // console.log('ERR', err);
+      return router.navigate(['/dashboard/orders']);
+
+      //  return throwError(() => new Error(err));
+    })
+  );
+
+  // map((order) => {
+  //   console.log('order in resolver', order);
+  //   if (order) {
+  //     console.log('order in resolver in the if', order);
+  //     return order;
+  //   } else {
+  //     console.log('ERRORE');
+  //     errorService.error.next('order not found');
+  //     router.navigate(['/dashboard/orders']);
+  //   }
+  // })
 };
 
 export const getEditOrderResolverFn = (route: ActivatedRouteSnapshot) => {

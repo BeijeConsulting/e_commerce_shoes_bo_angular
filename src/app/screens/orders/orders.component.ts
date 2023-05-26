@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
+// Interfaces
+import { orderItem } from 'src/app/interfaces/Order';
+
 // Router
 import { ActivatedRoute, Router } from '@angular/router';
+
 // Services
 import { OrderService } from '../../services/order/order.service';
-import { orderItem } from 'src/app/interfaces/Order';
+import { ErrorService } from 'src/app/services/notify/notify.service';
+
+// Angular material
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-orders',
@@ -20,7 +28,10 @@ export class OrdersComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private errorService: ErrorService,
+    private snackBar: MatSnackBar,
+    private translatePipe: TranslatePipe
   ) {
     const response = this.route.snapshot.data['ordersResolver'];
 
@@ -32,6 +43,20 @@ export class OrdersComponent implements OnInit {
     this.orderService.orders.subscribe((res) => {
       this.ordersItem = res.orders;
       this.ordersLength = res.total_element;
+    });
+
+    // handle id not exist
+    this.errorService.error.subscribe((err: string) => {
+      // if (err === 'order not found') {
+      //   console.log('order not found', err);
+      //   this.notifyProductNotFound();
+      //   this.errorService.error.next('');
+      // }
+
+      if (err) {
+        this.notifyProductNotFound(err);
+        this.errorService.error.next('');
+      }
     });
   }
 
@@ -51,5 +76,19 @@ export class OrdersComponent implements OnInit {
 
   addOrder() {
     this.router.navigate(['dashboard/orders/add-order']);
+  }
+
+  notifyProductNotFound(err: string) {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2500,
+      panelClass: 'snackbar-error',
+    };
+    return this.snackBar.open(
+      this.translatePipe.transform(err),
+      '',
+      snackBarConfig
+    );
   }
 }

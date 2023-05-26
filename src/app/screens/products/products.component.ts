@@ -9,7 +9,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { ProductPreview } from 'src/app/interfaces/Product';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ErrorService } from 'src/app/services/error/error.service';
+import { ErrorService } from 'src/app/services/notify/notify.service';
 // Pipes
 import { TranslatePipe } from '@ngx-translate/core';
 
