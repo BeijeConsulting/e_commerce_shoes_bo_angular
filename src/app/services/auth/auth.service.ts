@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, finalize, of, tap } from 'rxjs';
 import { UserLogin } from 'src/app/interfaces/UserLogin';
 import { StorageService } from '../storage/storage.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {}
 
   getHeaderOptions(isAuth: boolean = false): { headers: HttpHeaders } {
@@ -90,9 +92,20 @@ export class AuthService {
           },
           this.getHeaderOptions(true)
         )
-        .pipe(finalize(() => this.token.next('')));
+        .pipe(
+          finalize(() => {
+            this.storageService.clear();
+            this.token.next('');
+            this.router.navigate(['login']);
+          })
+        );
     }
 
-    return of('LOGGED OUT').pipe(finalize(() => this.token.next('')));
+    return of('LOGGED OUT').pipe(
+      finalize(() => {
+        this.storageService.clear();
+        this.token.next('');
+      })
+    );
   }
 }

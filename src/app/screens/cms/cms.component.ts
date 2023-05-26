@@ -45,18 +45,9 @@ export class CmsComponent {
   }
 
   logout(): void {
-    this.authService
-      .logout()
-      .pipe(
-        finalize(() => {
-          this.storageService.clear();
-          this.router.navigate(['login']);
-          console.log('Next Token: ', this.authService.token.getValue());
-        })
-      )
-      .subscribe({
-        next: (response) => console.log(response),
-        error: (err) => console.log(err),
-      });
+    this.authService.logout().subscribe({
+      next: (response) => console.log(response),
+      error: (err) => console.log(err),
+    });
   }
 }
