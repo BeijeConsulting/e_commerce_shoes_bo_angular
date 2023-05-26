@@ -9,6 +9,8 @@ import {
   ViewChild,
 } from '@angular/core';
 
+import { orderItem } from '../../interfaces/Order';
+
 // Angular Material
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -42,11 +44,13 @@ export class OrderTableComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
 
-  @Input() data!: any;
+  @Input() data!: orderItem[];
   @Input() length: number = 0;
+  @Input() isLoading: boolean;
+
   @Output() handleEventPageEmitter = new EventEmitter();
 
-  dataSource: any = [];
+  dataSource: MatTableDataSource<orderItem>;
   totalElement: number = 0;
 
   constructor(
@@ -63,7 +67,9 @@ export class OrderTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource = new MatTableDataSource<any>(changes['data'].currentValue);
+    if (changes['data']) {
+      this.dataSource = new MatTableDataSource<any>(this.data);
+    }
   }
 
   notify(message: string, success: boolean) {

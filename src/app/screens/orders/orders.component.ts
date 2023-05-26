@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // Services
 import { OrderService } from '../../services/order/order.service';
 import { orderItem } from 'src/app/interfaces/Order';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-orders',
@@ -12,8 +13,9 @@ import { orderItem } from 'src/app/interfaces/Order';
   styleUrls: ['./orders.component.css'],
 })
 export class OrdersComponent implements OnInit {
-  ordersItem!: orderItem;
+  ordersItem!: orderItem[];
   ordersLength: number = 0;
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -33,13 +35,18 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  getPaginatedOrders(event: any) {
+  getPaginatedOrders(event: PageEvent) {
+    this.isLoading = true;
     const page = event.pageIndex + 1;
     const per_page = event.pageSize;
 
     this.orderService.orderTableState = { page: page, size: per_page };
 
-    this.orderService.getOrdersPerPage(page, per_page);
+    this.orderService.getOrdersPerPage(page, per_page).subscribe({
+      next: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   addOrder() {

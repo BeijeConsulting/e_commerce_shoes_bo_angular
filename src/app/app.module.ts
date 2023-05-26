@@ -4,24 +4,54 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Translate
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader } from '@ngx-translate/core';
+
+// Lottie
+import { LottieModule } from 'ngx-lottie';
+
+// Routing
 import { AppRoutingModule } from './app-routing.module';
+
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './screens/login/login.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { DynamicFormInputComponent } from './components/dynamic-form-input/dynamic-form-input.component';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { CardComponent } from './components/card-order/card-order.component';
+import { CardProductComponent } from './components/card-product/card-product.component';
+import { CardUserComponent } from './components/card-user/card-user.component';
+import { CardCouponComponent } from './components/card-coupon/card-coupon.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { TableComponent } from './components/coupon-table/coupon-table.component';
+import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
+import { ButtonComponent } from './components/button/button.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { TabComponent } from './components/tab/tab.component';
+import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
+import { ProductTableComponent } from './components/product-table/product-table.component';
+import { UserTableComponent } from './components/user-table/user-table.component';
+import { OrderTableComponent } from './components/order-table/order-table.component';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
+import { DatePipe } from '@angular/common';
+import { DialogOrderComponent } from './components/dialog-order/dialog-order.component';
+import { OrderDetailTableComponent } from './components/order-detail-table/order-detail-table.component';
 
 // Interceptors
 import { interceptorProvider } from './interceptor';
 
 // Screens
-import { DynamicFormInputComponent } from './components/dynamic-form-input/dynamic-form-input.component';
-import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DashboardComponent } from './screens/dashboard/dashboard.component';
 import { ProductsComponent } from './screens/products/products.component';
 import { CmsComponent } from './screens/cms/cms.component';
@@ -44,20 +74,7 @@ import { PersonalAreaComponent } from './screens/personal-area/personal-area.com
 import { PersonalAddressesComponent } from './screens/personal-addresses/personal-addresses.component';
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
-import { CardComponent } from './components/card-order/card-order.component';
-import { CardProductComponent } from './components/card-product/card-product.component';
-import { CardUserComponent } from './components/card-user/card-user.component';
-import { CardCouponComponent } from './components/card-coupon/card-coupon.component';
-import { LineChartComponent } from './components/line-chart/line-chart.component';
-import { BarChartComponent } from './components/bar-chart/bar-chart.component';
-import { PieChartComponent } from './components/pie-chart/pie-chart.component';
-import { TableComponent } from './components/coupon-table/coupon-table.component';
-import { MenuProfileComponent } from './components/menu-profile/menu-profile.component';
-import { ButtonComponent } from './components/button/button.component';
-import { DialogComponent } from './components/dialog/dialog.component';
-import { LoaderComponent } from './components/loader/loader.component';
-import { TabComponent } from './components/tab/tab.component';
-import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
+import { PageNotFoundComponent } from './screens/page-not-found/page-not-found.component';
 
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -77,16 +94,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SizeTableComponent } from './components/size-table/size-table.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ProductTableComponent } from './components/product-table/product-table.component';
-import { UserTableComponent } from './components/user-table/user-table.component';
-import { OrderTableComponent } from './components/order-table/order-table.component';
-import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
-import { DatePipe } from '@angular/common';
-import { DialogOrderComponent } from './components/dialog-order/dialog-order.component';
-import { OrderDetailTableComponent } from './components/order-detail-table/order-detail-table.component';
+import { NotAllowedComponent } from './screens/not-allowed/not-allowed.component';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+}
+
+export function playerFactory() {
+  return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
 }
 
 @NgModule({
@@ -138,6 +153,8 @@ function HttpLoaderFactory(http: HttpClient) {
     LanguageSwitcherComponent,
     DialogOrderComponent,
     OrderDetailTableComponent,
+    PageNotFoundComponent,
+    NotAllowedComponent,
   ],
   imports: [
     FormsModule,
@@ -173,6 +190,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatCardModule,
     MatTabsModule,
     MatSnackBarModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [interceptorProvider, DatePipe],
   bootstrap: [AppComponent],

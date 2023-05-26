@@ -40,6 +40,7 @@
   "personalData": "Dati personali",
   "yourAddresses": "I tuoi indirizzi",
   "latestOrders": "Ultimi ordini",
+  "createdAt": "Creato il",
 
   "logout": "Logout",
   "birthDate": "Data di nascita",
@@ -57,7 +58,6 @@
   "search": "Cerca",
   "filter": "Filtra",
   "dashboard": "Dashboard",
-  "pageNotFound": "Pagina non trovata",
   "actions": "Azioni",
   "paymentStatus": "Stato del pagamento",
   "total": "Totale",
@@ -160,5 +160,9 @@
   "employeesList": "Lista impiegati",
   "couponsList": "Lista coupon",
   "discountsList": "Lista ribassi",
-  "productsList": "Lista prodotti"
+  "productsList": "Lista prodotti",
+
+  "chooseProductsAndQuantity": "Scegli prodotti e quantità",
+  "pageNotFound": "Qualcosa è andato storto! Questa pagina non è disponibile... Fai click sul bottone per tornare nella tua area personale.",
+  "notAllowed": "Non hai i permessi per accedere a questa pagina. Fai click sul bottone per tornare nella tua area personale."
 }

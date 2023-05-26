@@ -58,7 +58,6 @@
   "search": "Search",
   "filter": "Filter",
   "dashboard": "Dashboard",
-  "pageNotFound": "Page not found",
   "actions": "Actions",
   "paymentStatus": "Payment status",
   "total": "Total",
@@ -102,6 +101,7 @@
   "monthlyIncome": "Monthly income",
   "monthlyOrders": "Monthly orders",
   "addProductDetails": "Add product details",
+  "createdAt": "Created at",
 
   "orderDetails": "Order details",
   "productDetails": "Product details",
@@ -161,5 +161,9 @@
   "employeesList": "Employees list",
   "couponsList": "Coupons list",
   "discountsList": "Discounts list",
-  "productsList": "Products list"
+  "productsList": "Products list",
+
+  "chooseProductsAndQuantity": "Choose products and quantity",
+  "pageNotFound": "Something went wrong! This page is not available...Please click on the button to return in personal area.",
+  "notAllowed": "You don't have the permission to see this page. Please, click on the button to return in personal area."
 }
