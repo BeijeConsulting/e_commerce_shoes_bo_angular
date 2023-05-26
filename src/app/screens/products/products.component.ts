@@ -9,7 +9,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { ProductPreview } from 'src/app/interfaces/Product';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ErrorService } from 'src/app/services/error/error.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 // Pipes
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private translate: TranslateService,
-    private errorService: ErrorService,
+    private notifyService: NotifyService,
     private snackBar: MatSnackBar,
     private translatePipe: TranslatePipe
   ) {
@@ -49,10 +49,20 @@ export class ProductsComponent implements OnInit {
       this.productsLength = res.results;
     });
 
-    this.errorService.error.subscribe((error: string) => {
-      if (error === 'product not found') {
-        this.notifyProductNotFound();
-        this.errorService.error.next('');
+    this.notifyService.notify.subscribe((notify: string) => {
+      if (notify) {
+        switch (notify) {
+          case 'product not found':
+            this.notify('productNotFound', false);
+            break;
+          case 'something went wrong':
+            this.notify('errorTryAgain', false);
+            break;
+          case 'deleted product':
+            this.notify('deletedProduct', true);
+            break;
+        }
+        this.notifyService.notify.next('');
       }
     });
   }
@@ -75,15 +85,15 @@ export class ProductsComponent implements OnInit {
       });
   }
 
-  notifyProductNotFound() {
+  notify(message: string, success: boolean) {
     const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'center',
+      horizontalPosition: 'right',
       verticalPosition: 'top',
       duration: 2500,
-      panelClass: 'snackbar-error',
+      panelClass: success ? 'snackbar-success' : 'snackbar-error',
     };
     return this.snackBar.open(
-      this.translatePipe.transform('productNotFound'),
+      this.translatePipe.transform(message),
       '',
       snackBarConfig
     );

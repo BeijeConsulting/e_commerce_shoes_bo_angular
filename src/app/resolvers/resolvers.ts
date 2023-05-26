@@ -15,7 +15,7 @@ import { CategoryService } from '../services/category/category.service';
 import { BrandService } from '../services/brand/brand.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { ErrorService } from '../services/error/error.service';
+import { NotifyService } from '../services/notify/notify.service';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -74,7 +74,7 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const productService = inject(ProductService);
   const router = inject(Router);
-  const errorService = inject(ErrorService);
+  const notifyService = inject(NotifyService);
   const productId = route.params['id'];
 
   return productService.getSingleProduct(productId).pipe(
@@ -82,7 +82,7 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
       if (product) {
         return product;
       } else {
-        errorService.error.next('product not found');
+        notifyService.notify.next('product not found');
         router.navigate(['dashboard/products']);
       }
     })
@@ -114,7 +114,7 @@ export const updateProductsResolverFn = (route: ActivatedRouteSnapshot) => {
   const colorService = inject(ColorService);
   const categoryService = inject(CategoryService);
   const translate = inject(TranslateService);
-  const errorService = inject(ErrorService);
+  const notifyService = inject(NotifyService);
   const router = inject(Router);
   const language: string = translate.currentLang;
 
@@ -124,7 +124,7 @@ export const updateProductsResolverFn = (route: ActivatedRouteSnapshot) => {
         if (product) {
           return product;
         } else {
-          errorService.error.next('product not found');
+          notifyService.notify.next('product not found');
           router.navigate(['dashboard/products']);
         }
       })

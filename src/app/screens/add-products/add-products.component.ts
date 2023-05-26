@@ -6,6 +6,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ColorService } from 'src/app/services/color/color.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -25,7 +26,8 @@ export class AddProductsComponent implements OnInit {
     private translate: TranslateService,
     private colorService: ColorService,
     private categoryService: CategoryService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private notifyService: NotifyService
   ) {
     const { sizes, colors, categories, brands } =
       this.route.snapshot.data['addProductsResolver'];
@@ -85,19 +87,14 @@ export class AddProductsComponent implements OnInit {
 
     this.productService.addProduct(newProduct).subscribe({
       next: (res) => {
-        this.notify('Product added', true);
-        setTimeout(() => {
-          this.router.navigate([
-            'dashboard/products/detail-product/' + res.product.id,
-          ]);
-        }, 1600);
+        this.notifyService.notify.next('added product');
+        this.router.navigate([
+          'dashboard/products/detail-product/' + res.product.id,
+        ]);
       },
-      error: (err) => {
-        console.log(err);
-        this.notify('Something went wrong', false);
-        setTimeout(() => {
-          this.router.navigate(['dashboard/products']);
-        }, 1600);
+      error: () => {
+        this.notifyService.notify.next('something went wrong');
+        this.router.navigate(['dashboard/products']);
       },
     });
   }

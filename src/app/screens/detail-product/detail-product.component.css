@@ -18,11 +18,16 @@ h1 {
 }
 
 .product-images {
-  display: flex;
-  flex-wrap: wrap;
+  padding-left: 50px;
 }
 
-.product-images .col {
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -20px;
+}
+
+.row .col {
   width: calc(100% / 3);
   padding: 0 20px 20px;
 }
@@ -30,4 +35,9 @@ h1 {
 img {
   display: block;
   max-width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
 }

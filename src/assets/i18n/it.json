@@ -141,7 +141,10 @@
   "modifyUser": "Modifica utente",
   "modifyAddress": "Modifica indirizzo",
 
+  "addedProduct": "Prodotto aggiunto con successo",
+
   "deleteProduct": "Elimina prodotto",
+  "deletedProduct": "Prodotto eliminato con successo",
   "deleteOrder": "Elimina ordine",
   "deleteCoupon": "Elimina coupon",
   "deleteDiscount": "Elimina ribasso",
