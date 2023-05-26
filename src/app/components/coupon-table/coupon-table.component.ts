@@ -117,7 +117,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   detailCoupon(coupon: CouponDataApi) {
     console.log('coupon', coupon);
-    this.router.navigate([`/dashboard/coupons/detail-coupon/${coupon.id}`]);
+    this.router.navigate([`/cms/coupons/detail-coupon/${coupon.id}`]);
   }
 
   pageEvent(e: any): void {
@@ -134,7 +134,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   editCoupon(coupon: any): void {
-    this.router.navigate([`/dashboard/coupons/edit-coupon/${coupon.id}`]);
+    this.router.navigate([`/cms/coupons/edit-coupon/${coupon.id}`]);
   }
 
   ngOnDestroy(): void {

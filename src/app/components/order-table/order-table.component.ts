@@ -127,11 +127,11 @@ export class OrderTableComponent implements OnInit, OnChanges {
     console.log('delete order');
   }
 
-  detailOrder(id: number) {
-    this.router.navigate([`/dashboard/orders/detail-order/${id}`]);
+  detailOrder(id: number | string) {
+    this.router.navigate([`/cms/orders/detail-order/${id}`]);
   }
 
-  editOrder(id: number) {
-    this.router.navigate([`/dashboard/orders/edit-order/${id}`]);
+  editOrder(id: number | string) {
+    this.router.navigate([`/cms/orders/edit-order/${id}`]);
   }
 }

@@ -75,7 +75,7 @@ export class OrdersComponent implements OnInit {
   }
 
   addOrder() {
-    this.router.navigate(['dashboard/orders/add-order']);
+    this.router.navigate(['cms/orders/add-order']);
   }
 
   notifyProductNotFound(err: string) {

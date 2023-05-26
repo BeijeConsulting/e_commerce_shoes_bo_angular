@@ -14,42 +14,52 @@
   <div class="sidebar">
     <nav>
       <ul>
-        <li>
-          <a
-            routerLink="/dashboard"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLinkActive="active"
-          >
+        <li *ngIf="userRole?.includes('ADMIN')">
+          <a routerLink="/cms/dashboard" routerLinkActive="active">
             <mat-icon>home</mat-icon>
             <div>{{ "dashboard" | translate }}</div>
           </a>
         </li>
-        <li>
-          <a routerLink="/dashboard/products" routerLinkActive="active">
+        <li
+          *ngIf="
+            userRole?.includes('ADMIN') || userRole?.includes('DATA_ENTRY')
+          "
+        >
+          <a routerLink="/cms/products" routerLinkActive="active">
             <mat-icon>shopping_basket</mat-icon>
             <div>{{ "manageProducts" | translate }}</div>
           </a>
         </li>
-        <li>
-          <a routerLink="/dashboard/users" routerLinkActive="active">
+        <li *ngIf="userRole?.includes('ADMIN')">
+          <a routerLink="/cms/users" routerLinkActive="active">
             <mat-icon>group</mat-icon>
             <div>{{ "manageUsers" | translate }}</div>
           </a>
         </li>
-        <li>
-          <a routerLink="/dashboard/coupons" routerLinkActive="active">
+        <li
+          *ngIf="userRole?.includes('ADMIN') || userRole?.includes('MARKETING')"
+        >
+          <a routerLink="/cms/coupons" routerLinkActive="active">
             <mat-icon>label</mat-icon>
             <div>{{ "manageCoupons" | translate }}</div>
           </a>
         </li>
-        <li>
-          <a routerLink="/dashboard/orders" routerLinkActive="active">
+        <li
+          *ngIf="
+            userRole?.includes('ADMIN') || userRole?.includes('DATA_ENTRY')
+          "
+        >
+          <a routerLink="/cms/orders" routerLinkActive="active">
             <mat-icon>shopping_cart</mat-icon>
             <div>{{ "manageOrders" | translate }}</div>
           </a>
         </li>
         <li>
-          <a routerLink="/dashboard/personal-area" routerLinkActive="active">
+          <a
+            routerLink="/cms"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             <mat-icon>person</mat-icon>
             <div>{{ "personalArea" | translate }}</div>
           </a>

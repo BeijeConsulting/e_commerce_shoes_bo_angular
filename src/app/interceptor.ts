@@ -14,7 +14,7 @@ import { AuthService } from './services/auth/auth.service';
 import { OrderService } from './services/order/order.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ErrorService } from './services/notify/notify.service';
+import { NotifyService } from './services/notify/notify.service';
 
 @Injectable({
   providedIn: 'root',
@@ -38,20 +38,17 @@ export class InterceptorProvider implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
-    const errorService = inject(ErrorService);
+    const errorService = inject(NotifyService);
 
     if (request.headers.get('Authorization')) {
       console.log('chiamata autenticata');
 
       return next.handle(request).pipe(
         catchError((err) => {
-          if (err.error.text === 'deleted') {
-            return this.orderService.getOrdersPerPage(1, 5);
-          }
           if (err.error.status === '404') {
             console.log('ERROR 404 in interceptors', err);
 
-            errorService.error.next(err.error.message);
+            errorService.notify.next(err.error.message);
             return err;
           }
           if (err instanceof HttpErrorResponse && err.status === 401) {
@@ -83,6 +80,10 @@ export class InterceptorProvider implements HttpInterceptor {
       this.isRefreshing = true;
 
       return this.authService.refreshToken().pipe(
+        catchError((err) => {
+          console.log('CATCH ERROR REFRESH TOKEN');
+          return this.authService.logout();
+        }),
         switchMap((res) => {
           console.log('nuovo refresh token');
           this.isRefreshing = false;

@@ -12,6 +12,6 @@ export class CouponsComponent {
   constructor(private router: Router) {}
 
   addCoupon() {
-    this.router.navigate(['dashboard/coupons/add-coupon']);
+    this.router.navigate(['cms/coupons/add-coupon']);
   }
 }

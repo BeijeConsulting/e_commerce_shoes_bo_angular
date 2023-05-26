@@ -6,8 +6,22 @@
       <app-size-table [data]="sizes"></app-size-table>
     </div>
     <div class="product-images">
-      <div class="col" *ngFor="let image of images">
-        <img [src]="image.imagePath" />
+      <div class="actions">
+        <app-button
+          color="primary"
+          label="modify"
+          (onClickEvent)="goToEditProduct()"
+        ></app-button>
+        <app-button
+          color="warn"
+          label="delete"
+          (onClickEvent)="openDialog()"
+        ></app-button>
+      </div>
+      <div class="row">
+        <div class="col" *ngFor="let image of images">
+          <img [src]="image.imagePath" />
+        </div>
       </div>
     </div>
   </div>

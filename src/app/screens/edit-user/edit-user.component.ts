@@ -66,7 +66,7 @@ export class EditUserComponent implements OnInit {
       .pipe(
         finalize(() => {
           setTimeout(() => {
-            this.router.navigate(['dashboard/users']);
+            this.router.navigate(['cms/users']);
           }, 1600);
         })
       )

@@ -147,7 +147,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
     console.log('Usr: ', user);
     // console.log('detail', id);
     this.router.navigate([
-      `/dashboard/users/detail-user/${user.id}`,
+      `/cms/users/detail-user/${user.id}`,
       { user: JSON.stringify(user) },
     ]);
   }
@@ -166,7 +166,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
     };
 
     this.router.navigate([
-      `/dashboard/users/edit-user/${user.id}`,
+      `/cms/users/edit-user/${user.id}`,
       { user: JSON.stringify(userAdapt) },
     ]);
   }

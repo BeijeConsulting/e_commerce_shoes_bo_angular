@@ -64,7 +64,7 @@ export class AddOrderComponent implements OnInit {
       .pipe(
         finalize(() => {
           setTimeout(() => {
-            this.router.navigate(['dashboard/orders']);
+            this.router.navigate(['cms/orders']);
           }, 1600);
         })
       )

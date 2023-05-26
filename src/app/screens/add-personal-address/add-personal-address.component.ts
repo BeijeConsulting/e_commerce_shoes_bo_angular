@@ -50,7 +50,7 @@ export class AddPersonalAddressComponent {
       .pipe(
         finalize(() => {
           setTimeout(() => {
-            this.router.navigate(['dashboard/personal-area/addresses']);
+            this.router.navigate(['cms/personal-area/addresses']);
           }, 1600);
         })
       )

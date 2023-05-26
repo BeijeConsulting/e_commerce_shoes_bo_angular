@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, finalize, forkJoin } from 'rxjs';
@@ -10,6 +9,7 @@ import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
 // Interfaces
 import { ProductDetailsFull } from 'src/app/interfaces/Product';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -29,7 +29,7 @@ export class EditProductComponent implements OnInit {
     private translate: TranslateService,
     private colorService: ColorService,
     private categoryService: CategoryService,
-    private snackBar: MatSnackBar
+    private notifyService: NotifyService
   ) {
     const response = this.route.snapshot.data['updateProductsResolver'];
     const { sizes, colors, categories, brands, product } = response;
@@ -63,16 +63,6 @@ export class EditProductComponent implements OnInit {
         );
       });
     });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -149,18 +139,15 @@ export class EditProductComponent implements OnInit {
     }
 
     // Edit informazioni prodotto e immagini
-    this.productService
-      .updateProduct(editedProduct, this.id)
-      .pipe(
-        finalize(() => {
-          this.notify('Success', true);
-          setTimeout(() => {
-            this.router.navigate([
-              `dashboard/products/detail-product/${this.id}`,
-            ]);
-          }, 1600);
-        })
-      )
-      .subscribe();
+    this.productService.updateProduct(editedProduct, this.id).subscribe({
+      next: () => {
+        this.notifyService.notify.next('updated product');
+        this.router.navigate(['cms/products/detail-product/' + this.id]);
+      },
+      error: (err) => {
+        this.notifyService.notify.next('updated product');
+        this.router.navigate(['cms/products/detail-product/' + this.id]);
+      },
+    });
   }
 }

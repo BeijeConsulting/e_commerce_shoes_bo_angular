@@ -143,6 +143,10 @@
   "modifyUser": "Modify user",
   "modifyAddress": "Modify address",
 
+  "addedProduct": "Product successfully added",
+  "updatedProduct": "Product successfully updated",
+  "deletedProduct": "Product successfully deleted",
+
   "deleteProduct": "Delete product",
   "deleteOrder": "Delete order",
   "deleteCoupon": "Delete coupon",
@@ -165,6 +169,6 @@
   "productsList": "Products list",
 
   "chooseProductsAndQuantity": "Choose products and quantity",
-  "pageNotFound": "Something went wrong! This page is not available...Please click on the button to return in personal area.",
+  "pageNotFound": "Something went wrong! This page is not available...Please click on the following button",
   "notAllowed": "You don't have the permission to see this page. Please, click on the button to return in personal area."
 }

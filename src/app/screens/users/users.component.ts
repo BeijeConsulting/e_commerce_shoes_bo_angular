@@ -23,6 +23,6 @@ export class UsersComponent {
   }
 
   addUser() {
-    this.router.navigate(['dashboard/users/add-user']);
+    this.router.navigate(['cms/users/add-user']);
   }
 }
