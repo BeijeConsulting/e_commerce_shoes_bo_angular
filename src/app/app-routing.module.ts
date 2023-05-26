@@ -55,12 +55,12 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'dashboard',
+    path: 'cms',
     component: CmsComponent,
     canActivate: [isLoggedGuard],
     children: [
       {
-        path: '',
+        path: 'dashboard',
         component: DashboardComponent,
         data: { permissions: ['ADMIN', 'MARKETING', 'DATA_ENTRY'] },
         canActivate: [permissionsGuard],
@@ -149,7 +149,7 @@ const routes: Routes = [
       {
         path: 'orders',
         component: OrdersComponent,
-        data: { permissions: ['ADMIN'] },
+        data: { permissions: ['ADMIN', 'DATA_ENTRY'] },
         canActivate: [permissionsGuard],
         resolve: { ordersResolver: getOrdersResolverFn },
       },
@@ -175,7 +175,7 @@ const routes: Routes = [
         resolve: { ordersResolver: getOrderByIdResolverFn },
       },
       {
-        path: 'personal-area',
+        path: '',
         component: PersonalAreaComponent,
         data: { permissions: ['ADMIN', 'MARKETING', 'DATA_ENTRY'] },
         canActivate: [permissionsGuard],

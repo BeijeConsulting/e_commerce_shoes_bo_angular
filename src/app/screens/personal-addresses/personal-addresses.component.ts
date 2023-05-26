@@ -38,7 +38,7 @@ export class PersonalAddressesComponent {
   }
 
   editAddress(id: number): void {
-    this.router.navigate([`dashboard/personal-area/edit-address/${id}`]);
+    this.router.navigate([`cms/personal-area/edit-address/${id}`]);
   }
 
   deleteAddress(id: number): void {
@@ -62,7 +62,7 @@ export class PersonalAddressesComponent {
   }
 
   addPersonalAddress(): void {
-    this.router.navigate(['dashboard/personal-area/add-address']);
+    this.router.navigate(['cms/personal-area/add-address']);
   }
 
   openDialog(id: number, item?: string) {

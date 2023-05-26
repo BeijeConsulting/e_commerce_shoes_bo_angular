@@ -162,9 +162,7 @@ export class EditProductComponent implements OnInit {
         finalize(() => {
           this.notify('Success', true);
           setTimeout(() => {
-            this.router.navigate([
-              `dashboard/products/detail-product/${this.id}`,
-            ]);
+            this.router.navigate([`cms/products/detail-product/${this.id}`]);
           }, 1600);
         })
       )

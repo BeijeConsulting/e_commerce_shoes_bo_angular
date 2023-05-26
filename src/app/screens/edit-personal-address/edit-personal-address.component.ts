@@ -68,7 +68,7 @@ export class EditPersonalAddressComponent {
         finalize(() =>
           setTimeout(() => {
             console.log('Set interval');
-            this.router.navigate(['dashboard/personal-area/addresses']);
+            this.router.navigate(['cms/personal-area/addresses']);
           }, 1600)
         )
       )

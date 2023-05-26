@@ -60,7 +60,7 @@ export class AddUserComponent {
       .pipe(
         finalize(() => {
           setTimeout(() => {
-            this.router.navigate(['/dashboard/users']);
+            this.router.navigate(['/cms/users']);
           }, 1600);
         })
       )

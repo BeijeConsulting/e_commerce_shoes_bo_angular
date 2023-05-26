@@ -16,13 +16,16 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class CmsComponent {
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
+  userRole?: string[];
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private storageService: StorageService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.userRole = this.authService.userRole;
+  }
 
   // trigger dialog
   openDialog() {

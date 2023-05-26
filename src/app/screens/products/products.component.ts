@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct() {
-    this.router.navigate(['dashboard/products/add-product']);
+    this.router.navigate(['cms/products/add-product']);
   }
 
   getPaginatedProducts(e: PageEvent) {

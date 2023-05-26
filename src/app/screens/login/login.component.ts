@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit {
   handleResponse(resp: LoginResponse): void {
     console.log('loggato con successo');
 
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['cms']);
   }
 
   handleLoginError(err: any): void {

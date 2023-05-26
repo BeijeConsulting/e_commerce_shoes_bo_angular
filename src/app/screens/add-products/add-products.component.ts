@@ -92,7 +92,7 @@ export class AddProductsComponent implements OnInit {
         this.notify('Product added', true);
         setTimeout(() => {
           this.router.navigate([
-            'dashboard/products/detail-product/' + res.product.id,
+            'cms/products/detail-product/' + res.product.id,
           ]);
         }, 1600);
       },
@@ -100,7 +100,7 @@ export class AddProductsComponent implements OnInit {
         console.log(err);
         this.notify('Something went wrong', false);
         setTimeout(() => {
-          this.router.navigate(['dashboard/products']);
+          this.router.navigate(['cms/products']);
         }, 1600);
       },
     });
