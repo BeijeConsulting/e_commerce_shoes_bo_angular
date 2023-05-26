@@ -80,7 +80,7 @@ const routes: Routes = [
         component: DetailProductComponent,
         data: { permissions: ['ADMIN', 'DATA_ENTRY'] },
         canActivate: [permissionsGuard],
-        resolve: { productsResolver: getSingleProductResolverFn },
+        resolve: { detailProductsResolver: getSingleProductResolverFn },
       },
       {
         path: 'products/add-product',

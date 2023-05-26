@@ -75,6 +75,7 @@ import { PersonalAddressesComponent } from './screens/personal-addresses/persona
 import { AddPersonalAddressComponent } from './screens/add-personal-address/add-personal-address.component';
 import { EditPersonalAddressComponent } from './screens/edit-personal-address/edit-personal-address.component';
 import { PageNotFoundComponent } from './screens/page-not-found/page-not-found.component';
+import { NotAllowedComponent } from './screens/not-allowed/not-allowed.component';
 
 // Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -94,7 +95,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { SizeTableComponent } from './components/size-table/size-table.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NotAllowedComponent } from './screens/not-allowed/not-allowed.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -192,7 +193,7 @@ export function playerFactory() {
     MatSnackBarModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
-  providers: [interceptorProvider, DatePipe],
+  providers: [interceptorProvider, DatePipe, TranslatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

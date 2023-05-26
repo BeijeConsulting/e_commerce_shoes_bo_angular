@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { ProductService } from '../services/product/product.service';
 import { inject } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 // Users Services
 import { UserService } from '../services/user/user.service';
 // Orders Services
@@ -14,6 +14,8 @@ import { ColorService } from '../services/color/color.service';
 import { CategoryService } from '../services/category/category.service';
 import { BrandService } from '../services/brand/brand.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { ErrorService } from '../services/error/error.service';
 
 export const getUsersResolverFn = () => {
   console.log('Resolver Activated');
@@ -71,7 +73,20 @@ export const getProductsResolverFn = () => {
 export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const productService = inject(ProductService);
-  return productService.getSingleProduct(route.params['id']);
+  const router = inject(Router);
+  const errorService = inject(ErrorService);
+  const productId = route.params['id'];
+
+  return productService.getSingleProduct(productId).pipe(
+    map((product) => {
+      if (product) {
+        return product;
+      } else {
+        errorService.error.next('product not found');
+        router.navigate(['dashboard/products']);
+      }
+    })
+  );
 };
 
 export const addProductsResolverFn = () => {
@@ -99,10 +114,21 @@ export const updateProductsResolverFn = (route: ActivatedRouteSnapshot) => {
   const colorService = inject(ColorService);
   const categoryService = inject(CategoryService);
   const translate = inject(TranslateService);
+  const errorService = inject(ErrorService);
+  const router = inject(Router);
   const language: string = translate.currentLang;
 
   return forkJoin({
-    product: productService.getSingleProduct(route.params['id']),
+    product: productService.getSingleProduct(route.params['id']).pipe(
+      map((product) => {
+        if (product) {
+          return product;
+        } else {
+          errorService.error.next('product not found');
+          router.navigate(['dashboard/products']);
+        }
+      })
+    ),
     sizes: sizeService.getSizes(),
     colors: colorService.getColors(language),
     brands: brandService.getBrands(),

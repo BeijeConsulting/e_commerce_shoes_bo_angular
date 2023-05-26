@@ -4,12 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, forkJoin } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
-import { BrandService } from 'src/app/services/brand/brand.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ColorService } from 'src/app/services/color/color.service';
 import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
-import { SizeService } from 'src/app/services/size/size.service';
 
 @Component({
   selector: 'app-add-products',
@@ -26,8 +24,6 @@ export class AddProductsComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private colorService: ColorService,
-    private sizeService: SizeService,
-    private brandService: BrandService,
     private categoryService: CategoryService,
     private snackBar: MatSnackBar
   ) {

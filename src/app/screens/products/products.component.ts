@@ -8,6 +8,10 @@ import { ProductService } from 'src/app/services/product/product.service';
 
 import { ProductPreview } from 'src/app/interfaces/Product';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ErrorService } from 'src/app/services/error/error.service';
+// Pipes
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-products',
@@ -25,7 +29,10 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private errorService: ErrorService,
+    private snackBar: MatSnackBar,
+    private translatePipe: TranslatePipe
   ) {
     const response = this.route.snapshot.data['productsResolver'];
     this.products = [...response.products];
@@ -40,6 +47,13 @@ export class ProductsComponent implements OnInit {
     this.productService.products.subscribe((res) => {
       this.products = [...res.products];
       this.productsLength = res.results;
+    });
+
+    this.errorService.error.subscribe((error: string) => {
+      if (error === 'product not found') {
+        this.notifyProductNotFound();
+        this.errorService.error.next('');
+      }
     });
   }
 
@@ -59,5 +73,19 @@ export class ProductsComponent implements OnInit {
           this.isLoading = false;
         },
       });
+  }
+
+  notifyProductNotFound() {
+    const snackBarConfig: MatSnackBarConfig = {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2500,
+      panelClass: 'snackbar-error',
+    };
+    return this.snackBar.open(
+      this.translatePipe.transform('productNotFound'),
+      '',
+      snackBarConfig
+    );
   }
 }

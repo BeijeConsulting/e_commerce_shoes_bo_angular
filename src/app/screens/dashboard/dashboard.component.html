@@ -32,6 +32,69 @@
   <div class="col">
     <div class="card">
       <h2>{{ "latestOrders" | translate }}</h2>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="latestOrders">
+          <!-- Id Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
+
+          <!-- userId Column -->
+          <ng-container matColumnDef="userId">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "userId" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.user_id }}</td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>{{ "date" | translate }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.created_at | date : "dd/MM/YYYY" }}
+            </td>
+          </ng-container>
+
+          <!-- Payment state Column -->
+          <ng-container matColumnDef="paymentState">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "paymentStatus" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.payment_status }}
+            </td>
+          </ng-container>
+
+          <!-- State state Column -->
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "status" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+          </ng-container>
+
+          <!-- Total Column -->
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>{{ "total" | translate }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.total_price | number : "1.0-2" }}
+            </td>
+          </ng-container>
+
+          <!-- Transaction -->
+          <ng-container matColumnDef="transaction">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "transaction" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.transaction }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columns"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        </table>
+      </div>
     </div>
   </div>
 </div>
