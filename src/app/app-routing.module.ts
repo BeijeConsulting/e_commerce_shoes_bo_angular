@@ -70,7 +70,7 @@ const routes: Routes = [
       {
         path: 'products/detail-product/:id',
         component: DetailProductComponent,
-        resolve: { productsResolver: getSingleProductResolverFn },
+        resolve: { detailProductsResolver: getSingleProductResolverFn },
       },
       {
         path: 'products/add-product',

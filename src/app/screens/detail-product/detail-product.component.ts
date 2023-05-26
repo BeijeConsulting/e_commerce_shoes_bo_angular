@@ -23,7 +23,7 @@ export class DetailProductComponent {
       product: ProductFull;
       productDetails: ProductDetailsFull[];
       productImages: ProductImageFull[];
-    } = this.route.snapshot.data['productsResolver'];
+    } = this.route.snapshot.data['detailProductsResolver'];
 
     this.product = { ...response.product };
     this.sizes = [...response.productDetails];

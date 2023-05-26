@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { orderItem } from 'src/app/interfaces/Order';
 
@@ -26,11 +27,25 @@ export class DashboardComponent implements OnInit {
     'December',
   ];
 
+  columns: string[] = [
+    'id',
+    'userId',
+    'date',
+    'paymentState',
+    'state',
+    'total',
+    'transaction',
+  ];
+
   incomePerMonth: any = [];
   incomePerNation: any = [];
   ordersPerMonth: any = [];
+  latestOrders: orderItem[] = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private translate: TranslateService
+  ) {
     this.orders = this.route.snapshot.data['dashboardResolver'].orders;
     console.log('TUTTI GLI ORDINI', this.orders);
   }
@@ -39,6 +54,50 @@ export class DashboardComponent implements OnInit {
     this.incomePerNation = this.getIncomePerNation();
     this.incomePerMonth = this.getIncomePerMonth();
     this.ordersPerMonth = this.getOrdersPerMonth();
+    this.latestOrders = this.getLatestOrders();
+
+    this.translate.onLangChange.subscribe((res) => {
+      if (res.lang === 'en') {
+        this.monthLabels = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ];
+      } else {
+        this.monthLabels = [
+          'Gennaio',
+          'Febbraio',
+          'Marzo',
+          'Aprile',
+          'Maggio',
+          'Giugno',
+          'Luglio',
+          'Agosto',
+          'Settembre',
+          'Ottobre',
+          'Novembre',
+          'Dicembre',
+        ];
+      }
+      console.log(this.monthLabels);
+    });
+  }
+
+  getLatestOrders(): orderItem[] {
+    const result: orderItem[] = [];
+    for (let i = 0; i < 5; i++) {
+      result.push(this.orders[i]);
+    }
+    return result;
   }
 
   getIncomePerNation() {

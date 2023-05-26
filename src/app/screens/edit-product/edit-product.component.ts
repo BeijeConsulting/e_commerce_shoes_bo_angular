@@ -9,11 +9,7 @@ import { ColorService } from 'src/app/services/color/color.service';
 import { FormService } from 'src/app/services/form/form.service';
 import { ProductService } from 'src/app/services/product/product.service';
 // Interfaces
-import {
-  ProductDetailsFull,
-  ProductSizeWithId,
-} from 'src/app/interfaces/Product';
-import { BrandService } from 'src/app/services/brand/brand.service';
+import { ProductDetailsFull } from 'src/app/interfaces/Product';
 
 @Component({
   selector: 'app-edit-product',
@@ -35,11 +31,9 @@ export class EditProductComponent implements OnInit {
     private categoryService: CategoryService,
     private snackBar: MatSnackBar
   ) {
-    const { sizes, colors, categories, brands, product } =
-      this.route.snapshot.data['updateProductsResolver'];
-
+    const response = this.route.snapshot.data['updateProductsResolver'];
+    const { sizes, colors, categories, brands, product } = response;
     this.dbProductDetails = [...product.productDetails];
-
     delete product.productImages;
     this.editProductForm$ = this.formService.editProductForm(
       product,
@@ -48,7 +42,6 @@ export class EditProductComponent implements OnInit {
       colors,
       categories
     );
-
     this.id = product.product.id;
   }
 

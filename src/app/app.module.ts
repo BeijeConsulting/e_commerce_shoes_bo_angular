@@ -82,6 +82,7 @@ import { UserTableComponent } from './components/user-table/user-table.component
 import { OrderTableComponent } from './components/order-table/order-table.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 import { DatePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { DialogOrderComponent } from './components/dialog-order/dialog-order.component';
 import { OrderDetailTableComponent } from './components/order-detail-table/order-detail-table.component';
 
@@ -174,7 +175,7 @@ function HttpLoaderFactory(http: HttpClient) {
     MatTabsModule,
     MatSnackBarModule,
   ],
-  providers: [interceptorProvider, DatePipe],
+  providers: [interceptorProvider, DatePipe, TranslatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
