@@ -1,13 +1,21 @@
-<div class='dialog__container'>
+<div class="dialog__container">
   <mat-dialog-content>
-    <h2 class='dialog__h2'>
-      {{data.logout}}
+    <h2 class="dialog__h2">
+      {{ data.logout }}
     </h2>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <div class='container__buttons'>
-      <app-button label="No" color="primary" (onClickEvent)="closeDialog()"></app-button>
-      <app-button label="logOut" color="warn" (onClickEvent)="onLogout()"></app-button>
+    <div class="container__buttons">
+      <app-button
+        label="No"
+        color="primary"
+        (onClickEvent)="closeDialog(false)"
+      ></app-button>
+      <app-button
+        label="logOut"
+        color="warn"
+        (onClickEvent)="closeDialog(true)"
+      ></app-button>
     </div>
   </mat-dialog-actions>
 </div>

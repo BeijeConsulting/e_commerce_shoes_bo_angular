@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 
-export const loginGuard: CanActivateFn = (
+export const isLoggedGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {

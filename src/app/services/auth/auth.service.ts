@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, of, tap } from 'rxjs';
 import { UserLogin } from 'src/app/interfaces/UserLogin';
 import { StorageService } from '../storage/storage.service';
 
@@ -14,7 +14,7 @@ export class AuthService {
   );
 
   isLogged: boolean = false;
-  userRole?: string;
+  userRole?: string[];
 
   constructor(
     private http: HttpClient,
@@ -48,7 +48,19 @@ export class AuthService {
           console.log('tap', resp);
           this.isLogged = true;
 
-          if (resp.permission.includes('USER')) this.userRole = resp.permission;
+          this.storageService.setStorage<string>('token', resp.token);
+          this.storageService.setStorage<string>(
+            'refreshToken',
+            resp.refreshToken
+          );
+          this.storageService.setStorage<string[]>(
+            'permissions',
+            resp.permission
+          );
+
+          this.token.next(resp.token);
+
+          this.userRole = resp.permission;
         })
       );
   }
@@ -71,5 +83,24 @@ export class AuthService {
       },
       this.getHeaderOptions()
     );
+  }
+
+  logout(): Observable<any> {
+    const refreshToken: string | null | undefined =
+      this.storageService.getStorage('refreshToken');
+
+    if (refreshToken) {
+      return this.http
+        .post<any>(
+          `${this.baseURL}/sign_out`,
+          {
+            refreshToken: refreshToken,
+          },
+          this.getHeaderOptions(true)
+        )
+        .pipe(finalize(() => this.token.next('')));
+    }
+
+    return of('LOGGED OUT').pipe(finalize(() => this.token.next('')));
   }
 }

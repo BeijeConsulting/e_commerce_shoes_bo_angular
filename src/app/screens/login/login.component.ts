@@ -102,8 +102,6 @@ export class LoginComponent implements OnInit {
 
   handleResponse(resp: LoginResponse): void {
     console.log('loggato con successo');
-    this.storageService.setStorage<string>('token', resp.token);
-    this.storageService.setStorage<string>('refreshToken', resp.refreshToken);
 
     this.router.navigate(['dashboard']);
   }

@@ -42,7 +42,7 @@ import {
   addProductsResolverFn,
   updateProductsResolverFn,
 } from './resolvers/resolvers';
-import { loginGuard, permissionsGuard } from './routeGuards/routeGuards';
+import { isLoggedGuard, permissionsGuard } from './routeGuards/routeGuards';
 
 const routes: Routes = [
   {
@@ -57,7 +57,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: CmsComponent,
-    canActivate: [loginGuard],
+    canActivate: [isLoggedGuard],
     children: [
       {
         path: '',
