@@ -4,8 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ErrorService {
-  error: BehaviorSubject<string> = new BehaviorSubject('');
+export class NotifyService {
+  notify: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor() {}
 }

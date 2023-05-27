@@ -6,13 +6,15 @@ import {
   HttpRequest,
   HttpEvent,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { switchMap, catchError, throwError, Observable, of } from 'rxjs';
 import { StorageService } from './services/storage/storage.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { OrderService } from './services/order/order.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { NotifyService } from './services/notify/notify.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,19 +31,31 @@ export class InterceptorProvider implements HttpInterceptor {
 
   constructor(
     private storageService: StorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private orderService: OrderService,
+    private router: Router,
+    private location: Location
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
+    const errorService = inject(NotifyService);
+
     if (request.headers.get('Authorization')) {
       console.log('chiamata autenticata');
 
       return next.handle(request).pipe(
         catchError((err) => {
+          if (err.error.status === '404') {
+            console.log('ERROR 404 in interceptors', err);
+
+            errorService.notify.next(err.error.message);
+            return err;
+          }
           if (err instanceof HttpErrorResponse && err.status === 401) {
             console.log('401 entrato');
             return this.handle401Error(request, next);
           } else {
+            console.log('error', err);
             return throwError(() => new Error(err));
           }
         })

@@ -143,6 +143,10 @@
   "modifyUser": "Modify user",
   "modifyAddress": "Modify address",
 
+  "addedProduct": "Product successfully added",
+  "updatedProduct": "Product successfully updated",
+  "deletedProduct": "Product successfully deleted",
+
   "deleteProduct": "Delete product",
   "deleteOrder": "Delete order",
   "deleteCoupon": "Delete coupon",
