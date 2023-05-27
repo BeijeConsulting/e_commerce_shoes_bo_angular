@@ -99,6 +99,7 @@ export class AuthService {
             this.storageService.clear();
             this.storageService.setStorage<string>('language', currentLang);
             this.token.next('');
+            this.isLogged = false;
             this.router.navigate(['login']);
           })
         );

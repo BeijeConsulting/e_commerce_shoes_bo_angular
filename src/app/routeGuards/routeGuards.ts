@@ -14,6 +14,8 @@ export const isLoggedGuard: CanActivateFn = (
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  console.log('IS LOGGED: ', authService.isLogged);
+
   if (!authService.isLogged) {
     router.navigate(['login']);
     return false;
