@@ -1,10 +1,10 @@
 <mat-tab-group dynamicHeight>
-  <mat-tab label="USERS">
+  <mat-tab label="{{'manageUsers' | translate}}">
     <div class="mat-elevation-z4 table">
       <app-user-table [employees]="false"></app-user-table>
     </div>
   </mat-tab>
-  <mat-tab label="EMPLOYEES">
+  <mat-tab label="{{'manageEmployees' | translate}}">
     <div class="mat-elevation-z4 table">
       <app-user-table [employees]="true"></app-user-table>
     </div>

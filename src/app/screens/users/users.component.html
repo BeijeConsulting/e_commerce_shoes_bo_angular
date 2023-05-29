@@ -1,14 +1,9 @@
 <div class="users__h1">
-  <h1>Gestisci Utenti</h1>
+  <h1>{{"manageUsers" | translate}}</h1>
 </div>
 
 <div class="button__container">
-  <app-button
-    color="primary"
-    label="AGGIUNGI UTENTE"
-    icon="add"
-    (onClickEvent)="addUser()"
-  ></app-button>
+  <app-button color="primary" label="{{'addUser' | translate}}" icon="add" (onClickEvent)="addUser()"></app-button>
 </div>
 
 <div>

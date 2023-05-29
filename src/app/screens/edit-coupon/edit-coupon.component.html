@@ -1,8 +1,5 @@
 <div class="main-container">
-  <h1>Edit Coupon</h1>
-  <app-dynamic-form
-    submitButtonLabel="Edit Coupon"
-    [inputs]="editCouponForm$ | async"
-    (submitEvent)="onSubmit($event)"
-  ></app-dynamic-form>
+  <h1>{{"modifyCoupon" | translate}}</h1>
+  <app-dynamic-form submitButtonLabel="{{'modifyCoupon' | translate}}" [inputs]="editCouponForm$ | async"
+    (submitEvent)="onSubmit($event)"></app-dynamic-form>
 </div>
