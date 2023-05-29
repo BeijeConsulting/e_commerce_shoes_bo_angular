@@ -20,8 +20,13 @@ export class AppComponent {
     const permissions: string[] | undefined | null =
       storage.getStorage('permissions');
 
-    console.log('Token in localstorage: ', token);
-    console.log('Permissions in localstorage: ', permissions);
+    const user: { firstName: string; lastName: string } | null =
+      storage.getStorage('user');
+
+    if (user) {
+      this.authService.firstName.next(user.firstName);
+      this.authService.lastName.next(user.lastName);
+    }
 
     if (token && permissions && permissions.length > 0) {
       this.authService.isLogged = true;

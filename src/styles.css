@@ -30,6 +30,10 @@ img {
   max-height: 100%;
 }
 
+.p-relative {
+  position: relative;
+}
+
 a,
 button {
   cursor: pointer;
@@ -66,6 +70,7 @@ td .mat-mdc-text-field-wrapper {
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 100;
 
   display: flex;
   justify-content: center;

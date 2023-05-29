@@ -1,30 +1,72 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 // Angular Material
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+  RouterEvent,
+} from '@angular/router';
 import { DialogLogoutComponent } from 'src/app/components/dialog-logout/dialog-logout.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { StorageService } from 'src/app/services/storage/storage.service';
+// Types
+// import Timeout
 
 @Component({
   selector: 'app-cms',
   templateUrl: './cms.component.html',
   styleUrls: ['./cms.component.css'],
 })
-export class CmsComponent {
+export class CmsComponent implements OnInit, OnDestroy {
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger; // menuTrigger for dialog
   userRole?: string[];
 
+  isLoading: boolean = false;
+  navigationTimeout: ReturnType<typeof setTimeout>;
+
   constructor(
     public dialog: MatDialog,
-    private router: Router,
-    private storageService: StorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.userRole = this.authService.userRole;
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe((e: any) => {
+      this.navigationHandler(e);
+    });
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.navigationTimeout);
+  }
+
+  navigationHandler(event: RouterEvent): void {
+    if (event instanceof NavigationStart) {
+      this.isLoading = true;
+    }
+    if (event instanceof NavigationEnd) {
+      this.navigationTimeout = setTimeout(() => {
+        this.isLoading = false;
+      }, 1500);
+    }
+
+    // Set isLoading state to false in both of the below events to hide the spinner in case a request fails
+    if (event instanceof NavigationCancel) {
+      this.navigationTimeout = setTimeout(() => {
+        this.isLoading = false;
+      }, 1500);
+    }
+    if (event instanceof NavigationError) {
+      this.navigationTimeout = setTimeout(() => {
+        this.isLoading = false;
+      }, 1500);
+    }
   }
 
   // trigger dialog

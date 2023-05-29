@@ -10,8 +10,10 @@ import {
   PersonalDataEditForm,
 } from 'src/app/interfaces/PersonalData';
 import { UserData } from 'src/app/interfaces/UserData';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormService } from 'src/app/services/form/form.service';
 import { PersonalService } from 'src/app/services/personal/personal.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-personal-area',
@@ -28,11 +30,19 @@ export class PersonalAreaComponent {
     private formService: FormService,
     private personalService: PersonalService,
     private route: ActivatedRoute,
-    private router: Router,
     private datePipe: DatePipe,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private storageService: StorageService
   ) {
     this.personalData = this.route.snapshot.data['personalDataResolver'];
+    this.authService.firstName.next(this.personalData.first_name);
+    this.authService.lastName.next(this.personalData.last_name);
+
+    this.storageService.setStorage('user', {
+      firstName: this.personalData.first_name,
+      lastName: this.personalData.last_name,
+    });
 
     console.log('PersonalData: ', this.personalData);
 
@@ -45,52 +55,6 @@ export class PersonalAreaComponent {
       phoneNumber: this.personalData.telephone,
     });
   }
-
-  // user: any = {
-  //   telephone: '3337571233',
-  //   email: 'paolo1@gmail.com',
-  //   password: null,
-  //   addresses: [
-  //     {
-  //       id: 100,
-  //       label: 'Casa',
-  //       country: 'Italia',
-  //       telephone: '0818723737',
-  //       zipcode: '80053',
-  //       instructions: 'Bussare al citofono',
-  //       name_surname: 'Paolo Di Martino',
-  //       street_address: 'via dei Martiri, 14',
-  //       user_id: 88,
-  //     },
-  //     {
-  //       id: 113,
-  //       label: 'Ufficio',
-  //       country: 'Italia',
-  //       telephone: '3213332134',
-  //       zipcode: '87632',
-  //       instructions: 'Lasciare in portineria',
-  //       name_surname: 'Alfonso Di Martino',
-  //       street_address: 'via Largo Fusco, 3',
-  //       user_id: 88,
-  //     },
-  //     {
-  //       id: 126,
-  //       label: 'Casa vacanze',
-  //       country: 'Italia',
-  //       telephone: '3337473876',
-  //       zipcode: '80045',
-  //       instructions: "Lasciare all'ingresso",
-  //       name_surname: 'Giuseppe Di Martino',
-  //       street_address: 'via Vico Perduto, 4',
-  //       user_id: 88,
-  //     },
-  //   ],
-  //   last_name: 'Di Martino',
-  //   first_name: 'Paolo',
-  //   wish_list_item: 1,
-  //   cart_items: 2,
-  //   birth_date: '1999-02-10',
-  // };
 
   notify(message: string, success: boolean) {
     const snackBarConfig: MatSnackBarConfig = {
