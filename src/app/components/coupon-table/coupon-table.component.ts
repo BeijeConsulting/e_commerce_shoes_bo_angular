@@ -103,7 +103,8 @@ export class TableComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        item: 'coupon',
+        item: id,
+        message: 'confirmCouponDeletion',
       },
     });
 

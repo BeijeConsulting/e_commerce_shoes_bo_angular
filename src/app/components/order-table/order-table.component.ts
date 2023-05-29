@@ -92,7 +92,8 @@ export class OrderTableComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        item: 'order',
+        item: id,
+        message: 'confirmOrderDeletion',
       },
     });
 

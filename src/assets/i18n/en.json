@@ -43,6 +43,7 @@
   "latestOrders": "Latest orders",
 
   "logout": "Logout",
+  "logoutConfirm": "Are you sure you want to log out?",
   "birthDate": "Birth date",
   "birth_date": "Birth date",
   "percentage": "Percentage",
@@ -148,6 +149,12 @@
   "addedProduct": "Product successfully added",
   "updatedProduct": "Product successfully updated",
   "deletedProduct": "Product successfully deleted",
+
+  "confirmItemDeletion": "Are you sure you want to delete",
+  "confirmUserDeletion": "Are you sure you want to delete user with id",
+  "confirmCouponDeletion": "Are you sure you want to delete coupon with id",
+  "confirmOrderDeletion": "Are you sure you want to delete order with id",
+  "confirmAddressDeletion": "Are you sure you want to delete address:",
 
   "deleteProduct": "Delete product",
   "deleteOrder": "Delete order",

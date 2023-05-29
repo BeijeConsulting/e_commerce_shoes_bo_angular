@@ -1,8 +1,6 @@
 <div class="dialog__container">
   <mat-dialog-content>
-    <h2 class="dialog__h2">
-      Are you sure you want delete this {{ data.item }} ?
-    </h2>
+    <h2 class="dialog__h2">{{ data.message | translate }} {{ data.item }} ?</h2>
   </mat-dialog-content>
   <mat-dialog-actions>
     <div class="container__buttons">

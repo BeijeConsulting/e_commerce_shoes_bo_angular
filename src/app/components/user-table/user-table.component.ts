@@ -128,11 +128,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        item: 'user',
-        // deleteUser: 'Are you sure you want delete this user?',
-        // deleteOrder: 'Are you sure you want delete this order?',
-        // deleteCoupon: 'Are you sure you want delete this coupon?',
-        // logout: 'Are you sure you want log out?',
+        item: id,
+        message: 'confirmUserDeletion',
       },
     });
 

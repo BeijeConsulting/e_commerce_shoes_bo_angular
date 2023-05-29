@@ -53,19 +53,19 @@ export class CmsComponent implements OnInit, OnDestroy {
     if (event instanceof NavigationEnd) {
       this.navigationTimeout = setTimeout(() => {
         this.isLoading = false;
-      }, 1500);
+      }, 1000);
     }
 
     // Set isLoading state to false in both of the below events to hide the spinner in case a request fails
     if (event instanceof NavigationCancel) {
       this.navigationTimeout = setTimeout(() => {
         this.isLoading = false;
-      }, 1500);
+      }, 1000);
     }
     if (event instanceof NavigationError) {
       this.navigationTimeout = setTimeout(() => {
         this.isLoading = false;
-      }, 1500);
+      }, 1000);
     }
   }
 
@@ -73,9 +73,6 @@ export class CmsComponent implements OnInit, OnDestroy {
   openDialog() {
     const dialogRef = this.dialog.open(DialogLogoutComponent, {
       restoreFocus: false,
-      data: {
-        logout: 'Are you sure you want log out?',
-      },
     });
 
     // Manually restore focus to the menu trigger since the element that

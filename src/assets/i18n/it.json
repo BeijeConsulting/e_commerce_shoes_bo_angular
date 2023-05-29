@@ -43,6 +43,7 @@
   "createdAt": "Creato il",
 
   "logout": "Logout",
+  "logoutConfirm": "Sei sicuro di voler effettuare il logout?",
   "birthDate": "Data di nascita",
   "birth_date": "Data di nascita",
   "percentage": "Percentuale",
@@ -146,6 +147,12 @@
   "addedProduct": "Prodotto aggiunto con successo",
   "updatedProduct": "Prodotto modificato con successo",
   "deletedProduct": "Prodotto eliminato con successo",
+
+  "confirmItemDeletion": "Sei sicuro di voler eliminare",
+  "confirmUserDeletion": "Sei sicuro di voler eliminare l'utente con id",
+  "confirmCouponDeletion": "Sei sicuro di voler eliminare il coupon con id",
+  "confirmOrderDeletion": "Sei sicuro di voler eliminare l'ordine con id",
+  "confirmAddressDeletion": "Sei sicuro di voler eliminare l'indirizzo:",
 
   "deleteProduct": "Elimina prodotto",
   "deleteOrder": "Elimina ordine",
