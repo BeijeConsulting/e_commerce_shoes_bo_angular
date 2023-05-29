@@ -41,7 +41,7 @@
   "yourAddresses": "I tuoi indirizzi",
   "latestOrders": "Ultimi ordini",
   "createdAt": "Creato il",
-
+  "addNewAddress": "Aggiungi nuovo indirizzo",
   "logout": "Logout",
   "logoutConfirm": "Sei sicuro di voler effettuare il logout?",
   "birthDate": "Data di nascita",
@@ -181,5 +181,22 @@
   "notAllowed": "Non hai i permessi per accedere a questa pagina. Fai click sul bottone per tornare nella tua area personale.",
   "couponNotFound": "Coupon non trovato",
   "userNotFound": "Utente non trovato",
-  "orderNotFound": "Ordine non trovato"
+  "orderNotFound": "Ordine non trovato",
+  "dataEdited": "Dati modificati",
+  "orderAdded": "Ordine aggiunto",
+  "orderEdited": "Ordine modificato",
+  "orderDeleted": "Ordine eliminato",
+  "addressAdded": "Indirizzo aggiunto",
+  "personalAddressEdited": "Indirizzo personale modificato",
+  "personalAddressDeleted": "Indirizzo personale eliminato",
+  "couponAdded": "Coupon aggiunto",
+  "couponEdited": "Coupon modificato",
+  "couponDeleted": "Coupon disabilitato",
+  "userEdited": "Utente modificato",
+  "userAdded": "Utente aggiunto",
+  "userDeleted": "Utente eliminato",
+  "productEdited": "Prodotto modificato",
+  "productAdded": "Prodotto aggiunto",
+  "productDeleted": "Prodotto eliminato",
+  "somethingWentWrong": "Qualcosa è andato storto"
 }

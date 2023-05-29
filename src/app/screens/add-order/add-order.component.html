@@ -1,5 +1,9 @@
 <div class="main-container">
-  <h1>{{"addOrder" | translate}}</h1>
-  <app-dynamic-form submitButtonLabel="Add Order" [inputs]="addOrderForm$ | async" (submitEvent)="onSubmit($event)"
-    [data]='products'></app-dynamic-form>
+  <h1>{{ "addOrder" | translate }}</h1>
+  <app-dynamic-form
+    submitButtonLabel="{{ 'addOrder' | translate }}"
+    [inputs]="addOrderForm$ | async"
+    (submitEvent)="onSubmit($event)"
+    [data]="products"
+  ></app-dynamic-form>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { CouponService } from 'src/app/services/coupon/coupon.service';
@@ -18,7 +19,8 @@ export class AddCouponComponent {
     private formService: FormService,
     private couponService: CouponService,
     private router: Router,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.addCouponForm$ = this.formService.addCouponForm();
   }
@@ -52,11 +54,17 @@ export class AddCouponComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notifyService.showNotify('Success', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('couponAdded'),
+            true
+          );
         },
         error: (err) => {
           console.log('Error', err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

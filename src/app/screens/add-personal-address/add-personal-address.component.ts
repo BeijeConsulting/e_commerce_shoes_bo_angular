@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { PersonalAddressData } from 'src/app/interfaces/PersonalAddressData';
@@ -19,7 +20,8 @@ export class AddPersonalAddressComponent {
     private formService: FormService,
     private personalService: PersonalService,
     private router: Router,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.personalAddressForm$ = this.formService.personalAddressForm();
   }
@@ -47,11 +49,17 @@ export class AddPersonalAddressComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notifyService.showNotify('Address added successfully', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('addressAdded'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

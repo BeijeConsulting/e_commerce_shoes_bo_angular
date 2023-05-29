@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
@@ -23,7 +24,8 @@ export class EditCouponComponent {
     private router: Router,
     private datePipe: DatePipe,
     private couponService: CouponService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.coupon = this.route.snapshot.data['couponEditDetailsResolver'][0];
     this;
@@ -72,11 +74,17 @@ export class EditCouponComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notifyService.showNotify('Success', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('couponEdited'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Error', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

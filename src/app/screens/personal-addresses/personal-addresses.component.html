@@ -1,7 +1,7 @@
 <div class="addresses-container">
   <mat-card class="add-card">
     <mat-card-content class="add-card-content">
-      <h3>Add a new Address</h3>
+      <h3>{{ "addNewAddress" | translate }}</h3>
       <button mat-icon-button color="primary" (click)="addPersonalAddress()">
         <mat-icon>add</mat-icon>
       </button>
@@ -58,10 +58,10 @@
         mat-button
         (click)="openDialog(address.id, address.street_address)"
       >
-        DELETE
+        {{ "delete" | translate }}
       </button>
       <button color="primary" mat-button (click)="editAddress(address.id)">
-        EDIT
+        {{ "edit" | translate }}
       </button>
     </mat-card-actions>
   </mat-card>

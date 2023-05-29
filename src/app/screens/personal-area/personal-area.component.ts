@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize, switchMap } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import {
@@ -30,6 +31,7 @@ export class PersonalAreaComponent {
     private personalService: PersonalService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
+    private translatePipe: TranslatePipe,
     private authService: AuthService,
     private storageService: StorageService,
     private notifyService: NotifyService
@@ -98,11 +100,17 @@ export class PersonalAreaComponent {
             phoneNumber: response.telephone,
           });
 
-          this.notifyService.showNotify('Success', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('dataEdited'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
 

@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order/order.service';
 import { switchMap } from 'rxjs';
 import { NotifyService } from 'src/app/services/notify/notify.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-order-table',
@@ -57,7 +58,8 @@ export class OrderTableComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private router: Router,
     private orderService: OrderService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {}
 
   ngOnInit(): void {
@@ -107,12 +109,18 @@ export class OrderTableComponent implements OnInit, OnChanges {
       )
       .subscribe({
         next: (res) => {
-          this.notifyService.showNotify('Order Deleted', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('orderDeleted'),
+            true
+          );
           console.log('res', res);
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
     console.log('delete order');

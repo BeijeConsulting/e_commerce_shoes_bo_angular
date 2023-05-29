@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { UserData } from 'src/app/interfaces/UserData';
@@ -23,7 +24,8 @@ export class EditUserComponent implements OnInit {
     private router: Router,
     private datePipe: DatePipe,
     private userService: UserService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.user = JSON.parse(this.route.snapshot.params['user']);
     console.log(this.user);
@@ -62,11 +64,17 @@ export class EditUserComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notifyService.showNotify('User edited', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('userEdited'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

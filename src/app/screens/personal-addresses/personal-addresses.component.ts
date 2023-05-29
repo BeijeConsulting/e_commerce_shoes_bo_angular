@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { switchMap } from 'rxjs';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { PersonalAddressDataApi } from 'src/app/interfaces/PersonalAddressData';
@@ -20,7 +21,8 @@ export class PersonalAddressesComponent {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.addresses = this.route.snapshot.data['personalAddressesResolver'];
 
@@ -42,11 +44,17 @@ export class PersonalAddressesComponent {
       .subscribe({
         next: (response: PersonalAddressDataApi[]) => {
           this.addresses = response;
-          this.notifyService.showNotify('Deleted', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('personalAddressDeleted'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went worng', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

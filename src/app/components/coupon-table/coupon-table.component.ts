@@ -13,6 +13,8 @@ import { Subscription, finalize } from 'rxjs';
 import { CouponService } from 'src/app/services/coupon/coupon.service';
 import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { TranslatePipe } from '@ngx-translate/core';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 
 @Component({
   selector: 'app-table',
@@ -47,7 +49,9 @@ export class TableComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private couponService: CouponService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translatePipe: TranslatePipe,
+    private notifyService: NotifyService
   ) {}
 
   ngOnInit(): void {
@@ -81,9 +85,19 @@ export class TableComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe({
-        next: () => console.log('Coupon deleted'),
+        next: () => {
+          console.log('Coupon deleted');
+          this.notifyService.showNotify(
+            this.translatePipe.transform('couponDeleted'),
+            true
+          );
+        },
         error: (err) => {
           console.log(err);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

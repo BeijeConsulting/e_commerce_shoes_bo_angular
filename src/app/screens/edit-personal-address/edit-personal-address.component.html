@@ -1,7 +1,7 @@
 <div class="main-container">
   <h1>Edit Address</h1>
   <app-dynamic-form
-    submitButtonLabel="Edit Address"
+    submitButtonLabel="{{ 'modifyAddress' | translate }}"
     [inputs]="personalAddressForm$ | async"
     (submitEvent)="onSubmit($event)"
   ></app-dynamic-form>

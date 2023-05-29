@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { FormService } from 'src/app/services/form/form.service';
@@ -21,7 +22,8 @@ export class AddOrderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private orderService: OrderService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.addOrderForm$ = this.formService.addOrderForm();
 
@@ -60,11 +62,20 @@ export class AddOrderComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.notifyService.showNotify('Success', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('orderAdded'),
+            true
+          );
         },
         error: (err) => {
-          console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          console.log(
+            'translation ',
+            this.translatePipe.transform('somethingWentWrong')
+          );
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

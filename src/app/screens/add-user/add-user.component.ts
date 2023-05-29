@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { FormService } from 'src/app/services/form/form.service';
@@ -18,7 +19,8 @@ export class AddUserComponent {
     private formService: FormService,
     private router: Router,
     private userService: UserService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.addUserForm$ = this.formService.addUserForm();
   }
@@ -55,11 +57,17 @@ export class AddUserComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notifyService.showNotify('User Added', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('userAdded'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

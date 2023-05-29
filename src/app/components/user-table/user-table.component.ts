@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/interfaces/UserData';
 import { Subscription, forkJoin, switchMap } from 'rxjs';
 import { NotifyService } from 'src/app/services/notify/notify.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-table',
@@ -48,7 +49,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private router: Router,
     private userService: UserService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {}
 
   ngOnInit() {
@@ -101,11 +103,17 @@ export class UserTableComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           console.log('User Deleted');
-          this.notifyService.showNotify('User Deleted', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('userDeleted'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentWrong'),
+            false
+          );
         },
       });
   }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { PersonalAddressData } from 'src/app/interfaces/PersonalAddressData';
@@ -23,7 +24,8 @@ export class EditPersonalAddressComponent {
     private route: ActivatedRoute,
     private personalService: PersonalService,
     private router: Router,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private translatePipe: TranslatePipe
   ) {
     this.personalAddress = this.route.snapshot.data['personalAddressResolver'];
 
@@ -65,11 +67,17 @@ export class EditPersonalAddressComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notifyService.showNotify('Successfully edited', true);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('personalAddressEdited'),
+            true
+          );
         },
         error: (err) => {
           console.log(err);
-          this.notifyService.showNotify('Something went wrong', false);
+          this.notifyService.showNotify(
+            this.translatePipe.transform('somethingWentwrong'),
+            false
+          );
         },
       });
   }

@@ -1,7 +1,7 @@
 <div class="main-container">
   <h1>Add Coupon</h1>
   <app-dynamic-form
-    submitButtonLabel="Add Coupon"
+    submitButtonLabel="{{ 'addCoupon' | translate }}"
     [inputs]="addCouponForm$ | async"
     (submitEvent)="onSubmit($event)"
   ></app-dynamic-form>
