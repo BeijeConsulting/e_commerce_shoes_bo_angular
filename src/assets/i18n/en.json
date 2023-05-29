@@ -131,6 +131,8 @@
   "addAddress": "Add address",
 
   "emptyInputs": "Fields can't be empty",
+  "invalidQuantity": "The quantity cannot be less than 1",
+  "invalidSellingPrice": "The selling price cannot be less than 0,01",
   "alreadySelectedSize": "Already selected size",
 
   "view": "View",

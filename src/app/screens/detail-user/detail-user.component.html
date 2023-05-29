@@ -4,6 +4,6 @@
   </div>
 
   <div class="card__container">
-    <app-card-user [user]="user"></app-card-user>
+    <app-card-user *ngIf="user" [user]="user"></app-card-user>
   </div>
 </div>

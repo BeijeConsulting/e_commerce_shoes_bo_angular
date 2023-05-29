@@ -6,7 +6,7 @@
   <mat-icon class="color__icon">account_circle</mat-icon>
   <mat-menu #menu="matMenu" yPosition="below">
     <button mat-menu-item>
-      <span>nome cognome api</span>
+      <span>{{ firstName }} {{ lastName }}</span>
     </button>
     <button mat-menu-item (click)="goToPersonalArea()">
       <span>{{ "personalArea" | translate }}</span>

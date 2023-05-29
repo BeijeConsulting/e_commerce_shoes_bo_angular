@@ -40,14 +40,21 @@
 
     <!-- min Value -->
     <ng-container matColumnDef="value">
-      <th mat-header-cell *matHeaderCellDef>{{"value" | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+      <th mat-header-cell *matHeaderCellDef>{{"value" | translate}} (€)</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.value | currency : "EUR" : "symbol" : ".2-2" }}
+      </td>
     </ng-container>
     <!-- min order Column -->
     <ng-container matColumnDef="minOrder">
       <th mat-header-cell *matHeaderCellDef>{{"minOrder" | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{ element.min_order }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.min_order | currency : "EUR" : "symbol" : ".2-2" }}</td>
+      <!-- <th mat-header-cell *matHeaderCellDef>{{"value" | translate}} (€)</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.value | currency : "EUR" : "symbol" : ".2-2" }}
+      </td> -->
     </ng-container>
+
 
     <!-- Action Column -->
     <ng-container matColumnDef="actions">

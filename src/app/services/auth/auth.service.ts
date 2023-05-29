@@ -14,6 +14,9 @@ export class AuthService {
     this.storageService.getStorage('token')
   );
 
+  firstName: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  lastName: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   isLogged: boolean = false;
   userRole?: string[];
 

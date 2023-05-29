@@ -41,6 +41,8 @@ export class DetailProductComponent implements OnInit {
       productImages: ProductImageFull[];
     } = this.route.snapshot.data['detailProductsResolver'];
 
+    console.log(response.product);
+
     this.product = { ...response.product };
     this.sizes = [...response.productDetails];
     this.images = [...response.productImages];
@@ -66,9 +68,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   goToEditProduct(): void {
-    this.router.navigate([
-      `dashboard/products/edit-product/${this.product.id}`,
-    ]);
+    this.router.navigate([`cms/products/edit-product/${this.product.id}`]);
   }
 
   openDialog() {

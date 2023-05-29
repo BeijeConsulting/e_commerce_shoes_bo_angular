@@ -79,6 +79,14 @@ export class DynamicFormInputComponent implements OnInit {
       return (this.sizeError = 'emptyInputs');
     }
 
+    if (this.productSize.quantity < 1) {
+      return (this.sizeError = 'invalidQuantity');
+    }
+
+    if (this.productSize.selling_price < 0.01) {
+      return (this.sizeError = 'invalidSellingPrice');
+    }
+
     if (this.productSizes && this.productSizes.length > 0) {
       const index = this.productSizes.findIndex((item: ProductDetailsFull) => {
         if (this.productSize.size) {
