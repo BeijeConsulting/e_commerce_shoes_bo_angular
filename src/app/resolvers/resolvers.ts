@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { ProductService } from '../services/product/product.service';
-import { inject } from '@angular/core';
+import { Injector, inject } from '@angular/core';
 import { Subject, catchError, forkJoin, map, throwError } from 'rxjs';
 // Users Services
 import { UserService } from '../services/user/user.service';
@@ -55,7 +55,8 @@ export const getOrderByIdResolverFn = (route: ActivatedRouteSnapshot) => {
 
   return ordersService.getOrderById(id).pipe(
     catchError((err) => {
-      // console.log('ERR', err);
+      console.log('ERR', err);
+      errorService.notify.next('orderNotFound');
       return router.navigate(['/cms/orders']);
 
       //  return throwError(() => new Error(err));
@@ -107,6 +108,11 @@ export const getSingleProductResolverFn = (route: ActivatedRouteSnapshot) => {
         notifyService.notify.next('product not found');
         router.navigate(['cms/products']);
       }
+    }),
+    catchError((err) => {
+      notifyService.notify.next('product not found');
+      router.navigate(['cms/products']);
+      return err;
     })
   );
 };
@@ -169,8 +175,16 @@ export const getSingleCouponResolverFn = (route: ActivatedRouteSnapshot) => {
   console.log('Resolver Activated');
   const id = route.params['id'];
   const couponService = inject(CouponService);
+  const notifyService = inject(NotifyService);
+  const router = inject(Router);
 
-  return couponService.getCouponById(id);
+  return couponService.getCouponById(id).pipe(
+    catchError((err) => {
+      notifyService.notify.next('couponNotFound');
+      router.navigate(['cms/coupons']);
+      return err;
+    })
+  );
 };
 
 export const getEditCouponDetailsResolverFn = (
