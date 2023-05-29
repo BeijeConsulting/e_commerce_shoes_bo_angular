@@ -18,10 +18,16 @@
     <p><strong>Type</strong>: {{ coupon.type }}</p>
   </mat-card-content>
   <mat-card-content>
-    <p><strong>Value</strong>: {{ coupon.value }}</p>
+    <p>
+      <strong>Value</strong>:
+      {{ coupon.value | currency : "EUR" : "symbol" : ".2-2" }}
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p><strong>Min order</strong>: {{ coupon.min_order }}</p>
+    <p>
+      <strong>Min order</strong>:
+      {{ coupon.min_order | currency : "EUR" : "symbol" : ".2-2" }}
+    </p>
   </mat-card-content>
   <mat-card-content>
     <p><strong>Italian description</strong>: {{ coupon.description_it }}</p>

@@ -17,10 +17,16 @@
     <p>{{ "category" | translate }}: {{ product.category }}</p>
   </mat-card-content>
   <mat-card-content>
-    <p>{{ "startingPrice" | translate }}: {{ product.startingPrice }} €</p>
+    <p>
+      {{ "startingPrice" | translate }}:
+      {{ product.startingPrice | currency : "EUR" : "symbol" : ".2-2" }}
+    </p>
   </mat-card-content>
   <mat-card-content>
-    <p>{{ "sellingPrice" | translate }}: {{ product.listedPrice }} €</p>
+    <p>
+      {{ "sellingPrice" | translate }}:
+      {{ product.listedPrice | currency : "EUR" : "symbol" : ".2-2" }}
+    </p>
   </mat-card-content>
   <mat-card-content>
     <p>{{ "color" | translate }}: {{ product.color }}</p>

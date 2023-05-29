@@ -40,9 +40,11 @@
     <!-- Price Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef>
-        {{ "startingPrice" | translate }}
+        {{ "startingPrice" | translate }} (€)
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.starting_price }} €</td>
+      <td mat-cell *matCellDef="let element">
+        {{ element.starting_price | currency : "EUR" : "symbol" : ".2-2" }}
+      </td>
     </ng-container>
 
     <!-- Action Column -->

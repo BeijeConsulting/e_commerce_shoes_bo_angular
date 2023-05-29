@@ -1,69 +1,76 @@
 <mat-card>
-
   <mat-card-content>
-    <p>Id:
+    <p>
+      Id:
       <span>
-        {{data.id}}
+        {{ data.id }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p> {{"transaction" |translate}}:
+    <p>
+      {{ "transaction" | translate }}:
       <span>
-        {{data.transaction}}
+        {{ data.transaction }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p> {{"transactionDate" |translate}}:
+    <p>
+      {{ "transactionDate" | translate }}:
       <span>
-        {{data.transaction_date}}
+        {{ data.transaction_date }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p> {{"paymentStatus" | translate}}:
+    <p>
+      {{ "paymentStatus" | translate }}:
       <span>
-        {{data.payment_status}}
+        {{ data.payment_status }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p> {{"status" | translate}}:
+    <p>
+      {{ "status" | translate }}:
       <span>
-        {{data.status}}
+        {{ data.status }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p> {{"total" | translate}}:
+    <p>
+      {{ "total" | translate }}:
       <span>
-        {{data.total_price | number : '1.0-2'}} €
+        {{ data.total_price | currency : "EUR" : "symbol" : ".2-2" }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p>{{"createdAt" | translate}}:
+    <p>
+      {{ "createdAt" | translate }}:
       <span>
-        {{data.created_at}}
+        {{ data.created_at }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p>{{"userId" | translate}}:
+    <p>
+      {{ "userId" | translate }}:
       <span>
-        {{data.user_id}}
+        {{ data.user_id }}
       </span>
     </p>
   </mat-card-content>
   <mat-card-content>
-    <p>{{"address" | translate}}:
+    <p>
+      {{ "address" | translate }}:
       <span>
-        {{data.address}}
+        {{ data.address }}
       </span>
     </p>
   </mat-card-content>
-
 
   <!-- <mat-card-content>
     <p>Images:</p>
