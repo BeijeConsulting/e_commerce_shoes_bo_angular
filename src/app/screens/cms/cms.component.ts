@@ -73,9 +73,6 @@ export class CmsComponent implements OnInit, OnDestroy {
   openDialog() {
     const dialogRef = this.dialog.open(DialogLogoutComponent, {
       restoreFocus: false,
-      data: {
-        logout: 'Are you sure you want log out?',
-      },
     });
 
     // Manually restore focus to the menu trigger since the element that

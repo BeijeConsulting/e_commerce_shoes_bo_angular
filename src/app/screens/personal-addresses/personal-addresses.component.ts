@@ -65,11 +65,12 @@ export class PersonalAddressesComponent {
     this.router.navigate(['cms/personal-area/add-address']);
   }
 
-  openDialog(id: number, item?: string) {
+  openDialog(id: number, item: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
         item: item,
+        message: 'confirmAddressDeletion',
       },
     });
     dialogRef.afterClosed().subscribe({
