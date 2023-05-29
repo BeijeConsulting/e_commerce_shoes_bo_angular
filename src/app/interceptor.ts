@@ -45,18 +45,12 @@ export class InterceptorProvider implements HttpInterceptor {
 
       return next.handle(request).pipe(
         catchError((err) => {
-          if (err.error.status === '404') {
-            console.log('ERROR 404 in interceptors', err);
-
-            errorService.notify.next(err.error.message);
-            return err;
-          }
           if (err instanceof HttpErrorResponse && err.status === 401) {
             console.log('401 entrato');
             return this.handle401Error(request, next);
           } else {
             console.log('error', err);
-            return throwError(() => new Error(err));
+            return err;
           }
         })
       );
@@ -80,10 +74,6 @@ export class InterceptorProvider implements HttpInterceptor {
       this.isRefreshing = true;
 
       return this.authService.refreshToken().pipe(
-        catchError((err) => {
-          console.log('CATCH ERROR REFRESH TOKEN');
-          return this.authService.logout();
-        }),
         switchMap((res) => {
           console.log('nuovo refresh token');
           this.isRefreshing = false;
@@ -93,6 +83,10 @@ export class InterceptorProvider implements HttpInterceptor {
           this.storageService.setStorage('token', newToken);
           this.authService.token.next(newToken);
           return next.handle(this.addToken(request, newToken));
+        }),
+        catchError((err) => {
+          console.log('CATCH ERROR REFRESH TOKEN');
+          return this.authService.logout();
         })
       );
     }
