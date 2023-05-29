@@ -250,7 +250,7 @@ export class FormService {
       new MultiLine({
         key: 'descriptionIt',
         label: 'descriptionIt',
-        required: true,
+        required: false,
         value: '',
         order: 7,
       }),
@@ -258,7 +258,7 @@ export class FormService {
       new MultiLine({
         key: 'descriptionEng',
         label: 'descriptionEn',
-        required: true,
+        required: false,
         value: '',
         order: 8,
       }),
@@ -567,7 +567,7 @@ export class FormService {
       new MultiLine({
         key: 'italianDescription',
         label: 'Italian Description',
-        required: true,
+        required: false,
         value: dataCoupon.italianDescription,
         order: 1,
       }),
@@ -575,7 +575,7 @@ export class FormService {
       new MultiLine({
         key: 'englishDescription',
         label: 'English Description',
-        required: true,
+        required: false,
         value: dataCoupon.englishDescription,
         order: 1,
       }),
@@ -810,6 +810,7 @@ export class FormService {
         label: 'Zip Code',
         required: true,
         value: personalAddreddData?.zipCode,
+        regexControl: /^\d{5}$/,
         order: 1,
       }),
 
