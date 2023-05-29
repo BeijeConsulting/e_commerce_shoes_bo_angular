@@ -53,19 +53,19 @@ export class CmsComponent implements OnInit, OnDestroy {
     if (event instanceof NavigationEnd) {
       this.navigationTimeout = setTimeout(() => {
         this.isLoading = false;
-      }, 1500);
+      }, 1000);
     }
 
     // Set isLoading state to false in both of the below events to hide the spinner in case a request fails
     if (event instanceof NavigationCancel) {
       this.navigationTimeout = setTimeout(() => {
         this.isLoading = false;
-      }, 1500);
+      }, 1000);
     }
     if (event instanceof NavigationError) {
       this.navigationTimeout = setTimeout(() => {
         this.isLoading = false;
-      }, 1500);
+      }, 1000);
     }
   }
 
