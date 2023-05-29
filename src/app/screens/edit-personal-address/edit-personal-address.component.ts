@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { PersonalAddressData } from 'src/app/interfaces/PersonalAddressData';
 import { PersonalAddress } from 'src/app/interfaces/PersonalData';
 import { FormService } from 'src/app/services/form/form.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 import { PersonalService } from 'src/app/services/personal/personal.service';
 
 @Component({
@@ -23,11 +23,11 @@ export class EditPersonalAddressComponent {
     private route: ActivatedRoute,
     private personalService: PersonalService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private notifyService: NotifyService
   ) {
     this.personalAddress = this.route.snapshot.data['personalAddressResolver'];
 
-    this.personalAddressForm$ = formService.personalAddressForm({
+    this.personalAddressForm$ = this.formService.personalAddressForm({
       label: this.personalAddress.label,
       fullName: this.personalAddress.name_surname,
       address: this.personalAddress.street_address,
@@ -36,16 +36,6 @@ export class EditPersonalAddressComponent {
       zipCode: this.personalAddress.zipcode,
       instructions: this.personalAddress.instructions,
     });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: PersonalAddressData) {
@@ -75,11 +65,11 @@ export class EditPersonalAddressComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notify('Successfully edited', true);
+          this.notifyService.showNotify('Successfully edited', true);
         },
         error: (err) => {
           console.log(err);
-          this.notify('Something went wrong', false);
+          this.notifyService.showNotify('Something went wrong', false);
         },
       });
   }

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
-import { orderItem } from 'src/app/interfaces/Order';
 import { FormService } from 'src/app/services/form/form.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
@@ -33,12 +32,12 @@ export class EditOrderComponent {
     private orderService: OrderService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar
+    private notifyService: NotifyService
   ) {
     this.orderDetail = this.route.snapshot.data['ordersResolver'];
     console.log('this.orderDetail', this.orderDetail);
 
-    this.editOrderForm$ = formService.editOrderForm({
+    this.editOrderForm$ = this.formService.editOrderForm({
       address: this.orderDetail.address,
       created_at: this.orderDetail.created_at,
       id: this.orderDetail.id,
@@ -49,16 +48,6 @@ export class EditOrderComponent {
       transaction_date: this.orderDetail.transaction_date,
       user_id: this.orderDetail.user_id,
     });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -95,11 +84,11 @@ export class EditOrderComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notify('Order Edited', true);
+          this.notifyService.showNotify('Order Edited', true);
         },
         error: (err) => {
           console.log(err);
-          this.notify('Something went wrong', false);
+          this.notifyService.showNotify('Something went wrong', false);
         },
       });
   }

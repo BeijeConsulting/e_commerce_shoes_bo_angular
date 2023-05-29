@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { PersonalAddressData } from 'src/app/interfaces/PersonalAddressData';
 import { FormService } from 'src/app/services/form/form.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 import { PersonalService } from 'src/app/services/personal/personal.service';
 
 @Component({
@@ -19,19 +19,9 @@ export class AddPersonalAddressComponent {
     private formService: FormService,
     private personalService: PersonalService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private notifyService: NotifyService
   ) {
-    this.personalAddressForm$ = formService.personalAddressForm();
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
+    this.personalAddressForm$ = this.formService.personalAddressForm();
   }
 
   onSubmit(data: PersonalAddressData) {
@@ -57,11 +47,11 @@ export class AddPersonalAddressComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notify('Address added successfully', true);
+          this.notifyService.showNotify('Address added successfully', true);
         },
         error: (err) => {
           console.log(err);
-          this.notify('Something went wrong', false);
+          this.notifyService.showNotify('Something went wrong', false);
         },
       });
   }

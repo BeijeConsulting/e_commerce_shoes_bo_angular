@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 // Router
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-
+// Services
 import { ProductService } from 'src/app/services/product/product.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 
 import { ProductPreview } from 'src/app/interfaces/Product';
 import { PageEvent } from '@angular/material/paginator';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { NotifyService } from 'src/app/services/notify/notify.service';
 // Pipes
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -31,7 +30,6 @@ export class ProductsComponent implements OnInit {
     private productService: ProductService,
     private translate: TranslateService,
     private notifyService: NotifyService,
-    private snackBar: MatSnackBar,
     private translatePipe: TranslatePipe
   ) {
     const response = this.route.snapshot.data['productsResolver'];
@@ -53,13 +51,22 @@ export class ProductsComponent implements OnInit {
       if (notify) {
         switch (notify) {
           case 'product not found':
-            this.notify('productNotFound', false);
+            this.notifyService.showNotify(
+              this.translatePipe.transform('productNotFound'),
+              false
+            );
             break;
           case 'something went wrong':
-            this.notify('errorTryAgain', false);
+            this.notifyService.showNotify(
+              this.translatePipe.transform('errorTryAgain'),
+              false
+            );
             break;
           case 'deleted product':
-            this.notify('deletedProduct', true);
+            this.notifyService.showNotify(
+              this.translatePipe.transform('deletedProduct'),
+              true
+            );
             break;
         }
         this.notifyService.notify.next('');
@@ -83,19 +90,5 @@ export class ProductsComponent implements OnInit {
           this.isLoading = false;
         },
       });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 2500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(
-      this.translatePipe.transform(message),
-      '',
-      snackBarConfig
-    );
   }
 }

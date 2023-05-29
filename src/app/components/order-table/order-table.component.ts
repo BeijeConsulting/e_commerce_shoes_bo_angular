@@ -21,8 +21,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
 // Router
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order/order.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { switchMap } from 'rxjs';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 
 @Component({
   selector: 'app-order-table',
@@ -57,7 +57,7 @@ export class OrderTableComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private router: Router,
     private orderService: OrderService,
-    private snackBar: MatSnackBar
+    private notifyService: NotifyService
   ) {}
 
   ngOnInit(): void {
@@ -70,16 +70,6 @@ export class OrderTableComponent implements OnInit, OnChanges {
     if (changes['data']) {
       this.dataSource = new MatTableDataSource<any>(this.data);
     }
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   // handle event for pagination
@@ -117,12 +107,12 @@ export class OrderTableComponent implements OnInit, OnChanges {
       )
       .subscribe({
         next: (res) => {
-          this.notify('Order Deleted', true);
+          this.notifyService.showNotify('Order Deleted', true);
           console.log('res', res);
         },
         error: (err) => {
           console.log(err);
-          this.notify('Something went wrong', false);
+          this.notifyService.showNotify('Something went wrong', false);
         },
       });
     console.log('delete order');

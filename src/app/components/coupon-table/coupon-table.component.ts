@@ -66,16 +66,6 @@ export class TableComponent implements OnInit, OnDestroy {
     );
   }
 
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
-  }
-
   deleteCoupon(id: number): void {
     const couponTableState = this.couponService.couponTableDataState;
 

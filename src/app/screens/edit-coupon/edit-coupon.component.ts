@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import { CouponDataApi } from 'src/app/interfaces/CouponDataApi';
 import { CouponService } from 'src/app/services/coupon/coupon.service';
 import { FormService } from 'src/app/services/form/form.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 
 @Component({
   selector: 'app-edit-coupon',
@@ -23,13 +23,13 @@ export class EditCouponComponent {
     private router: Router,
     private datePipe: DatePipe,
     private couponService: CouponService,
-    private snackBar: MatSnackBar
+    private notifyService: NotifyService
   ) {
-    this.coupon = route.snapshot.data['couponEditDetailsResolver'][0];
+    this.coupon = this.route.snapshot.data['couponEditDetailsResolver'][0];
     this;
     console.log('this.coupon', this.coupon);
 
-    this.editCouponForm$ = formService.editCouponForm({
+    this.editCouponForm$ = this.formService.editCouponForm({
       code: this.coupon.code,
       englishDescription: this.coupon.description_eng,
       italianDescription: this.coupon.description_it,
@@ -41,16 +41,6 @@ export class EditCouponComponent {
       value: String(this.coupon.value),
       userId: this.coupon.user_id ? String(this.coupon.user_id) : '',
     });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {
@@ -82,11 +72,11 @@ export class EditCouponComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notify('Success', true);
+          this.notifyService.showNotify('Success', true);
         },
         error: (err) => {
           console.log(err);
-          this.notify('Error', false);
+          this.notifyService.showNotify('Error', false);
         },
       });
   }

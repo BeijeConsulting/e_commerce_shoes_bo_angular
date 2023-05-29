@@ -26,7 +26,6 @@ export class AddProductsComponent implements OnInit {
     private translate: TranslateService,
     private colorService: ColorService,
     private categoryService: CategoryService,
-    private snackBar: MatSnackBar,
     private notifyService: NotifyService
   ) {
     const { sizes, colors, categories, brands } =
@@ -56,16 +55,6 @@ export class AddProductsComponent implements OnInit {
         );
       });
     });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   onSubmit(data: any) {

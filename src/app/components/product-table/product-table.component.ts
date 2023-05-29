@@ -23,7 +23,6 @@ import { Router } from '@angular/router';
 import { ProductPreview } from 'src/app/interfaces/Product';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from 'src/app/services/product/product.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { NotifyService } from 'src/app/services/notify/notify.service';
 
 @Component({
@@ -57,7 +56,6 @@ export class ProductTableComponent implements OnInit, OnChanges {
     private router: Router,
     private translate: TranslateService,
     private productService: ProductService,
-    private snackBar: MatSnackBar,
     private notifyService: NotifyService
   ) {}
 
@@ -70,16 +68,6 @@ export class ProductTableComponent implements OnInit, OnChanges {
     if (changes['products']) {
       this.dataSource = new MatTableDataSource<any>(this.products);
     }
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   handlePageEvent(e: PageEvent) {

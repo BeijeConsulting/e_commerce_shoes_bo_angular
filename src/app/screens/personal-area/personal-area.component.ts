@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, finalize, switchMap } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
 import {
@@ -9,9 +8,9 @@ import {
   PersonalDataEdit,
   PersonalDataEditForm,
 } from 'src/app/interfaces/PersonalData';
-import { UserData } from 'src/app/interfaces/UserData';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormService } from 'src/app/services/form/form.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 import { PersonalService } from 'src/app/services/personal/personal.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -31,9 +30,9 @@ export class PersonalAreaComponent {
     private personalService: PersonalService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
-    private snackBar: MatSnackBar,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private notifyService: NotifyService
   ) {
     this.personalData = this.route.snapshot.data['personalDataResolver'];
     this.authService.firstName.next(this.personalData.first_name);
@@ -54,16 +53,6 @@ export class PersonalAreaComponent {
       password: this.personalData.password ? this.personalData.password : '',
       phoneNumber: this.personalData.telephone,
     });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
   }
 
   showForm(): void {
@@ -109,11 +98,11 @@ export class PersonalAreaComponent {
             phoneNumber: response.telephone,
           });
 
-          this.notify('Success', true);
+          this.notifyService.showNotify('Success', true);
         },
         error: (err) => {
           console.log(err);
-          this.notify('Something went wrong', false);
+          this.notifyService.showNotify('Something went wrong', false);
         },
       });
 

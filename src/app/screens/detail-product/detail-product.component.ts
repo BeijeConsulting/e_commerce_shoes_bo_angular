@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+// Services
+import { NotifyService } from 'src/app/services/notify/notify.service';
 import { ProductService } from 'src/app/services/product/product.service';
 // Pipes
 import { TranslatePipe } from '@ngx-translate/core';
@@ -12,9 +14,6 @@ import {
 // Dialog
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
-// MatSnackBar
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { NotifyService } from 'src/app/services/notify/notify.service';
 
 @Component({
   selector: 'app-detail-product',
@@ -31,7 +30,6 @@ export class DetailProductComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private productService: ProductService,
-    private snackBar: MatSnackBar,
     private translatePipe: TranslatePipe,
     private notifyService: NotifyService
   ) {
@@ -53,13 +51,22 @@ export class DetailProductComponent implements OnInit {
       if (notify) {
         switch (notify) {
           case 'added product':
-            this.notify('addedProduct', true);
+            this.notifyService.showNotify(
+              this.translatePipe.transform('addedProduct'),
+              true
+            );
             break;
           case 'updated product':
-            this.notify('updatedProduct', true);
+            this.notifyService.showNotify(
+              this.translatePipe.transform('updatedProduct'),
+              true
+            );
             break;
           case 'something went wrong':
-            this.notify('errorTryAgain', false);
+            this.notifyService.showNotify(
+              this.translatePipe.transform('errorTryAgain'),
+              false
+            );
             break;
         }
         this.notifyService.notify.next('');
@@ -75,26 +82,13 @@ export class DetailProductComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       restoreFocus: false,
       data: {
-        item: 'product',
+        message: 'confirmItemDeletion',
+        item: this.product.name,
       },
     });
     dialogRef.afterClosed().subscribe((confirm) => {
       if (confirm) this.deleteProduct();
     });
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(
-      this.translatePipe.transform(message),
-      '',
-      snackBarConfig
-    );
   }
 
   deleteProduct(): void {
@@ -104,7 +98,10 @@ export class DetailProductComponent implements OnInit {
         this.router.navigate(['cms/products']);
       },
       error: () => {
-        this.notify('errorTryAgain', false);
+        this.notifyService.showNotify(
+          this.translatePipe.transform('errorTryAgain'),
+          false
+        );
       },
     });
   }

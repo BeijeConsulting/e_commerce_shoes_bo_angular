@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable, catchError, finalize } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { InputBase } from 'src/app/classes/forms/InputBase';
-import { AddNewUser } from 'src/app/interfaces/AddNewUser';
-import { UserData } from 'src/app/interfaces/UserData';
 import { FormService } from 'src/app/services/form/form.service';
+import { NotifyService } from 'src/app/services/notify/notify.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -20,19 +18,9 @@ export class AddUserComponent {
     private formService: FormService,
     private router: Router,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private notifyService: NotifyService
   ) {
-    this.addUserForm$ = formService.addUserForm();
-  }
-
-  notify(message: string, success: boolean) {
-    const snackBarConfig: MatSnackBarConfig = {
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      duration: 1500,
-      panelClass: success ? 'snackbar-success' : 'snackbar-error',
-    };
-    return this.snackBar.open(message, '', snackBarConfig);
+    this.addUserForm$ = this.formService.addUserForm();
   }
 
   onSubmit(newUser: any) {
@@ -67,11 +55,11 @@ export class AddUserComponent {
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.notify('User Added', true);
+          this.notifyService.showNotify('User Added', true);
         },
         error: (err) => {
           console.log(err);
-          this.notify('Something went wrong', true);
+          this.notifyService.showNotify('Something went wrong', false);
         },
       });
   }
